@@ -158,3 +158,12 @@ upgrade.
 - [Medusa documentation](https://docs.medusajs.com/)
 - [Next.js documentation](https://nextjs.org/docs)
 - [Main README](../README.md) for deployment and the rest of the stack
+
+## Site-wide password
+
+Set `STOREFRONT_PASSWORD` on the storefront hosting service and redeploy to
+require browser HTTP Basic authentication on every storefront route. Set
+`STOREFRONT_USERNAME` to choose a username (default: `admin`). Use HTTPS.
+Keep both variables server-only; do not use a `NEXT_PUBLIC_` prefix or commit
+the password. Removing the password disables the gate. This protects the
+storefront; the separately hosted Medusa backend has its own authentication.
