@@ -109,6 +109,12 @@ async function getCountryCode(
  * Middleware to handle region selection.
  */
 export async function middleware(request: NextRequest) {
+  // Railway probes this public status endpoint without browser credentials.
+  // Exempt only the exact route; every other storefront API stays protected.
+  if (request.nextUrl.pathname === "/api/healthcheck") {
+    return NextResponse.next()
+  }
+
   const password = process.env.STOREFRONT_PASSWORD
   if (password) {
     const username = process.env.STOREFRONT_USERNAME || "admin"

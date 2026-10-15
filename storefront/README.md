@@ -162,7 +162,9 @@ upgrade.
 ## Site-wide password
 
 Set `STOREFRONT_PASSWORD` on the storefront hosting service and redeploy to
-require browser HTTP Basic authentication on every storefront route. Set
+require browser HTTP Basic authentication on storefront routes. The public
+`/api/healthcheck` status endpoint is exempt so Railway can check readiness;
+set the storefront service's Healthcheck Path to `/api/healthcheck`. Set
 `STOREFRONT_USERNAME` to choose a username (default: `admin`). Use HTTPS.
 Keep both variables server-only; do not use a `NEXT_PUBLIC_` prefix or commit
 the password. Removing the password disables the gate. This protects the
