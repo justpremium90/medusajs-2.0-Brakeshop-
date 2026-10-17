@@ -1,10 +1,10 @@
 "use client"
 
 import { HttpTypes } from "@medusajs/types"
-import { clx } from "@medusajs/ui"
 import Image from "next/image"
 import { getImageVariant } from "@lib/util/performance-media"
-import { useEffect, useMemo, useState } from "react"
+import { useEffect, useMemo, useRef, useState } from "react"
+import "./product-gallery.css"
 
 type ImageGalleryProps = {
   images: HttpTypes.StoreProductImage[]
@@ -113,6 +113,17 @@ const ImageGallery = ({
 }: ImageGalleryProps) => {
   const [failedUrls, setFailedUrls] = useState<string[]>([])
   const [activeIndex, setActiveIndex] = useState(0)
+  const [zoomed, setZoomed] = useState(false)
+  const dialogRef = useRef<HTMLDialogElement>(null)
+  useEffect(() => {
+    if (!zoomed) return
+    const previousOverflow = document.body.style.overflow
+    document.body.style.overflow = "hidden"
+    dialogRef.current?.showModal()
+    return () => {
+      document.body.style.overflow = previousOverflow
+    }
+  }, [zoomed])
 
   const validImages = useMemo(
     () =>
@@ -149,82 +160,164 @@ const ImageGallery = ({
   const activeImage = validImages[activeIndex] || validImages[0]
   const usesFallback = !activeImage
 
-  return (
-    <div className="flex w-full flex-col bg-white small:flex-row small:items-start small:gap-3 large:gap-5">
-      {!usesFallback ? (
-        <div className="order-2 hidden gap-2 overflow-x-auto small:order-1 small:flex small:max-h-[calc(100vh-235px)] small:w-[112px] small:flex-col small:overflow-y-auto small:overflow-x-hidden medium:w-[128px] large:w-[200px]">
-          {validImages.map((image, index) => (
-            <button
-              key={image.id || image.url}
-              type="button"
-              aria-label={`Show ${productTitle} image ${index + 1}`}
-              onClick={() => setActiveIndex(index)}
-              className={clx(
-                "relative h-[92px] w-[92px] shrink-0 overflow-hidden bg-white transition-colors small:h-[112px] small:w-full medium:h-[128px] large:h-[200px]",
-                index === activeIndex
-                  ? "border border-[#3a080a]"
-                  : "border border-transparent hover:border-[#d9b8b0]"
-              )}
-            >
-              <Image
-                src={getImageVariant(image.url!, 320)}
-                alt={`${productTitle} thumbnail ${index + 1}`}
-                fill
-                sizes="(max-width: 768px) 92px, (max-width: 1280px) 128px, 200px"
-                className="object-contain"
-                onError={() => markFailed(image.url)}
-                onLoad={(event) =>
-                  rejectIfInvalid(image.url, event.currentTarget)
-                }
-              />
-            </button>
-          ))}
-        </div>
-      ) : null}
+  const stepImage = (direction: number) =>
+    setActiveIndex(
+      (index) => (index + direction + validImages.length) % validImages.length
+    )
+  const closeZoom = () => dialogRef.current?.close()
+  const count = String(validImages.length).padStart(2, "0")
+  const current = String(activeIndex + 1).padStart(2, "0")
 
-      <div className="order-1 relative aspect-[1/1.03] w-full flex-1 overflow-hidden border-y border-[#eee5e1] bg-white small:order-2 small:h-[calc(100vh-235px)] small:min-h-[560px] small:max-h-[900px] small:aspect-auto small:border-0">
+  return (
+    <div className="product-gallery">
+      <div className="product-gallery-stage">
+        <span className="product-gallery-signature" aria-hidden="true">
+          Pip Garden / Outdoor living
+        </span>
         {usesFallback ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img
             src={PRODUCT_FALLBACK_IMAGE}
             alt={`${productTitle} görseli hazırlanıyor`}
-            className="absolute inset-0 h-full w-full object-contain object-center p-5 small:object-top small:p-0"
+            className="product-gallery-fallback"
             decoding="async"
           />
         ) : (
-          <Image
-            key={activeImage.url}
-            src={getImageVariant(activeImage.url!, 1280)}
-            priority
-            className="absolute inset-0 object-contain object-center p-5 small:object-top small:p-0"
-            alt={`${productTitle} product image ${activeIndex + 1}`}
-            fill
-            sizes="(max-width: 768px) 100vw, (max-width: 1280px) 680px, 920px"
-            onError={() => markFailed(activeImage.url)}
-            onLoad={(event) =>
-              rejectIfInvalid(activeImage.url, event.currentTarget)
-            }
-          />
+          <button
+            className="product-gallery-image-button"
+            type="button"
+            onClick={() => setZoomed(true)}
+            aria-label={`${productTitle} görselini büyüt`}
+            aria-haspopup="dialog"
+          >
+            <Image
+              key={activeImage.url}
+              src={getImageVariant(activeImage.url!, 1280)}
+              priority
+              className="product-gallery-image"
+              alt={`${productTitle} — ${activeIndex + 1}. görsel`}
+              fill
+              sizes="(max-width: 1023px) 100vw, 60vw"
+              onError={() => markFailed(activeImage.url)}
+              onLoad={(event) =>
+                rejectIfInvalid(activeImage.url, event.currentTarget)
+              }
+            />
+            <span className="product-gallery-zoom" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path
+                  d="M8 3H3v5m13-5h5v5M3 16v5h5m13-5v5h-5"
+                  strokeWidth="1.2"
+                />
+              </svg>
+            </span>
+          </button>
         )}
+        <div className="product-gallery-caption">
+          <span>
+            {usesFallback ? "Görsel hazırlanıyor" : `${current} / ${count}`}
+          </span>
+          {!usesFallback && (
+            <button type="button" onClick={() => setZoomed(true)}>
+              Yakından inceleyin <span aria-hidden="true">+</span>
+            </button>
+          )}
+        </div>
       </div>
-
-      {!usesFallback ? (
-        <div className="order-2 flex h-8 items-center justify-center gap-2 bg-white small:hidden">
+      {validImages.length > 1 && (
+        <div
+          className="product-gallery-thumbnails"
+          aria-label="Ürün görselleri"
+        >
           {validImages.map((image, index) => (
             <button
-              key={`dot-${image.id || image.url}`}
+              key={image.id || image.url}
               type="button"
-              aria-label={`${productTitle} görseli ${index + 1}`}
-              aria-current={index === activeIndex ? "true" : undefined}
+              aria-label={`${productTitle} — ${index + 1}. görseli göster`}
+              aria-pressed={index === activeIndex}
               onClick={() => setActiveIndex(index)}
-              className={clx(
-                "h-1.5 w-1.5 rounded-full border border-[#8e7c77] transition-colors",
-                index === activeIndex ? "bg-[#3a080a]" : "bg-transparent"
-              )}
-            />
+            >
+              <Image
+                src={getImageVariant(image.url!, 320)}
+                alt=""
+                fill
+                sizes="80px"
+                className="object-contain"
+                onError={() => markFailed(image.url)}
+              />
+            </button>
           ))}
         </div>
-      ) : null}
+      )}
+      {zoomed && (
+        <dialog
+          ref={dialogRef}
+          className="product-gallery-dialog"
+          aria-label={`${productTitle} — görsel galerisi`}
+          onClose={() => setZoomed(false)}
+          onClick={(event) => {
+            if (event.target === event.currentTarget) closeZoom()
+          }}
+          onKeyDown={(event) => {
+            if (
+              validImages.length > 1 &&
+              ["ArrowRight", "ArrowLeft"].includes(event.key)
+            ) {
+              event.preventDefault()
+              stepImage(event.key === "ArrowRight" ? 1 : -1)
+            }
+          }}
+        >
+          <div className="product-gallery-dialog-header">
+            <span>{productTitle}</span>
+            <button
+              type="button"
+              onClick={closeZoom}
+              aria-label="Galeriyi kapat"
+              autoFocus
+            >
+              ✕
+            </button>
+          </div>
+          <div className="product-gallery-dialog-image">
+            {activeImage && (
+              <Image
+                src={activeImage.url!}
+                alt={`${productTitle} — ${
+                  activeIndex + 1
+                }. görsel, büyük görünüm`}
+                fill
+                sizes="100vw"
+                className="object-contain"
+                onError={() => markFailed(activeImage.url)}
+              />
+            )}
+          </div>
+          <div className="product-gallery-dialog-controls">
+            {validImages.length > 1 && (
+              <button
+                type="button"
+                onClick={() => stepImage(-1)}
+                aria-label="Önceki görsel"
+              >
+                ←
+              </button>
+            )}
+            <span aria-live="polite">
+              {current} / {count}
+            </span>
+            {validImages.length > 1 && (
+              <button
+                type="button"
+                onClick={() => stepImage(1)}
+                aria-label="Sonraki görsel"
+              >
+                →
+              </button>
+            )}
+          </div>
+        </dialog>
+      )}
     </div>
   )
 }

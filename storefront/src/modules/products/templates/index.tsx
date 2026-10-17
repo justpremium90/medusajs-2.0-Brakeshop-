@@ -7,6 +7,8 @@ import ProductActionsWrapper from "./product-actions-wrapper"
 import ProductTabs from "@modules/products/components/product-tabs"
 import RelatedProducts from "@modules/products/components/related-products"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
+import "./product-detail.css"
+
 export default function ProductTemplate({
   product,
   region,
@@ -19,18 +21,25 @@ export default function ProductTemplate({
   if (!product?.id) notFound()
   const category = product.categories?.[0]
   const metadata = product.metadata as Record<string, unknown> | null
+  const material =
+    typeof metadata?.material === "string" ? metadata.material : null
+  const [name, ...suffix] = product.title.split("|")
+  // The imported local cover is a copy of the first source image.
+  const sourceImages = metadata?.source_images
+  const sourceCover = Array.isArray(sourceImages) ? sourceImages[0] : null
+  const hasLocalCover = product.images?.some((image) =>
+    image.url?.includes("/images/garden/catalog/")
+  )
+  const galleryImages = (product.images || []).filter(
+    (image) => !hasLocalCover || image.url !== sourceCover
+  )
+
   return (
-    <main
-      className="bg-[#faf9f6] pb-24 text-[#171717]"
-      data-testid="product-container"
-    >
-      <div className="mx-auto max-w-[1600px] px-4 small:px-8 large:px-12">
-        <nav
-          aria-label="İçerik yolu"
-          className="flex flex-wrap gap-2 py-6 text-[11px] text-[#777]"
-        >
+    <main className="pdp" data-testid="product-container">
+      <div className="pdp-shell">
+        <nav aria-label="İçerik yolu" className="pdp-breadcrumb">
           <LocalizedClientLink href="/">Ana sayfa</LocalizedClientLink>
-          <span>/</span>
+          <span aria-hidden="true">/</span>
           <LocalizedClientLink
             href={
               category?.handle ? `/categories/${category.handle}` : "/store"
@@ -38,53 +47,92 @@ export default function ProductTemplate({
           >
             {category?.name || "Koleksiyon"}
           </LocalizedClientLink>
-          <span>/</span>
-          <span>{product.title}</span>
+          <span aria-hidden="true">/</span>
+          <span aria-current="page">{name.trim()}</span>
         </nav>
-        <div className="grid gap-8 small:grid-cols-[1.3fr_1fr] large:gap-16">
-          <div className="min-w-0">
+        <div className="pdp-intro">
+          <div className="pdp-visual">
             <ImageGallery
-              images={product.images || []}
+              images={galleryImages}
               productTitle={product.title}
             />
           </div>
-          <aside className="py-4 small:py-8">
-            <p className="text-[10px] font-semibold uppercase tracking-[.16em] text-[#c42026]">
-              Pip Garden / {category?.name || "Dışarıda yaşam"}
-            </p>
-            <h1
-              className="mt-4 text-[32px] font-semibold leading-tight tracking-tight large:text-[42px]"
-              data-testid="product-title"
-            >
-              {product.title}
-            </h1>
-            {typeof metadata?.material === "string" && (
-              <p className="mt-4 text-sm text-[#777]">{metadata.material}</p>
-            )}
-            <div className="mt-8 border-y border-[#d9d7d1] py-6">
-              <Suspense
-                fallback={
-                  <ProductActions product={product} region={region} disabled />
-                }
+          <div className="pdp-information">
+            <div className="pdp-heading">
+              <p className="pdp-eyebrow">
+                <span />
+                Pip Garden koleksiyonu
+              </p>
+              <p className="pdp-category">
+                {category?.name || "Dışarıda yaşam"}
+              </p>
+              <h1
+                className="pdp-title"
+                data-testid="product-title"
+                aria-label={product.title}
               >
-                <ProductActionsWrapper id={product.id} region={region} />
-              </Suspense>
+                {name.trim()}
+              </h1>
+              {(material || suffix.length > 0) && (
+                <p className="pdp-material">
+                  {suffix.join(" · ").trim() || material}
+                </p>
+              )}
             </div>
-            <div className="mt-6">
-              <ProductTabs product={product} />
+            <Suspense
+              fallback={
+                <ProductActions product={product} region={region} disabled />
+              }
+            >
+              <ProductActionsWrapper id={product.id} region={region} />
+            </Suspense>
+            <div className="pdp-detail-links">
+              <a href="#product-details">
+                Ölçüler & ürün detayları <span aria-hidden="true">↗</span>
+              </a>
+              <LocalizedClientLink href="/care-guide">
+                Kullanım & bakım <span aria-hidden="true">↗</span>
+              </LocalizedClientLink>
             </div>
-          </aside>
+          </div>
         </div>
-        <section className="my-14 border-t border-[#d9d7d1] pt-10">
-          <h2 className="text-2xl font-semibold">Ürünü yakından tanıyın</h2>
-          <p className="mt-5 max-w-4xl whitespace-pre-line text-sm leading-7 text-[#666]">
-            {product.description ||
-              "Ölçü, malzeme ve renk seçeneklerini inceleyerek alanınıza uygun ürünü seçin."}
-          </p>
+        <section
+          className="pdp-details"
+          id="product-details"
+          aria-labelledby="product-details-title"
+        >
+          <div className="pdp-details-heading">
+            <p className="pdp-eyebrow">01 / Yakından bakın</p>
+            <h2 id="product-details-title">
+              Tasarımın
+              <br />
+              <em>detaylarında.</em>
+            </h2>
+            <p>
+              Malzemeden ölçülere, alanınız için bilmeniz gereken her detay.
+            </p>
+            {material && (
+              <div className="pdp-material-note">
+                <span>Malzeme</span>
+                <strong>{material}</strong>
+              </div>
+            )}
+          </div>
+          <ProductTabs product={product} />
         </section>
         <Suspense fallback={null}>
           <RelatedProducts product={product} countryCode={countryCode} />
         </Suspense>
+        <div className="pdp-collection-footer">
+          <span>Pip Garden</span>
+          <LocalizedClientLink
+            href={
+              category?.handle ? `/categories/${category.handle}` : "/store"
+            }
+          >
+            Koleksiyona dön <span aria-hidden="true">↗</span>
+          </LocalizedClientLink>
+        </div>
       </div>
     </main>
   )
