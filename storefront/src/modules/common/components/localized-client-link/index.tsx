@@ -1,6 +1,7 @@
 "use client"
 
 import Link from "next/link"
+import { toInternalPath } from "@lib/util/public-path"
 import { useParams } from "next/navigation"
 import React from "react"
 
@@ -23,7 +24,7 @@ const LocalizedClientLink = ({
   const { countryCode } = useParams()
 
   return (
-    <Link href={`/${countryCode}${href}`} {...props}>
+    <Link href={href.startsWith("/") && !href.startsWith("//") ? `/${countryCode}${toInternalPath(href)}` : href} {...props}>
       {children}
     </Link>
   )

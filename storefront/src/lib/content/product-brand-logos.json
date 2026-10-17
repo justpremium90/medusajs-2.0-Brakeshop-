@@ -1,0 +1,92 @@
+{
+  "bosch": {
+    "src": "/images/product-brands/bosch.webp",
+    "source": "https://www.boschaftermarket.com/xrm/media/en/tech/tech_images/bosch_logo_res_260x85.webp"
+  },
+  "valeo": {
+    "src": "/images/product-brands/valeo.svg",
+    "source": "https://www.valeoservice.com/assets/svgs/valeo-logo.svg"
+  },
+  "ferodo": {
+    "src": "/images/product-brands/ferodo.png",
+    "source": "https://www.ferodo.com/content/loc-emea/loc-eu/fmmp-ferodo/en_GB/_jcr_content/page-nav/site_nav/logo-image.img.png/Ferodo%20Logo-1779354854063.png"
+  },
+  "textar": {
+    "src": "/images/product-brands/textar.webp",
+    "source": "https://textar.com/wp-content/uploads/2026/09/Textar-brake-technology-logo.webp"
+  },
+  "febi-bilstein": {
+    "src": "/images/product-brands/febi-bilstein.svg",
+    "source": "https://www.febi.com/_assets/aeb6d81f4de2eab9cca8809c9aeaf0f0/Images/logo.svg",
+    "background": "#171717"
+  },
+  "ate": {
+    "src": "/images/product-brands/ate.png",
+    "source": "https://www.ate-brakes.com/media/6832/logo_ate.png"
+  },
+  "zimmermann": {
+    "src": "/images/product-brands/zimmermann.png",
+    "source": "https://www.otto-zimmermann.de/site/templates/build/img/logo.png"
+  },
+  "meyle": {
+    "src": "/images/product-brands/meyle.svg",
+    "source": "https://www.meyle.com/brand/default/logo_header.svg",
+    "background": "#171717"
+  },
+  "swag": {
+    "src": "/images/product-brands/swag.svg",
+    "source": "https://www.swag.de/typo3conf/templates/main/assets/img/logo-swag.svg"
+  },
+  "blue-print": {
+    "src": "/images/product-brands/blue-print.svg",
+    "source": "https://www.blue-print.com/_assets/38dd7b81755cdb5d884564de8ff9daf9/Images/logo.svg",
+    "background": "#171717"
+  },
+  "ayd": {
+    "src": "/images/product-brands/ayd.svg",
+    "source": "https://www.aydtr.com/Content/assets/images/logo.svg"
+  },
+  "mga": {
+    "src": "/images/product-brands/mga.png",
+    "source": "https://www.mga.com.tr/images/logo/logo.png"
+  },
+  "bsg": {
+    "src": "/images/product-brands/bsg.svg",
+    "source": "https://www.bsgautoparts.com/assets/images/logo-big.svg"
+  },
+  "remsa": {
+    "src": "/images/product-brands/remsa.jpg",
+    "source": "https://www.remsa.com/wp-content/uploads/2013/07/logo-remsa.jpg"
+  },
+  "hella": {
+    "src": "/images/product-brands/hella.svg",
+    "source": "https://www.hella.com/forvia-com/assets/images_global/Forvia_Hella_Logotype_Positif_RVB.svg"
+  },
+  "jurid": {
+    "src": "/images/product-brands/jurid.png",
+    "source": "https://www.jurid.com/content/loc-emea/loc-eu/fmmp-jurid/en_GB/_jcr_content/page-nav/site_nav/logo-image.img.png/jurid%20logo-1533630470400.png"
+  },
+  "brembo": {
+    "src": "/images/product-brands/brembo.svg",
+    "source": "https://brem-p-001.sitecorecontenthub.cloud/api/public/content/1ae759ec9ddc473ab33d5a450344bbcd?v=7d4c59a2"
+  },
+  "delphi": {
+    "src": "/images/product-brands/delphi.svg",
+    "source": "https://www.delphiautoparts.com/ResourcePackages/Delphi/dist/a1d6c1389a3f6b5a43bd.svg"
+  },
+  "trw": {
+    "src": "/images/product-brands/trw.png",
+    "source": "https://trwaftermarket.us/cdn/shop/files/TRWLogoWhite_532x150.png?v=1665767682",
+    "background": "#171717"
+  },
+  "braxis": {
+    "src": "/images/product-brands/braxis.svg",
+    "source": "https://www.braxis-international.com/assets/images/logo/logo-white.svg",
+    "background": "#171717"
+  },
+  "mando": {
+    "src": "/images/product-brands/mando.png",
+    "source": "https://home.hlmandoparts.com/img/logo2.png",
+    "background": "#171717"
+  }
+}

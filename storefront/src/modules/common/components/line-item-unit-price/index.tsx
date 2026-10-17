@@ -26,7 +26,7 @@ const LineItemUnitPrice = ({
         <>
           <p>
             {style === "default" && (
-              <span className="text-ui-fg-muted">Original: </span>
+              <span className="text-ui-fg-muted">Orijinal: </span>
             )}
             <span
               className="line-through"

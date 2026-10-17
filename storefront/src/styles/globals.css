@@ -2,6 +2,95 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
+@font-face {
+  font-family: "Helvetica Neue LT Condensed";
+  src: url("/fonts/helvetica-neue-lt-pro/HelveticaNeueLTProCn.otf")
+    format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-stretch: condensed;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Helvetica Neue LT Condensed";
+  src: url("/fonts/helvetica-neue-lt-pro/HelveticaNeueLTProMdCn.otf")
+    format("opentype");
+  font-weight: 500;
+  font-style: normal;
+  font-stretch: condensed;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Helvetica Neue LT Condensed";
+  src: url("/fonts/helvetica-neue-lt-pro/HelveticaNeueLTProBdCn.otf")
+    format("opentype");
+  font-weight: 600;
+  font-style: normal;
+  font-stretch: condensed;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Helvetica Neue LT Condensed";
+  src: url("/fonts/helvetica-neue-lt-pro/HelveticaNeueLTProBdCn.otf")
+    format("opentype");
+  font-weight: 700;
+  font-style: normal;
+  font-stretch: condensed;
+  font-display: swap;
+}
+
+@layer base {
+  :root {
+    --brand-header-promo-bg: #171918;
+    --brand-header-promo-text: #ffffff;
+    --brand-cart-bg: #c42026;
+    --brand-cart-hover: #9f171c;
+    --brand-cart-text: #ffffff;
+    --brand-product-name-bg: #f3f3f1;
+    --brand-product-name-text: #202221;
+    --brand-price-text: #171918;
+  }
+
+  html,
+  body {
+    font-family: "Segoe UI", Roboto, Arial, sans-serif;
+    font-synthesis: none;
+    text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+  }
+}
+
+@layer components {
+  /*
+   * Medusa UI ships compact metrics tuned for Inter. The storefront uses
+   * Turkish capitals need a little more vertical room on DirectWrite
+   * (Windows) and Android font rasterizers.
+   */
+  .txt-compact-xsmall,
+  .txt-compact-xsmall-plus,
+  .txt-compact-small,
+  .txt-compact-small-plus,
+  .txt-compact-medium,
+  .txt-compact-medium-plus,
+  .txt-compact-large,
+  .txt-compact-large-plus,
+  .txt-compact-xlarge,
+  .txt-compact-xlarge-plus {
+    font-family: "Segoe UI", Roboto, Arial, sans-serif;
+    line-height: 1.5 !important;
+  }
+
+  button,
+  input,
+  select,
+  textarea {
+    font-family: inherit;
+  }
+}
+
 @layer utilities {
   /* Chrome, Safari and Opera */
   .no-scrollbar::-webkit-scrollbar {
@@ -50,6 +139,226 @@
 }
 
 @layer components {
+  [data-header-page="home"] [data-motorsport-header] {
+    background: linear-gradient(
+      180deg,
+      rgba(8, 9, 9, 0.88) 0%,
+      rgba(8, 9, 9, 0.69) 100%
+    ) !important;
+    border-color: rgba(255, 255, 255, 0.14) !important;
+    box-shadow:
+      inset 0 3px 0 rgba(196, 32, 38, 0.95),
+      0 14px 40px rgba(0, 0, 0, 0.18);
+    backdrop-filter: blur(10px) saturate(115%) !important;
+  }
+
+  @media (max-width: 1023px) {
+    [data-header-page="product"] .motorsport-mobile-default,
+    [data-header-page]:not([data-header-page="product"])
+      .motorsport-mobile-product {
+      display: none !important;
+    }
+
+    [data-header-page="default"] [data-motorsport-header] {
+      background: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0.75),
+        rgba(0, 0, 0, 0.45),
+        rgba(0, 0, 0, 0.1)
+      ) !important;
+      border-color: rgba(255, 255, 255, 0.15) !important;
+      color: #ffffff !important;
+    }
+  }
+
+  @keyframes brakeshop-promo-marquee {
+    from {
+      transform: translate3d(0, 0, 0);
+    }
+
+    to {
+      transform: translate3d(-50%, 0, 0);
+    }
+  }
+
+  .promo-marquee__track {
+    animation: brakeshop-promo-marquee 32s linear infinite;
+    display: flex;
+    width: max-content;
+    will-change: transform;
+  }
+
+  .promo-marquee__group {
+    align-items: center;
+    display: flex;
+    flex-shrink: 0;
+  }
+
+  .promo-marquee__item {
+    align-items: center;
+    display: inline-flex;
+    flex-shrink: 0;
+    gap: 2rem;
+    padding: 0 1.35rem;
+    white-space: nowrap;
+  }
+
+  .promo-marquee__separator {
+    font-size: 0.82em;
+    opacity: 0.68;
+  }
+
+  .promo-marquee:hover .promo-marquee__track {
+    animation-play-state: paused;
+  }
+
+  @media (min-width: 1024px) {
+    .promo-marquee__track {
+      animation-duration: 24s;
+    }
+
+    .promo-marquee__item {
+      gap: 2.5rem;
+      padding-inline: 1.75rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .promo-marquee__track {
+      animation: none;
+      transform: none;
+    }
+  }
+
+  @keyframes discount-code-banner-enter {
+    from {
+      opacity: 0;
+      transform: translate3d(0, 8px, 0);
+    }
+
+    to {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+    }
+  }
+
+  @keyframes discount-code-ticket-enter {
+    from {
+      opacity: 0;
+      transform: translate3d(-10px, 0, 0) scale(0.95);
+    }
+
+    to {
+      opacity: 1;
+      transform: translate3d(0, 0, 0) scale(1);
+    }
+  }
+
+  .discount-code-banner {
+    animation: discount-code-banner-enter 250ms
+      cubic-bezier(0.23, 1, 0.32, 1) both;
+  }
+
+  .discount-code-banner__icon > svg {
+    animation: discount-code-ticket-enter 250ms
+      cubic-bezier(0.23, 1, 0.32, 1) 60ms both;
+  }
+
+  .discount-code-banner__copy[data-copied="true"] {
+    background-color: rgba(255, 255, 255, 0.22);
+    border-color: rgba(255, 255, 255, 0.75);
+    transform: scale(1.02);
+  }
+
+  .discount-code-banner__copy {
+    transition-timing-function: ease;
+    touch-action: manipulation;
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .discount-code-banner__copy:hover {
+      transform: translate3d(0, -1px, 0);
+    }
+
+    .discount-code-banner__copy[data-copied="true"]:hover {
+      transform: scale(1.02);
+    }
+
+    .product-whatsapp-button:hover {
+      background-color: #20bd5a;
+      border-color: #11843d;
+    }
+  }
+
+  .discount-code-banner__copy:active,
+  .discount-code-banner__copy[data-copied="true"]:active,
+  .product-whatsapp-button:active {
+    transform: scale(0.98);
+  }
+
+  .product-whatsapp-button {
+    touch-action: manipulation;
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+    transition-property: transform, background-color, border-color;
+    transition-duration: 150ms;
+    transition-timing-function: ease;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .discount-code-banner,
+    .discount-code-banner__icon > svg {
+      animation: none;
+      transform: none;
+    }
+
+    .discount-code-banner__copy,
+    .discount-code-banner__copy:hover,
+    .discount-code-banner__copy[data-copied="true"],
+    .discount-code-banner__copy[data-copied="true"]:hover {
+      transform: none;
+    }
+
+    .product-whatsapp-button,
+    .product-whatsapp-button:hover,
+    .product-whatsapp-button:active {
+      transform: none;
+      transition-duration: 0.01ms;
+    }
+  }
+
+  .brand-add-to-cart {
+    background-color: var(--brand-cart-bg) !important;
+    border-color: var(--brand-cart-bg) !important;
+    color: var(--brand-cart-text) !important;
+  }
+
+  .brand-add-to-cart:disabled {
+    background-color: #ededed !important;
+    border-color: #ededed !important;
+    color: #737373 !important;
+  }
+
+  .brand-add-to-cart:hover:not(:disabled) {
+    background-color: var(--brand-cart-hover) !important;
+    border-color: var(--brand-cart-hover) !important;
+  }
+
+  .brand-price-text,
+  [data-testid="product-wrapper"] [data-testid="price"],
+  [data-testid="product-price"] {
+    color: var(--brand-price-text) !important;
+  }
+
+  [data-testid="product-wrapper"] [data-testid="product-title"] {
+    background-color: var(--brand-product-name-bg) !important;
+    color: var(--brand-product-name-text) !important;
+  }
+
   .content-container {
     @apply max-w-[1440px] w-full mx-auto px-6;
   }

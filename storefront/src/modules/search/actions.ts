@@ -1,6 +1,7 @@
 "use server"
 
 import { Meilisearch } from "meilisearch"
+import { getProductsList } from "@lib/data/products"
 
 import {
   SEARCH_API_KEY,
@@ -32,7 +33,11 @@ const client = new Meilisearch({
  * Uses MeiliSearch to search for a query
  * @param {string} query - search query
  */
-export async function search(query: string) {
+export async function search(query: string, countryCode?: string) {
+  if (!SEARCH_API_KEY && countryCode) {
+    const { response } = await getProductsList({ countryCode, queryParams: { q: query, limit: 100 } })
+    return response.products
+  }
   const { hits } = await client.index(SEARCH_INDEX_NAME).search(query)
 
   return hits

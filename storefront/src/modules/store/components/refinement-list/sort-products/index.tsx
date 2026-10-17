@@ -2,26 +2,31 @@
 
 import FilterRadioGroup from "@modules/common/components/filter-radio-group"
 
-export type SortOptions = "price_asc" | "price_desc" | "created_at"
+export type SortOptions =
+  | "relevance"
+  | "price_asc"
+  | "price_desc"
+  | "created_at"
 
 type SortProductsProps = {
   sortBy: SortOptions
   setQueryParams: (name: string, value: SortOptions) => void
+  search?: boolean
   "data-testid"?: string
 }
 
-const sortOptions = [
+const sortOptions: Array<{ value: SortOptions; label: string }> = [
   {
     value: "created_at",
-    label: "Latest Arrivals",
+    label: "En yeni gelenler",
   },
   {
     value: "price_asc",
-    label: "Price: Low -> High",
+    label: "Fiyat: düşükten yükseğe",
   },
   {
     value: "price_desc",
-    label: "Price: High -> Low",
+    label: "Fiyat: yüksekten düşüğe",
   },
 ]
 
@@ -29,15 +34,19 @@ const SortProducts = ({
   "data-testid": dataTestId,
   sortBy,
   setQueryParams,
+  search = false,
 }: SortProductsProps) => {
+  const visibleOptions = search
+    ? [{ value: "relevance" as const, label: "En alakalı" }, ...sortOptions]
+    : sortOptions
   const handleChange = (value: SortOptions) => {
     setQueryParams("sortBy", value)
   }
 
   return (
     <FilterRadioGroup
-      title="Sort by"
-      items={sortOptions}
+      title="Sıralama"
+      items={visibleOptions}
       value={sortBy}
       handleChange={handleChange}
       data-testid={dataTestId}
