@@ -73,7 +73,11 @@ export default function ProductPreview({ product }: Props) {
           <QuickAddRibbon
             variantId={variant.id}
             disabled={!available}
-            disabledLabel="Stokta yok"
+            disabledLabel={
+              metadata?.stock_quantity_verified === false
+                ? "Stok bilgisi bekleniyor"
+                : "Stokta yok"
+            }
             className="mt-4 border border-[#171717] bg-transparent text-[#171717]"
           />
         ) : (

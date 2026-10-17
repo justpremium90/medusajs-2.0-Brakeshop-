@@ -93,7 +93,8 @@ export default async function importGardenCatalog({ container }: ExecArgs) {
       product.categories.map((handle) => categoryMap.get(handle)!),
       salesChannelId,
       profile.id,
-      origin
+      origin,
+      process.env.GARDEN_IMPORT_STATUS === "published" ? "published" : "draft"
     );
     await createProductsWorkflow(container).run({
       input: { products: [input] },

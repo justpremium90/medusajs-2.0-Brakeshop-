@@ -21,7 +21,8 @@ export function gardenProductInput(
   categoryIds: string[],
   salesChannelId: string,
   shippingProfileId: string,
-  assetOrigin: string
+  assetOrigin: string,
+  status: "draft" | "published" = "draft"
 ) {
   const options = product.options.length
     ? product.options
@@ -31,7 +32,7 @@ export function gardenProductInput(
     title: product.title,
     handle: product.handle,
     description: product.description || null,
-    status: "draft" as const,
+    status,
     shipping_profile_id: shippingProfileId,
     category_ids: categoryIds,
     sales_channels: [{ id: salesChannelId }],

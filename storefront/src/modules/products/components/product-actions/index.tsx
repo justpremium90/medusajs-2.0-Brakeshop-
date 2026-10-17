@@ -141,10 +141,15 @@ export default function ProductActions({
     }
   }
 
+  const pendingStock =
+    (product.metadata as Record<string, unknown> | null)
+      ?.stock_quantity_verified === false
   const buttonLabel = !selectedVariant
     ? "Varyant seçin"
     : !inStock
-    ? "Stokta yok"
+    ? pendingStock
+      ? "Stok bilgisi bekleniyor"
+      : "Stokta yok"
     : "Sepete ekle"
 
   const whatsappMessage = `Merhaba, ${
