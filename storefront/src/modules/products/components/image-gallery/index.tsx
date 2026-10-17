@@ -11,8 +11,9 @@ type ImageGalleryProps = {
   productTitle?: string
 }
 
-const PRODUCT_FALLBACK_IMAGE = "/product-fallback-v2.webp"
-const PLACEHOLDER_URL_RE = /(?:no[-_ ]?(?:image|photo|product)|noimage|not[-_ ]?available|image[-_ ]?(?:not[-_ ]?found|none|missing)|(?:product|image)[-_ ]?placeholder|placeholder|blank(?:[-_.]|$)|resim[-_ ]?yok|urun[-_ ]?resm[iı][-_ ]?yok|gorsel[-_ ]?yok|default[-_ ]?(?:product|image|photo))/i
+const PRODUCT_FALLBACK_IMAGE = "/images/garden/product-unavailable.svg"
+const PLACEHOLDER_URL_RE =
+  /(?:no[-_ ]?(?:image|photo|product)|noimage|not[-_ ]?available|image[-_ ]?(?:not[-_ ]?found|none|missing)|(?:product|image)[-_ ]?placeholder|placeholder|blank(?:[-_.]|$)|resim[-_ ]?yok|urun[-_ ]?resm[iı][-_ ]?yok|gorsel[-_ ]?yok|default[-_ ]?(?:product|image|photo))/i
 
 const isUsableImageUrl = (value: unknown): value is string => {
   if (typeof value !== "string") return false
@@ -89,12 +90,15 @@ const isVisuallyBlankImage = (image: HTMLImageElement) => {
     const darkRatio = darkPixels / visiblePixels
     const averageLuminance = luminanceTotal / visiblePixels
     const luminanceVariance =
-      luminanceSquaredTotal / visiblePixels - averageLuminance * averageLuminance
+      luminanceSquaredTotal / visiblePixels -
+      averageLuminance * averageLuminance
 
     return (
       visibleRatio < 0.02 ||
       (foregroundRatio < 0.018 && darkRatio < 0.008) ||
-      (averageLuminance > 248 && luminanceVariance < 18 && foregroundRatio < 0.035)
+      (averageLuminance > 248 &&
+        luminanceVariance < 18 &&
+        foregroundRatio < 0.035)
     )
   } catch {
     // If the browser blocks pixel inspection for a remote image, keep the image.
@@ -103,7 +107,10 @@ const isVisuallyBlankImage = (image: HTMLImageElement) => {
   }
 }
 
-const ImageGallery = ({ images, productTitle = "Product" }: ImageGalleryProps) => {
+const ImageGallery = ({
+  images,
+  productTitle = "Product",
+}: ImageGalleryProps) => {
   const [failedUrls, setFailedUrls] = useState<string[]>([])
   const [activeIndex, setActiveIndex] = useState(0)
 
@@ -111,7 +118,8 @@ const ImageGallery = ({ images, productTitle = "Product" }: ImageGalleryProps) =
     () =>
       images.filter(
         (image) =>
-          isUsableImageUrl(image.url) && !failedUrls.includes(image.url as string)
+          isUsableImageUrl(image.url) &&
+          !failedUrls.includes(image.url as string)
       ),
     [images, failedUrls]
   )
@@ -165,7 +173,9 @@ const ImageGallery = ({ images, productTitle = "Product" }: ImageGalleryProps) =
                 sizes="(max-width: 768px) 92px, (max-width: 1280px) 128px, 200px"
                 className="object-contain"
                 onError={() => markFailed(image.url)}
-                onLoad={(event) => rejectIfInvalid(image.url, event.currentTarget)}
+                onLoad={(event) =>
+                  rejectIfInvalid(image.url, event.currentTarget)
+                }
               />
             </button>
           ))}
@@ -177,7 +187,7 @@ const ImageGallery = ({ images, productTitle = "Product" }: ImageGalleryProps) =
           // eslint-disable-next-line @next/next/no-img-element
           <img
             src={PRODUCT_FALLBACK_IMAGE}
-            alt={`${productTitle} için temsili fren diski ve fren balatası görseli`}
+            alt={`${productTitle} görseli hazırlanıyor`}
             className="absolute inset-0 h-full w-full object-contain object-center p-5 small:object-top small:p-0"
             decoding="async"
           />
@@ -191,7 +201,9 @@ const ImageGallery = ({ images, productTitle = "Product" }: ImageGalleryProps) =
             fill
             sizes="(max-width: 768px) 100vw, (max-width: 1280px) 680px, 920px"
             onError={() => markFailed(activeImage.url)}
-            onLoad={(event) => rejectIfInvalid(activeImage.url, event.currentTarget)}
+            onLoad={(event) =>
+              rejectIfInvalid(activeImage.url, event.currentTarget)
+            }
           />
         )}
       </div>

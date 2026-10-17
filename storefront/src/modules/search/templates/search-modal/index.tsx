@@ -31,7 +31,11 @@ export default function SearchModal() {
     setFailed(false)
     const timer = window.setTimeout(async () => {
       try {
-        const results = await fetchSearchSuggestions(normalizedQuery, undefined, countryCode)
+        const results = await fetchSearchSuggestions(
+          normalizedQuery,
+          undefined,
+          countryCode
+        )
         if (requestRef.current === requestId) setHits(results)
       } catch {
         if (requestRef.current === requestId) {
@@ -60,7 +64,9 @@ export default function SearchModal() {
       nativeEvent.respondWith(
         Promise.resolve({
           query: normalizedQuery,
-          resultsUrl: `/${countryCode}/results/${encodeURIComponent(normalizedQuery)}`,
+          resultsUrl: `/${countryCode}/results/${encodeURIComponent(
+            normalizedQuery
+          )}`,
         })
       )
     }
@@ -83,7 +89,7 @@ export default function SearchModal() {
           {...{
             toolname: "search_products_page",
             tooldescription:
-              "Search Brakeshop brake parts by brand, vehicle model, OEM number or part code.",
+              "Search the Pip Garden outdoor furniture collection.",
             toolautosubmit: "",
             action: `/${countryCode}/search`,
             method: "get",
@@ -91,7 +97,7 @@ export default function SearchModal() {
         >
           <MagnifyingGlassMini />
           <label className="sr-only" htmlFor="catalog-search-query">
-            Marka, model, OEM veya parça kodu
+            Ürün, koleksiyon veya malzeme
           </label>
           <input
             id="catalog-search-query"
@@ -99,14 +105,14 @@ export default function SearchModal() {
             required
             {...{
               toolparamdescription:
-                "Brand, vehicle model, OEM number or product code to search for.",
+                "Product, collection or material to search for.",
             }}
             autoFocus
             autoComplete="off"
             className="h-full min-w-0 flex-1 bg-transparent text-[16px] outline-none placeholder:text-[#92706e]"
             data-testid="search-input"
             onChange={(event) => setQuery(event.currentTarget.value)}
-            placeholder="Marka, model, OEM veya parça kodu ile ara"
+            placeholder="Ürün, koleksiyon veya malzeme ile ara"
             type="search"
             value={query}
           />
@@ -119,7 +125,7 @@ export default function SearchModal() {
         </form>
 
         {loading ? (
-          <p className="text-sm text-[#765c5b]">Parçalar aranıyor…</p>
+          <p className="text-sm text-[#765c5b]">Ürünler aranıyor…</p>
         ) : null}
 
         {!loading && failed ? (
@@ -136,8 +142,7 @@ export default function SearchModal() {
             className="border border-black/10 p-5 text-sm"
             data-testid="no-search-results-container"
           >
-            Sonuç bulunamadı. Farklı bir OEM, ürün kodu veya araç modeli
-            deneyin.
+            Sonuç bulunamadı. Farklı bir ürün adı veya malzeme deneyin.
           </p>
         ) : null}
 
@@ -152,7 +157,11 @@ export default function SearchModal() {
                   className="flex h-full w-full flex-col gap-3 border border-black/10 p-4 text-left transition hover:border-[#8f090f]"
                   data-testid="search-result"
                   onClick={() =>
-                    router.push(`/${countryCode}${toPublicPath(`/products/${hit.handle}`)}`)
+                    router.push(
+                      `/${countryCode}${toPublicPath(
+                        `/products/${hit.handle}`
+                      )}`
+                    )
                   }
                   type="button"
                 >

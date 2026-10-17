@@ -23,15 +23,17 @@ type ProductActionsProps = {
   showMobileProductActions?: boolean
 }
 
-const optionsAsKeymap = (variantOptions: any) => {
+const optionsAsKeymap = (
+  variantOptions: any,
+  productOptions: HttpTypes.StoreProductOption[] = []
+) => {
   return variantOptions?.reduce(
     (acc: Record<string, string | undefined>, varopt: any) => {
-      if (
-        varopt.option &&
-        varopt.value !== null &&
-        varopt.value !== undefined
-      ) {
-        acc[varopt.option.title] = varopt.value
+      const title =
+        varopt.option?.title ||
+        productOptions.find((option) => option.id === varopt.option_id)?.title
+      if (title && varopt.value !== null && varopt.value !== undefined) {
+        acc[title] = varopt.value
       }
       return acc
     },
@@ -50,7 +52,7 @@ export default function ProductActions({
   const countryCode = useParams().countryCode as string
   const router = useRouter()
   const subtitle =
-    product.type?.value || product.collection?.title || "Fren sistemi parçası"
+    product.type?.value || product.collection?.title || "Dış mekan mobilyası"
   const sourceInStock =
     (product.metadata as Record<string, unknown> | null)?.source !==
       "online-yedek-parca" ||
@@ -60,10 +62,13 @@ export default function ProductActions({
   // If there is only 1 variant, preselect the options
   useEffect(() => {
     if (product.variants?.length === 1) {
-      const variantOptions = optionsAsKeymap(product.variants[0].options)
+      const variantOptions = optionsAsKeymap(
+        product.variants[0].options,
+        product.options ?? []
+      )
       setOptions(variantOptions ?? {})
     }
-  }, [product.variants])
+  }, [product.variants, product.options])
 
   const selectedVariant = useMemo(() => {
     if (!product.variants || product.variants.length === 0) {
@@ -71,10 +76,10 @@ export default function ProductActions({
     }
 
     return product.variants.find((v) => {
-      const variantOptions = optionsAsKeymap(v.options)
+      const variantOptions = optionsAsKeymap(v.options, product.options ?? [])
       return isEqual(variantOptions, options)
     })
-  }, [product.variants, options])
+  }, [product.variants, product.options, options])
 
   // update the options when a variant is selected
   const setOptionValue = (title: string, value: string) => {
@@ -139,11 +144,17 @@ export default function ProductActions({
   const buttonLabel = !selectedVariant
     ? "Varyant seçin"
     : !inStock
-      ? "Stokta yok"
-      : "Sepete ekle"
+    ? "Stokta yok"
+    : "Sepete ekle"
 
-  const whatsappMessage = `Merhaba, ${product.title} ürünü hakkında bilgi almak istiyorum.${
-    product.handle ? ` Ürün: https://brakeshop.com.tr${toPublicPath(`/products/${product.handle}`)}` : ""
+  const whatsappMessage = `Merhaba, ${
+    product.title
+  } ürünü hakkında bilgi almak istiyorum.${
+    product.handle
+      ? ` Ürün: https://pipgarden.com${toPublicPath(
+          `/products/${product.handle}`
+        )}`
+      : ""
   }`
 
   return (
@@ -217,7 +228,7 @@ export default function ProductActions({
               <path d="m4 14 6-10 2.5 4.5L15 4l5 10-8 6-8-6Zm5.5 0h5" />
             </svg>
             <span className="text-[12px] font-semibold uppercase leading-4 tracking-[0.02em]">
-              Doğru fren parçası, güvenli sürüş
+              Dışarıda yaşam, Pip Garden
             </span>
           </div>
           <span className="text-[18px] leading-none">^</span>

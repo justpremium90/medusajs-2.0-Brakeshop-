@@ -30,7 +30,7 @@ const SearchResultsTemplate = async ({
   const effectiveSortBy = sortBy || "relevance"
   const breadcrumbItems = [
     { label: "Ana sayfa", href: "/" },
-    { label: "Tüm Fren Diski ve Balataları", href: "/store" },
+    { label: "Tüm Koleksiyon", href: "/store" },
     { label: `Arama: ${decodedQuery}` },
   ]
 
@@ -39,7 +39,7 @@ const SearchResultsTemplate = async ({
       <PerformanceListingShell
         breadcrumbItems={breadcrumbItems}
         heroTitle={`“${decodedQuery}” araması`}
-        heroDescription="Aradığınız fren parçasını ürün kodu ve araç uyumluluğuyla birlikte inceleyin."
+        heroDescription="Bahçe mobilyalarını ölçü, malzeme ve renk seçenekleriyle birlikte inceleyin."
         bannerEnabled={listingSettings.performance_banner_enabled}
         bannerImageUrl={listingSettings.performance_banner_image_url}
         bannerTitle={listingSettings.performance_banner_title}
@@ -70,7 +70,7 @@ const SearchResultsTemplate = async ({
               Sonuç bulunamadı
             </h1>
             <p className="mt-2 text-[14px] text-[#737373]">
-              Farklı bir marka, model, OEM veya parça kodu deneyin.
+              Farklı bir ürün adı veya malzeme deneyin.
             </p>
             <LocalizedClientLink
               href="/store"

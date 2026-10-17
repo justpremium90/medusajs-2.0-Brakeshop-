@@ -59,7 +59,7 @@ export const getProductsList = cache(async function ({
   queryParams?: HttpTypes.StoreProductListParams
 }> {
   const limit = queryParams?.limit || 12
-  const validPageParam = Math.max(pageParam, 1);
+  const validPageParam = Math.max(pageParam, 1)
   const offset = (validPageParam - 1) * limit
   const region = await getRegion(countryCode)
 
@@ -127,11 +127,21 @@ export const getProductsListWithSort = cache(async function ({
     countryCode,
   })
 
+  // Sorting must include the full catalogue, including products after row 100.
+  for (let batchPage = 2; products.length < count; batchPage++) {
+    const batch = await getProductsList({
+      countryCode,
+      pageParam: batchPage,
+      queryParams: { ...queryParams, limit: 100 },
+    })
+    if (!batch.response.products.length) break
+    products.push(...batch.response.products)
+  }
   const sortedProducts = sortProducts(products, sortBy)
 
   const pageParam = (page - 1) * limit
 
-  const nextPage = count > pageParam + limit ? pageParam + limit : null
+  const nextPage = count > pageParam + limit ? page + 1 : null
 
   const paginatedProducts = sortedProducts.slice(pageParam, pageParam + limit)
 

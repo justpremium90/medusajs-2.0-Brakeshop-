@@ -1,15 +1,26 @@
-import brands from "@lib/content/product-brands.json"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
-export const metadata = { title: "Fren Diski ve Fren Balatası Markaları | Brakeshop" }
-export default function BrandsPage() {
+import { GARDEN_CATEGORIES } from "@lib/constants/garden"
+export const metadata = { title: "Koleksiyon | Pip Garden" }
+export default function CollectionIndex() {
   return (
-    <div className="mx-auto max-w-[1480px] px-4 py-8 small:px-8">
-      <LocalizedClientLink href="/" className="text-sm text-neutral-500">Ana sayfa / Markalar</LocalizedClientLink>
-      <h1 className="mt-6 text-3xl font-semibold">Fren Diski ve Fren Balatası Markaları</h1>
-      <p className="mt-4 max-w-3xl text-sm leading-7 text-neutral-600">Tercih ettiğiniz markanın ürünlerini inceleyin. Her ürünün teknik bilgilerini ve araç uyumluluğunu kontrol ederek ihtiyacınız olan fren parçasına ulaşın.</p>
-      <ul className="mt-8 grid grid-cols-2 gap-3 small:grid-cols-3 medium:grid-cols-4">
-        {brands.map((brand) => <li key={brand.slug}><LocalizedClientLink href={`/results/${encodeURIComponent(brand.name)}`} className="block rounded border border-neutral-200 px-4 py-5 font-medium hover:border-neutral-500">{brand.name}</LocalizedClientLink></li>)}
-      </ul>
-    </div>
+    <main className="mx-auto max-w-6xl px-5 py-16">
+      <p className="text-xs uppercase tracking-widest text-[#c42026]">
+        Pip Garden
+      </p>
+      <h1 className="mt-3 text-4xl font-semibold">
+        Dışarıda yaşam koleksiyonu
+      </h1>
+      <div className="mt-10 grid grid-cols-2 gap-5 small:grid-cols-3">
+        {GARDEN_CATEGORIES.map((c) => (
+          <LocalizedClientLink
+            key={c.handle}
+            href={c.href}
+            className="border-b border-gray-300 py-5 text-xl"
+          >
+            {c.label} →
+          </LocalizedClientLink>
+        ))}
+      </div>
+    </main>
   )
 }

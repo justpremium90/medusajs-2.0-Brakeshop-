@@ -5,9 +5,9 @@ import { toPublicPath } from "@lib/util/public-path"
 import SearchModal from "@modules/search/templates/search-modal"
 
 export const metadata: Metadata = {
-  title: "Fren Diski ve Balatası Ara | Brakeshop",
+  title: "Bahçe Mobilyası Ara | Pip Garden",
   description:
-    "Marka, model veya parça koduyla Brakeshop kataloğunda arama yapın.",
+    "Marka, model veya parça koduyla Pip Garden kataloğunda arama yapın.",
   robots: {
     index: false,
     follow: true,
@@ -25,7 +25,11 @@ export default async function SearchModalRoute({
   const { query } = await searchParams
   const normalizedQuery = (Array.isArray(query) ? query[0] : query)?.trim()
   if (normalizedQuery) {
-    redirect(`/${countryCode}${toPublicPath(`/results/${encodeURIComponent(normalizedQuery)}`)}`)
+    redirect(
+      `/${countryCode}${toPublicPath(
+        `/results/${encodeURIComponent(normalizedQuery)}`
+      )}`
+    )
   }
   return <SearchModal />
 }

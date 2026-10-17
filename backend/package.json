@@ -18,7 +18,8 @@
     "ib": "init-backend",
     "start": "init-backend && cd .medusa/server && medusa start --verbose",
     "dev": "medusa develop",
-    "email:dev": "email dev --dir=./src/modules/email-notifications/templates --port=3002"
+    "email:dev": "email dev --dir=./src/modules/email-notifications/templates --port=3002",
+    "catalog:garden": "medusa exec ./src/scripts/import-garden-catalog.ts"
   },
   "dependencies": {
     "@medusajs/admin-sdk": "2.19.0",

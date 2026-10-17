@@ -54,7 +54,7 @@ const PerformanceListingShell = ({
   seoContent,
   children,
   compactMobileSelection = false,
-  showTrustItems = true,
+  showTrustItems = false,
 }: PerformanceListingShellProps) => {
   const bannerStyle = {
     "--listing-banner-height-mobile": `${bannerHeightMobile}px`,
@@ -70,12 +70,18 @@ const PerformanceListingShell = ({
         <Breadcrumbs
           items={breadcrumbItems}
           variant="performance"
-          className={`${compactMobileSelection ? "mb-2 max-[1023px]:!pb-0" : "mb-4"} border-0 pb-0 small:mb-5`}
+          className={`${
+            compactMobileSelection ? "mb-2 max-[1023px]:!pb-0" : "mb-4"
+          } border-0 pb-0 small:mb-5`}
         />
       </div>
 
       <div className="mx-auto max-w-[1480px] px-3 pb-10 xsmall:px-6 small:px-8 small:pb-14 large:px-12 xlarge:px-16">
-        <div className={`${compactMobileSelection ? "pt-0" : "pt-2"} small:pt-3`}>{children}</div>
+        <div
+          className={`${compactMobileSelection ? "pt-0" : "pt-2"} small:pt-3`}
+        >
+          {children}
+        </div>
       </div>
 
       {bannerEnabled ? (
@@ -108,7 +114,7 @@ const PerformanceListingShell = ({
               <p className="mt-3 max-w-[560px] text-[13px] leading-5 text-white/75 small:text-[15px] small:leading-6">
                 {bannerDescription ||
                   heroDescription ||
-                  "Güvenli duruş, yüksek performans ve aracınız için doğru parça seçimi."}
+                  "Bahçede, terasta, balkonda. Dışarıda yaşam için Pip Garden."}
               </p>
               {seoContent?.trim() ? (
                 <PerformanceSeoContent
@@ -122,34 +128,36 @@ const PerformanceListingShell = ({
         </section>
       ) : null}
 
-      {showTrustItems && <div className="mx-auto max-w-[1480px] px-3 pb-16 xsmall:px-6 small:px-8 small:pb-20 large:px-12 xlarge:px-16">
-        <section
-          aria-label="Alışveriş güvenceleri"
-          className="grid grid-cols-2 border-b border-[#e5e5e5] py-3 small:grid-cols-4 small:py-4"
-        >
-          {trustItems.map((item, index) => (
-            <div
-              key={item.label}
-              className={`flex min-h-10 items-center justify-center gap-2 px-2 text-[11px] font-medium text-[#404040] xsmall:text-[12px] small:gap-3 small:text-[13px] ${
-                index % 2 ? "border-l border-[#e5e5e5]" : ""
-              } ${
-                index > 1 ? "border-t border-[#e5e5e5] small:border-t-0" : ""
-              } ${index > 0 ? "small:border-l" : ""}`}
-            >
-              <svg
-                aria-hidden="true"
-                className="h-[18px] w-[18px] shrink-0 fill-none stroke-[#c42026] stroke-[1.6]"
-                viewBox="0 0 24 24"
-                strokeLinecap="round"
-                strokeLinejoin="round"
+      {showTrustItems && (
+        <div className="mx-auto max-w-[1480px] px-3 pb-16 xsmall:px-6 small:px-8 small:pb-20 large:px-12 xlarge:px-16">
+          <section
+            aria-label="Alışveriş güvenceleri"
+            className="grid grid-cols-2 border-b border-[#e5e5e5] py-3 small:grid-cols-4 small:py-4"
+          >
+            {trustItems.map((item, index) => (
+              <div
+                key={item.label}
+                className={`flex min-h-10 items-center justify-center gap-2 px-2 text-[11px] font-medium text-[#404040] xsmall:text-[12px] small:gap-3 small:text-[13px] ${
+                  index % 2 ? "border-l border-[#e5e5e5]" : ""
+                } ${
+                  index > 1 ? "border-t border-[#e5e5e5] small:border-t-0" : ""
+                } ${index > 0 ? "small:border-l" : ""}`}
               >
-                <path d={item.path} />
-              </svg>
-              <span>{item.label}</span>
-            </div>
-          ))}
-        </section>
-      </div>}
+                <svg
+                  aria-hidden="true"
+                  className="h-[18px] w-[18px] shrink-0 fill-none stroke-[#c42026] stroke-[1.6]"
+                  viewBox="0 0 24 24"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d={item.path} />
+                </svg>
+                <span>{item.label}</span>
+              </div>
+            ))}
+          </section>
+        </div>
+      )}
     </main>
   )
 }

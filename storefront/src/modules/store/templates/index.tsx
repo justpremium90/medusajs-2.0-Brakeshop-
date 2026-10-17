@@ -27,14 +27,14 @@ const StoreTemplate = async ({
   const isTechnicalStyle = listingSettings.layout_style === "technical"
   const breadcrumbItems = [
     { label: "Ana sayfa", href: "/" },
-    { label: "Tüm Fren Diski ve Balataları" },
+    { label: "Tüm Koleksiyon" },
   ]
 
   if (listingSettings.site_theme === "performance") {
     return (
       <PerformanceListingShell
         breadcrumbItems={breadcrumbItems}
-        heroTitle="Fren Diskleri ve Balataları"
+        heroTitle="Bahçe ve Dış Mekan Mobilyaları"
         heroDescription={listingSettings.description}
         bannerEnabled={listingSettings.performance_banner_enabled}
         bannerImageUrl={listingSettings.performance_banner_image_url}

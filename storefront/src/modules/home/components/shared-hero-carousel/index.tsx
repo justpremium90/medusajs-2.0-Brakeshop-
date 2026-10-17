@@ -48,7 +48,7 @@ const SWIPE_THRESHOLD = 42
 const HERO_FADE_MS = 700
 const VIDEO_START_OR_STALL_TIMEOUT_MS = 15000
 const whatsappMessage =
-  "Merhaba, aracım için doğru fren parçasını seçme konusunda bilgi almak istiyorum."
+  "Merhaba, bahçe mobilyalarınız hakkında bilgi almak istiyorum."
 
 const HeroCarousel = ({
   slides,
@@ -234,8 +234,8 @@ const HeroCarousel = ({
                 isActive
                   ? "z-[2] opacity-100"
                   : isOutgoing
-                    ? "pointer-events-none z-[1] opacity-0"
-                    : "pointer-events-none z-0 opacity-0"
+                  ? "pointer-events-none z-[1] opacity-0"
+                  : "pointer-events-none z-0 opacity-0"
               }`}
             >
               <HeroMedia
@@ -250,7 +250,9 @@ const HeroCarousel = ({
                 mobileVideoRotation={hero.mobile_video_rotation}
                 active={isActive}
                 priority={index === 0}
-                loadVideo={visible && motionAllowed && (isActive || isNext || isOutgoing)}
+                loadVideo={
+                  visible && motionAllowed && (isActive || isNext || isOutgoing)
+                }
                 preload={isActive ? "auto" : isNext ? "metadata" : "none"}
                 playFullVideo={playFullVideo}
                 onPlaybackProgress={
@@ -265,6 +267,18 @@ const HeroCarousel = ({
                     : undefined
                 }
               />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/5 to-black/10" />
+              <div className="absolute bottom-[14%] left-[6%] max-w-[760px] pr-6 text-white">
+                <p className="mb-4 text-[10px] uppercase tracking-[.24em] small:text-xs">
+                  Pip Garden / Dışarıda yaşam
+                </p>
+                <h2 className="text-[46px] font-semibold leading-[1.02] tracking-[-.04em] small:text-[74px] large:text-[90px]">
+                  {hero.title}
+                </h2>
+                <span className="mt-7 inline-flex border-b border-white pb-2 text-xs font-semibold uppercase tracking-[.12em]">
+                  {hero.cta_label} <span className="ml-8">→</span>
+                </span>
+              </div>
             </LocalizedClientLink>
           )
         })}
