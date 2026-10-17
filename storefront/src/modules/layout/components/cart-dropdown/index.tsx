@@ -34,9 +34,9 @@ const CartDropdown = ({
   tone?: "default" | "inverse"
 }) => {
   const [cart, setCart] = useState(cartState)
-  const [activeTimer, setActiveTimer] = useState<ReturnType<typeof setTimeout> | undefined>(
-    undefined
-  )
+  const [activeTimer, setActiveTimer] = useState<
+    ReturnType<typeof setTimeout> | undefined
+  >(undefined)
   const [cartDropdownOpen, setCartDropdownOpen] = useState(false)
 
   const open = () => setCartDropdownOpen(true)
@@ -161,7 +161,14 @@ const CartDropdown = ({
                         data-testid="cart-item"
                       >
                         <LocalizedClientLink
-                          href={item.product_handle || item.variant?.product?.handle ? `/products/${item.product_handle || item.variant?.product?.handle}` : "/store"}
+                          href={
+                            item.product_handle || item.variant?.product?.handle
+                              ? `/products/${
+                                  item.product_handle ||
+                                  item.variant?.product?.handle
+                                }`
+                              : "/store"
+                          }
                           className="w-24"
                         >
                           <Thumbnail
@@ -179,7 +186,15 @@ const CartDropdown = ({
                                   data-testid="product-title"
                                 >
                                   <LocalizedClientLink
-                                    href={item.product_handle || item.variant?.product?.handle ? `/products/${item.product_handle || item.variant?.product?.handle}` : "/store"}
+                                    href={
+                                      item.product_handle ||
+                                      item.variant?.product?.handle
+                                        ? `/products/${
+                                            item.product_handle ||
+                                            item.variant?.product?.handle
+                                          }`
+                                        : "/store"
+                                    }
                                     data-testid="product-link"
                                   >
                                     {item.title}
@@ -238,7 +253,7 @@ const CartDropdown = ({
                   <div className="bg-gray-900 flex items-center justify-center w-6 h-6 rounded-full text-white">
                     <span className="text-small-regular">0</span>
                   </div>
-                  <span>Sepetinizde henüz fren parçası yok.</span>
+                  <span>Sepetiniz henüz boş.</span>
                   <div>
                     <LocalizedClientLink href="/store">
                       <Button onClick={close}>Ürünleri keşfet</Button>
