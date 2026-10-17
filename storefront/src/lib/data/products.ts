@@ -1,3 +1,5 @@
+import { getCategoryByHandle } from "./categories"
+import { GARDEN_CATEGORIES } from "@lib/constants/garden"
 import { sdk } from "@lib/config"
 import { HttpTypes } from "@medusajs/types"
 import { cache } from "react"
@@ -59,7 +61,7 @@ export const getProductsList = cache(async function ({
   queryParams?: HttpTypes.StoreProductListParams
 }> {
   const limit = queryParams?.limit || 12
-  const validPageParam = Math.max(pageParam, 1);
+  const validPageParam = Math.max(pageParam, 1)
   const offset = (validPageParam - 1) * limit
   const region = await getRegion(countryCode)
 
@@ -69,10 +71,16 @@ export const getProductsList = cache(async function ({
       nextPage: null,
     }
   }
+  const { product_categories } = await getCategoryByHandle(
+    GARDEN_CATEGORIES.map((category) => category.handle)
+  )
+  if (!product_categories.length)
+    return { response: { products: [], count: 0 }, nextPage: null, queryParams }
   return sdk.client
     .fetch<HttpTypes.StoreProductListResponse>("/store/products", {
       method: "GET",
       query: {
+        category_id: product_categories.map((category) => category.id),
         limit,
         offset,
         region_id: region.id,
@@ -127,11 +135,21 @@ export const getProductsListWithSort = cache(async function ({
     countryCode,
   })
 
+  // Sorting must include the full catalogue, including products after row 100.
+  for (let batchPage = 2; products.length < count; batchPage++) {
+    const batch = await getProductsList({
+      countryCode,
+      pageParam: batchPage,
+      queryParams: { ...queryParams, limit: 100 },
+    })
+    if (!batch.response.products.length) break
+    products.push(...batch.response.products)
+  }
   const sortedProducts = sortProducts(products, sortBy)
 
   const pageParam = (page - 1) * limit
 
-  const nextPage = count > pageParam + limit ? pageParam + limit : null
+  const nextPage = count > pageParam + limit ? page + 1 : null
 
   const paginatedProducts = sortedProducts.slice(pageParam, pageParam + limit)
 

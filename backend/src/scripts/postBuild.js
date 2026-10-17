@@ -48,6 +48,10 @@ if (fs.existsSync(envPath)) {
   );
 }
 
+// The catalogue is a runtime resource for the optional import command.
+fs.mkdirSync(path.join(MEDUSA_SERVER_PATH, 'data'), { recursive: true });
+fs.copyFileSync(path.join(process.cwd(), 'data', 'kafkasgarden-catalog.json'), path.join(MEDUSA_SERVER_PATH, 'data', 'kafkasgarden-catalog.json'));
+
 // Install dependencies
 console.log(`Installing dependencies in .medusa/server with ${detected.name}...`);
 execSync(detected.install, {

@@ -85,7 +85,7 @@ const PerformanceToolbar = ({
           aria-expanded={filtersOpen}
         >
           <FilterIcon />
-          Filtrele
+          Sıralama
         </button>
 
         <label className="relative flex h-11 min-w-0 items-center rounded-[5px] border border-[#d9d9d9] bg-white pl-3 pr-9 text-[13px] text-[#525252] transition-colors focus-within:border-[#171717] focus-within:outline focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-[#c42026] small:min-w-[230px]">
@@ -130,7 +130,7 @@ const PerformanceToolbar = ({
                   id="performance-filter-title"
                   className="text-[20px] font-semibold"
                 >
-                  Filtrele
+                  Sıralama
                 </h2>
                 <p className="mt-1 text-[12px] text-[#737373]">
                   Katalog görünümünü düzenleyin
@@ -169,12 +169,6 @@ const PerformanceToolbar = ({
                 ))}
               </div>
             </fieldset>
-
-            <p className="mt-6 rounded-[6px] bg-[#f7f7f7] p-4 text-[12px] leading-5 text-[#666]">
-              Marka, araç, ürün tipi ve ölçü filtreleri katalogda ilgili Medusa
-              alanları tanımlandığında bu panelde otomatik olarak
-              genişletilebilir.
-            </p>
           </section>
         </div>
       ) : null}

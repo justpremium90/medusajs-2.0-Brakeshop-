@@ -29,7 +29,7 @@ export default async function CollectionTemplate({
   const isTechnicalStyle = listingSettings.layout_style === "technical"
   const breadcrumbItems = [
     { label: "Ana sayfa", href: "/" },
-    { label: "Tüm Fren Diski ve Balataları", href: "/store" },
+    { label: "Tüm Koleksiyon", href: "/store" },
     { label: collection.title },
   ]
 

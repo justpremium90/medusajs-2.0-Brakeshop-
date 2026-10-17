@@ -22,6 +22,7 @@ const WhatsAppContactButton = ({
   className = "",
 }: WhatsAppContactButtonProps) => {
   const phone = BRAKESHOP_COMPANY.telephone.replace(/\D/g, "")
+  if (phone.length < 10) return null
   const href = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`
 
   return (

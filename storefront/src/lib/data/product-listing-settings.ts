@@ -28,9 +28,9 @@ export type ProductListingSettings = {
 const fallbackSettings: ProductListingSettings = {
   site_theme: "performance",
   layout_style: "default",
-  eyebrow: "BrakeShop",
+  eyebrow: "Pip Garden",
   description:
-    "Aracınız için doğru fren parçalarını, teknik bilgileri ve güncel ürün seçeneklerini keşfedin.",
+    "Alanınıza uygun bahçe mobilyalarını; ölçü, malzeme ve renk seçenekleriyle keşfedin.",
   product_image_fit: "contain",
   product_image_height_percent: 100,
   product_image_area_height_percent: 100,
@@ -38,10 +38,10 @@ const fallbackSettings: ProductListingSettings = {
   show_mobile_product_actions: false,
   home_below_hero_lazy_enabled: true,
   performance_banner_enabled: true,
-  performance_banner_image_url: null,
+  performance_banner_image_url: "/images/garden/entry_slider_image_2.jpeg",
   performance_banner_title: null,
   performance_banner_description:
-    "Güvenli duruş, yüksek performans ve aracınız için doğru parça seçimi.",
+    "Bahçede, terasta, balkonda. Dışarıda yaşam için Pip Garden.",
   performance_banner_height_desktop: 240,
   performance_banner_height_mobile: 170,
   performance_seo_title: null,

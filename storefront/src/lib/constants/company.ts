@@ -1,14 +1,16 @@
-export const BRAKESHOP_COMPANY = {
-  displayName: "Brakeshop.com.tr",
-  streetAddress: "Anadoluhisarı Mahallesi, Gün Çıkmazı No: 14 D: 7",
-  addressLocality: "Beykoz",
-  addressRegion: "İstanbul",
+export const PIPGARDEN_COMPANY = {
+  displayName: "Pip Garden",
+  legalName: "Lorem ipsum",
+  streetAddress: "Lorem ipsum",
+  addressLocality: "Lorem ipsum",
+  addressRegion: "Lorem ipsum",
   addressCountry: "TR",
-  address:
-    "Anadoluhisarı Mahallesi, Gün Çıkmazı No: 14 D: 7, Beykoz / İstanbul / Türkiye",
-  telephone: "+90 546 936 70 99",
-  telephoneDisplay: "0546 936 70 99",
-  email: "info@brakeshop.com.tr",
-  taxOffice: "Beykoz",
-  taxNumber: "5690315926",
+  address: "Lorem ipsum",
+  telephone: "Lorem ipsum",
+  telephoneDisplay: "Lorem ipsum",
+  email: "Lorem ipsum",
+  taxOffice: "Lorem ipsum",
+  taxNumber: "Lorem ipsum",
 } as const
+// Retain the export for existing legal-page consumers.
+export const BRAKESHOP_COMPANY = PIPGARDEN_COMPANY

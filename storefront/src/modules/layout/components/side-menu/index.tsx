@@ -2,7 +2,7 @@
 
 import { Popover, Portal, Transition } from "@headlessui/react"
 import { XMark } from "@medusajs/icons"
-import Image from "next/image"
+import { GARDEN_CATEGORIES } from "@lib/constants/garden"
 import { Fragment, useEffect, useState } from "react"
 
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
@@ -22,18 +22,7 @@ type SideMenuProps = {
   compactItems?: boolean
 }
 
-const fallbackMenuItems: SideMenuItem[] = [
-  {
-    label: "Fren Diskleri",
-    href: "/fren-diskleri",
-  },
-  {
-    label: "Fren Balataları",
-    href: "/fren-balatalari",
-  },
-  { label: "Tüm Ürünler", href: "/magaza" },
-  { label: "Blog", href: "/blog" },
-]
+const fallbackMenuItems: SideMenuItem[] = [...GARDEN_CATEGORIES]
 
 const ChevronIcon = () => (
   <svg
@@ -188,17 +177,12 @@ const SideMenu = ({
                         <LocalizedClientLink
                           href="/"
                           onClick={close}
-                          aria-label="Brakeshop ana sayfa"
+                          aria-label="Pip Garden ana sayfa"
                           className="flex h-12 items-center"
                         >
-                          <Image
-                            src="/images/brakeshop-logo.png"
-                            alt="Brakeshop"
-                            width={152}
-                            height={32}
-                            priority
-                            className="h-8 w-[152px] object-contain object-left brightness-0"
-                          />
+                          <span className="text-2xl font-semibold tracking-tighter">
+                            PIPGARDEN<span className="text-[#e3262e]">.</span>
+                          </span>
                         </LocalizedClientLink>
                         <button
                           type="button"
@@ -218,7 +202,7 @@ const SideMenu = ({
                           className="flex min-h-12 touch-manipulation select-none items-center gap-3 rounded-md bg-[#151617] px-4 text-[14px] font-semibold text-white active:bg-[#c42026] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#c42026] focus-visible:ring-offset-2"
                         >
                           <SearchIcon />
-                          <span>Marka, model veya parça ara</span>
+                          <span>Ürün, koleksiyon veya malzeme ara</span>
                         </LocalizedClientLink>
                       </div>
 

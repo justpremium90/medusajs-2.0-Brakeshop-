@@ -30,7 +30,7 @@ export const getBaseURL = () => {
  * rather than shipping someone else's brand.
  */
 export const getStoreName = () => {
-  return process.env.NEXT_PUBLIC_STORE_NAME || "Brakeshop"
+  return process.env.NEXT_PUBLIC_STORE_NAME || "Pip Garden"
 }
 
 /**

@@ -1,10 +1,22 @@
+import { GARDEN_FEATURED_HANDLES } from "@lib/constants/garden"
 import { HttpTypes } from "@medusajs/types"
 import { getProductsList } from "@lib/data/products"
 import ProductPreview from "@modules/products/components/product-preview"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 
-const HomeBestSellers = async ({ region, countryCode }: { region: HttpTypes.StoreRegion; countryCode: string }) => {
-  const { response: { products: orderedProducts } } = await getProductsList({ countryCode, queryParams: { limit: 10 } })
+const HomeBestSellers = async ({
+  region,
+  countryCode,
+}: {
+  region: HttpTypes.StoreRegion
+  countryCode: string
+}) => {
+  const {
+    response: { products: orderedProducts },
+  } = await getProductsList({
+    countryCode,
+    queryParams: { limit: 10, handle: GARDEN_FEATURED_HANDLES },
+  })
   if (!orderedProducts.length) return null
 
   return (
@@ -13,10 +25,10 @@ const HomeBestSellers = async ({ region, countryCode }: { region: HttpTypes.Stor
         <div className="mb-7 flex items-end justify-between gap-4 small:mb-9">
           <div>
             <p className="text-[11px] font-semibold uppercase leading-4 tracking-[0.12em] text-[#c42026] small:text-[12px]">
-              Brakeshop seçkisi
+              Pip Garden seçkisi
             </p>
             <h2 className="mt-1.5 text-[27px] font-semibold leading-[1.1] tracking-[-0.025em] text-[#171717] small:text-[34px]">
-              Fren Parçaları
+              Açık havaya yakışanlar
             </h2>
           </div>
           <LocalizedClientLink

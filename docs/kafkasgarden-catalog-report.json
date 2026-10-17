@@ -1,0 +1,190 @@
+{
+  "products": 135,
+  "categories": 10,
+  "local_images": 147,
+  "products_without_images": 0,
+  "warnings": [
+    {
+      "handle": "roma-vip-ipli-salincak-takimi-aluminyum",
+      "reason": "Source title and material specification disagree",
+      "title": "Comfort Salıncak Takımı | İroko",
+      "material": "Alüminyum"
+    },
+    {
+      "handle": "kafkas-3-2-1-1-sehpa-oturma-grubu",
+      "reason": "Source title and material specification disagree",
+      "title": "Comfort Oturma Grubu | Alüminyum",
+      "material": "Alüminyum | İroko Ahşap"
+    },
+    {
+      "handle": "comfort-oturma-grubu-iroko",
+      "reason": "Source title and material specification disagree",
+      "title": "Comfort Oturma Grubu | İroko",
+      "material": "Alüminyum | İroko Ahşap"
+    },
+    {
+      "handle": "kirkpinar-3-1-1-y-sehpa-aluminyum-oturma-grubu",
+      "reason": "Source title and material specification disagree",
+      "title": "Kırkpınar Oturma Grubu | Alüminyum",
+      "material": "Alüminyum | İroko Ahşap"
+    },
+    {
+      "handle": "sapanca-aluminyum-3-1-1-yuksek-sehpa-oturma-grubu",
+      "reason": "Source title and material specification disagree",
+      "title": "Sapanca Oturma Grubu | Alüminyum",
+      "material": "Alüminyum | İroko Ahşap"
+    },
+    {
+      "handle": "aluminyum-victoria-oturma-grubu-3-1-1-sehpa",
+      "reason": "Source title and material specification disagree",
+      "title": "Victoria Oturma Grubu | Alüminyum",
+      "material": "Alüminyum | İroko Ahşap"
+    },
+    {
+      "handle": "comfort-kose-takimi-aluminyum",
+      "reason": "Source title and material specification disagree",
+      "title": "Comfort Köşe Takımı | Alüminyum",
+      "material": "Alüminyum - İroko Ahşap"
+    },
+    {
+      "handle": "roma-kose-takimi-aluminyum",
+      "reason": "Source title and material specification disagree",
+      "title": "Roma Köşe Takımı | Alüminyum",
+      "material": "Alüminyum | İroko Ahşap"
+    },
+    {
+      "handle": "hera-kose-takimi-aluminyum",
+      "reason": "Source title and material specification disagree",
+      "title": "Hera Köşe Takımı | Alüminyum",
+      "material": "Alüminyum | İroko Ahşap"
+    },
+    {
+      "handle": "aluminyum-victoria-kose-takimi",
+      "reason": "Source title and material specification disagree",
+      "title": "Victoria Köşe Takımı | Alüminyum",
+      "material": "Alüminyum | İroko Ahşap"
+    },
+    {
+      "handle": "sapanca-kose-takimi-aluminyum",
+      "reason": "Source title and material specification disagree",
+      "title": "Sapanca Köşe Takımı | Alüminyum",
+      "material": "Alüminyum | İroko Ahşap"
+    },
+    {
+      "handle": "taskent-cay-seti-2-1-1-sehpa",
+      "reason": "Source title and material specification disagree",
+      "title": "Taşkent Çay Seti | Alüminyum",
+      "material": "Alüminyum | İroko Ahşap"
+    },
+    {
+      "handle": "100x200-aluminyum-taskent-masa-takimi-aluminyum-taskent-sandalye",
+      "reason": "Source title and material specification disagree",
+      "title": "100x200 Alüminyum Taşkent Masa Takımı ( Alüminyum Taşkent 6 Sandalye)",
+      "material": "Alüminyum | İroko Ahşap"
+    },
+    {
+      "handle": "100x200-aluminyum-enzo-masa-takimi-aluminyum-kumsal-sandalye",
+      "reason": "Source title and material specification disagree",
+      "title": "100x200 Alüminyum Enzo Masa Takımı | (Alüminyum Kumsal 6 Sandalye)",
+      "material": "Alüminyum | İroko Ahşap"
+    },
+    {
+      "handle": "roma-masa-takimi-aluminyum",
+      "reason": "Source title and material specification disagree",
+      "title": "100x200 Alüminyum Roma Masa Takımı (Roma 6 Sandalye)",
+      "material": "Alüminyum | İroko Ahşap"
+    },
+    {
+      "handle": "roma-masa-aluminyum",
+      "reason": "Source title and material specification disagree",
+      "title": "Roma Masa | Alüminyum",
+      "material": "Alüminyum | İroko Ahşap"
+    },
+    {
+      "handle": "aluminyum-sapanca-masa",
+      "reason": "Source title and material specification disagree",
+      "title": "Sapanca Masa | Alüminyum",
+      "material": "İroko Ahşap | Alüminyum"
+    },
+    {
+      "handle": "victoria-masa",
+      "reason": "Source title and material specification disagree",
+      "title": "Victoria Masa | Alüminyum",
+      "material": "İroko Ahşap | Alüminyum"
+    },
+    {
+      "handle": "orkide-masa",
+      "reason": "Source title and material specification disagree",
+      "title": "Orkide Masa | Alüminyum",
+      "material": "İroko Ahşap | Alüminyum"
+    },
+    {
+      "handle": "servis-arabasi",
+      "reason": "Source title and material specification disagree",
+      "title": "Servis Arabası | Alüminyum",
+      "material": "Alüminyum | İroko Ahşap"
+    },
+    {
+      "handle": "bank-aluminyum",
+      "reason": "Source title and material specification disagree",
+      "title": "Bank | Alüminyum",
+      "material": "İroko"
+    },
+    {
+      "handle": "aluminyum-sehpa-cift-kat",
+      "reason": "Source title and material specification disagree",
+      "title": "Alüminyum Sehpa | Çift Kat | 50 x 50",
+      "material": "Alüminyum | İroko Ahşap"
+    },
+    {
+      "handle": "aluminyum-puf-sehpa",
+      "reason": "Source title and material specification disagree",
+      "title": "Alüminyum Puf Sehpa | 40 x 40",
+      "material": "Alüminyum | İroko Ahşap"
+    },
+    {
+      "handle": "aluminyum-yan-sehpa",
+      "reason": "Source title and material specification disagree",
+      "title": "Alüminyum Yan Sehpa | 40 x 50",
+      "material": "Alüminyum | İroko Ahşap"
+    },
+    {
+      "handle": "sapanca-sehpa-aluminyum",
+      "reason": "Source title and material specification disagree",
+      "title": "Sapanca Sehpa | Alüminyum",
+      "material": "İroko Ahşap | Alüminyum"
+    },
+    {
+      "handle": "victoria-masa-aluminyum",
+      "reason": "Source title and material specification disagree",
+      "title": "Victoria Sehpa | Alüminyum",
+      "material": "İroko Ahşap | Alüminyum"
+    },
+    {
+      "handle": "victoria-uclu-koltuk-aluminyum",
+      "reason": "Source title and material specification disagree",
+      "title": "Victoria Üçlü Koltuk | Alüminyum",
+      "material": "Alüminyum | İroko Ahşap"
+    },
+    {
+      "handle": "victoria-tekli-koltuk-aluminyum",
+      "reason": "Source title and material specification disagree",
+      "title": "Victoria Tekli Koltuk | Alüminyum",
+      "material": "Alüminyum | İroko Ahşap"
+    },
+    {
+      "handle": "kumsal-sezlong-aluminyum",
+      "reason": "Source title and material specification disagree",
+      "title": "Kumsal Şezlong | Aluminyum",
+      "material": "Alüminyum | İroko Ahşap"
+    },
+    {
+      "handle": "teo-sezlong-aluminyum",
+      "reason": "Source title and material specification disagree",
+      "title": "Teo Şezlong | Aluminyum",
+      "material": "Alüminyum | İroko Ahşap"
+    }
+  ],
+  "stock_quantities": "Not exposed by source. Never inferred.",
+  "option_prices": "Base selling prices captured. Variant combinations and price changes require confirmation before publishing."
+}
