@@ -6,7 +6,6 @@ import { useParams, useRouter } from "next/navigation"
 import { useEffect, useMemo, useRef, useState } from "react"
 
 import { useIntersection } from "@lib/hooks/use-in-view"
-import Divider from "@modules/common/components/divider"
 import WhatsAppContactButton from "@modules/common/components/whatsapp-contact-button"
 import OptionSelect from "@modules/products/components/product-actions/option-select"
 
@@ -49,10 +48,9 @@ export default function ProductActions({
 }: ProductActionsProps) {
   const [options, setOptions] = useState<Record<string, string | undefined>>({})
   const [isAdding, setIsAdding] = useState(false)
+  const [error, setError] = useState<string | null>(null)
   const countryCode = useParams().countryCode as string
   const router = useRouter()
-  const subtitle =
-    product.type?.value || product.collection?.title || "Dış mekan mobilyası"
   const sourceInStock =
     (product.metadata as Record<string, unknown> | null)?.source !==
       "online-yedek-parca" ||
@@ -125,6 +123,7 @@ export default function ProductActions({
   const handleAddToCart = async () => {
     if (!selectedVariant?.id) return null
 
+    setError(null)
     setIsAdding(true)
 
     try {
@@ -135,7 +134,7 @@ export default function ProductActions({
       })
       router.refresh()
     } catch (error) {
-      console.error(error)
+      setError("Ürün sepete eklenemedi. Lütfen tekrar deneyin.")
     } finally {
       setIsAdding(false)
     }
@@ -145,7 +144,7 @@ export default function ProductActions({
     (product.metadata as Record<string, unknown> | null)
       ?.stock_quantity_verified === false
   const buttonLabel = !selectedVariant
-    ? "Varyant seçin"
+    ? "Seçenekleri belirleyin"
     : !inStock
     ? pendingStock
       ? "Stok bilgisi bekleniyor"
@@ -162,106 +161,89 @@ export default function ProductActions({
       : ""
   }`
 
+  const priceAmounts = new Set(
+    product.variants
+      ?.map((variant) => variant.calculated_price?.calculated_amount)
+      .filter((amount) => amount !== undefined)
+  )
+
   return (
-    <>
-      <div className="flex flex-col gap-y-4 small:gap-y-5" ref={actionsRef}>
-        <div className="order-2 border-y border-[#ead8d2] py-3 small:order-none small:border-0 small:py-0">
-          <ProductPrice product={product} variant={selectedVariant} />
+    <div
+      className="pdp-actions"
+      ref={actionsRef}
+      aria-busy={disabled || isAdding}
+    >
+      <div className="pdp-price-block">
+        <span className="pdp-price-label">
+          {selectedVariant ? "Seçiminizin fiyatı" : "Ürün fiyatı"}
+        </span>
+        <ProductPrice
+          product={product}
+          variant={selectedVariant}
+          showFromLabel={priceAmounts.size > 1}
+        />
+      </div>
+      {(product.variants?.length ?? 0) > 1 && (
+        <div className="pdp-options">
+          {(product.options || []).map((option) => (
+            <OptionSelect
+              key={option.id}
+              option={option}
+              current={options[option.title ?? ""]}
+              updateOption={setOptionValue}
+              title={option.title ?? ""}
+              data-testid="product-options"
+              disabled={!!disabled || isAdding}
+            />
+          ))}
         </div>
-
-        {(product.variants?.length ?? 0) > 1 && (
-          <div className="order-1 flex flex-col gap-y-4 small:order-none">
-            {(product.options || []).map((option) => {
-              return (
-                <div key={option.id}>
-                  <OptionSelect
-                    option={option}
-                    current={options[option.title ?? ""]}
-                    updateOption={setOptionValue}
-                    title={option.title ?? ""}
-                    data-testid="product-options"
-                    disabled={!!disabled || isAdding}
-                  />
-                </div>
-              )
-            })}
-            <Divider className="mt-0" />
-          </div>
-        )}
-
+      )}
+      <div className="pdp-purchase">
         <Button
           onClick={handleAddToCart}
           disabled={!inStock || !selectedVariant || !!disabled || isAdding}
           variant="primary"
-          className="brand-add-to-cart order-3 h-12 w-full rounded-none text-[13px] font-semibold uppercase tracking-[0.08em] small:hidden"
+          className="pdp-add-button"
           isLoading={isAdding}
           data-testid="add-product-button"
         >
           {buttonLabel}
+          <span aria-hidden="true">↗</span>
         </Button>
-
+        <p className="pdp-availability" role="status">
+          <span className={inStock ? "is-available" : ""} aria-hidden="true" />
+          {pendingStock && !inStock
+            ? "Stok bilgisi henüz doğrulanmadı."
+            : selectedVariant
+            ? inStock
+              ? "Seçtiğiniz ürün siparişe hazır."
+              : "Seçtiğiniz varyant şu anda stokta bulunmuyor."
+            : "Ürününüzü renk ve ölçü seçenekleriyle kişiselleştirin."}
+        </p>
+        {error && (
+          <p className="pdp-error" role="alert">
+            {error}
+          </p>
+        )}
         <WhatsAppContactButton
           message={whatsappMessage}
-          className="product-whatsapp-button order-4 min-h-12 w-full rounded-[8px] border border-[#159947] bg-[#25D366] px-5 text-[13px] font-semibold uppercase tracking-[0.06em] text-white outline-none focus-visible:ring-2 focus-visible:ring-[#159947] focus-visible:ring-offset-2 small:order-none"
+          label="Ürün hakkında bilgi alın"
+          className="pdp-contact-button"
         />
-
-        {showMobileProductActions ? (
-          <MobileActions
-            product={product}
-            variant={selectedVariant}
-            options={options}
-            updateOptions={setOptionValue}
-            inStock={inStock}
-            handleAddToCart={handleAddToCart}
-            isAdding={isAdding}
-            show={!inView}
-            optionsDisabled={!!disabled || isAdding}
-          />
-        ) : null}
       </div>
-
-      <div className="fixed bottom-0 left-0 right-0 z-[70] hidden items-end gap-x-4 px-2 pb-0 small:flex">
-        <div className="flex h-[52px] w-[300px] items-center justify-between bg-[#fff5f3] px-4 text-[#3a080a] shadow-[0_-5px_18px_rgba(58,8,10,0.07)]">
-          <div className="flex items-center gap-x-3">
-            <svg
-              aria-hidden="true"
-              className="h-5 w-5 stroke-[1.5]"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path d="m4 14 6-10 2.5 4.5L15 4l5 10-8 6-8-6Zm5.5 0h5" />
-            </svg>
-            <span className="text-[12px] font-semibold uppercase leading-4 tracking-[0.02em]">
-              Dışarıda yaşam, Pip Garden
-            </span>
-          </div>
-          <span className="text-[18px] leading-none">^</span>
-        </div>
-
-        <div className="flex h-[52px] flex-1 items-center justify-between gap-x-5 bg-white px-4 shadow-[0_-5px_18px_rgba(58,8,10,0.1)]">
-          <div className="min-w-0 flex-1">
-            <p className="truncate text-[13px] font-semibold uppercase leading-4 tracking-[0.02em] text-[#3a080a]">
-              {product.title}
-            </p>
-            <p className="text-[12px] uppercase leading-4 text-[#9a7470]">
-              {subtitle}
-            </p>
-          </div>
-          <div className="shrink-0 text-right [&_p]:!text-[11px] [&_p]:!leading-4 [&_span]:!text-[16px] [&_span]:!leading-5">
-            <ProductPrice product={product} variant={selectedVariant} />
-          </div>
-          <Button
-            onClick={handleAddToCart}
-            disabled={!inStock || !selectedVariant || !!disabled || isAdding}
-            variant="primary"
-            className="brand-add-to-cart h-10 w-[280px] shrink-0 rounded-none text-[13px] font-semibold uppercase tracking-[0.06em]"
-            isLoading={isAdding}
-          >
-            {buttonLabel}
-          </Button>
-        </div>
-      </div>
-    </>
+      {showMobileProductActions ? (
+        <MobileActions
+          product={product}
+          variant={selectedVariant}
+          options={options}
+          updateOptions={setOptionValue}
+          inStock={inStock}
+          handleAddToCart={handleAddToCart}
+          isAdding={isAdding}
+          show={!inView}
+          optionsDisabled={!!disabled || isAdding}
+        />
+      ) : null}
+    </div>
   )
 }

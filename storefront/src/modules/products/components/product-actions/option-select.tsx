@@ -1,6 +1,4 @@
 import { HttpTypes } from "@medusajs/types"
-import { clx } from "@medusajs/ui"
-import React from "react"
 
 type OptionSelectProps = {
   option: HttpTypes.StoreProductOption
@@ -11,46 +9,45 @@ type OptionSelectProps = {
   "data-testid"?: string
 }
 
-const OptionSelect: React.FC<OptionSelectProps> = ({
+export default function OptionSelect({
   option,
   current,
   updateOption,
   title,
-  "data-testid": dataTestId,
   disabled,
-}) => {
-  const filteredOptions = option.values?.map((v) => v.value)
-
+  "data-testid": dataTestId,
+}: OptionSelectProps) {
+  const values = Array.from(
+    new Set(
+      option.values
+        ?.map((v) => v.value)
+        .filter((v): v is string => typeof v === "string") || []
+    )
+  )
+  const label = title.replace(/ Renk Seçenekleri$/i, " rengi")
   return (
-    <div className="flex flex-col gap-y-3">
-      <span className="text-sm">{title} seçin</span>
-      <div
-        className="flex flex-wrap justify-between gap-2"
-        data-testid={dataTestId}
-      >
-        {filteredOptions?.map((v) => {
-          return (
-            <button
-              onClick={() => updateOption(option.title ?? "", v ?? "")}
-              key={v}
-              className={clx(
-                "border-ui-border-base bg-ui-bg-subtle border text-small-regular h-10 rounded-rounded p-2 flex-1 ",
-                {
-                  "border-ui-border-interactive": v === current,
-                  "hover:shadow-elevation-card-rest transition-shadow ease-in-out duration-150":
-                    v !== current,
-                }
-              )}
-              disabled={disabled}
-              data-testid="option-button"
-            >
-              {v}
-            </button>
-          )
-        })}
+    <fieldset className="pdp-option" disabled={disabled}>
+      <legend>
+        {label}
+        <span>{current || "Seçiminizi yapın"}</span>
+      </legend>
+      <div className="pdp-option-values" data-testid={dataTestId}>
+        {values.map((value) => (
+          <button
+            type="button"
+            onClick={() => updateOption(option.title ?? "", value)}
+            key={value}
+            className="pdp-option-button"
+            aria-pressed={value === current}
+            data-testid="option-button"
+          >
+            {value}
+            <span className="pdp-option-check" aria-hidden="true">
+              ✓
+            </span>
+          </button>
+        ))}
       </div>
-    </div>
+    </fieldset>
   )
 }
-
-export default OptionSelect

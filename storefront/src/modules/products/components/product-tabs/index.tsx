@@ -1,5 +1,6 @@
 import { HttpTypes } from "@medusajs/types"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
+
 export default function ProductTabs({
   product,
 }: {
@@ -13,46 +14,51 @@ export default function ProductTabs({
           !!v &&
           typeof v === "object" &&
           typeof v.label === "string" &&
-          typeof v.value === "string"
+          typeof v.value === "string" &&
+          v.value.trim() !== "-" &&
+          v.value.trim() !== ""
       )
     : []
   return (
-    <div className="divide-y divide-[#d9d7d1]">
-      <details open className="py-4">
-        <summary className="cursor-pointer text-sm font-semibold">
-          Ölçüler ve ürün özellikleri
+    <div className="pdp-accordions">
+      <details open>
+        <summary>
+          Ölçüler & özellikler
+          <span aria-hidden="true" />
         </summary>
         {specs.length ? (
-          <dl className="mt-5 divide-y divide-[#e5e3dd] text-[12px]">
-            {specs.map((s, i) => (
-              <div
-                key={`${s.label}-${i}`}
-                className="grid grid-cols-[1fr_1.4fr] gap-4 py-3"
-              >
-                <dt className="text-[#777]">{s.label}</dt>
-                <dd className="whitespace-pre-line">{s.value}</dd>
+          <dl className="pdp-specifications">
+            {specs.map((spec, i) => (
+              <div key={`${spec.label}-${i}`}>
+                <dt>{spec.label}</dt>
+                <dd>{spec.value}</dd>
               </div>
             ))}
           </dl>
         ) : (
-          <p className="mt-4 text-xs text-[#777]">
-            Ürün özellikleri hazırlanıyor.
-          </p>
+          <p className="pdp-detail-copy">Ürün özellikleri hazırlanıyor.</p>
         )}
       </details>
-      <details className="py-4">
-        <summary className="cursor-pointer text-sm font-semibold">
-          Teslimat ve bakım
+      {product.description && (
+        <details>
+          <summary>
+            Ürün açıklaması
+            <span aria-hidden="true" />
+          </summary>
+          <p className="pdp-detail-copy">{product.description}</p>
+        </details>
+      )}
+      <details>
+        <summary>
+          Teslimat & bakım
+          <span aria-hidden="true" />
         </summary>
-        <p className="mt-4 text-xs leading-6 text-[#777]">
+        <p className="pdp-detail-copy">
           Teslimat bilgilerini sipariş aşamasında inceleyebilirsiniz. Kullanım
           ve bakım için ürünün malzemesine uygun üretici önerilerini takip edin.
         </p>
-        <LocalizedClientLink
-          href="/care-guide"
-          className="mt-3 inline-block border-b border-current text-xs"
-        >
-          Bakım rehberi →
+        <LocalizedClientLink href="/care-guide" className="pdp-text-link">
+          Bakım rehberini inceleyin ↗
         </LocalizedClientLink>
       </details>
     </div>

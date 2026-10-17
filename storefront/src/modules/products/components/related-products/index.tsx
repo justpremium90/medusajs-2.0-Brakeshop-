@@ -24,14 +24,10 @@ export default async function RelatedProducts({
     .slice(0, 4)
   if (!products.length) return null
   return (
-    <section>
-      <p className="text-[10px] uppercase tracking-widest text-[#777]">
-        Koleksiyonu tamamlayın
-      </p>
-      <h2 className="mb-7 mt-2 text-3xl font-semibold">
-        Aynı alana yakışanlar
-      </h2>
-      <ul className="grid grid-cols-2 gap-4 small:grid-cols-4 small:gap-6">
+    <section className="pdp-related" aria-labelledby="pdp-related-title">
+      <p className="pdp-eyebrow">Koleksiyonu tamamlayın</p>
+      <h2 id="pdp-related-title">Birlikte, daha güzel.</h2>
+      <ul className="pdp-related-grid">
         {products.map((p) => (
           <li key={p.id}>
             <ProductPreview product={p} region={region} />

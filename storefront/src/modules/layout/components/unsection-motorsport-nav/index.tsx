@@ -10,15 +10,15 @@ export default function GardenNav({ regions }: { regions: StoreRegion[] }) {
   const items = GARDEN_CATEGORIES.map((c) => ({ ...c }))
   return (
     <HeaderFrame>
-      <header className="border-b border-white/20 bg-black/35 text-white backdrop-blur-sm">
-        <div className="mx-auto flex h-[76px] max-w-[1800px] items-center gap-5 px-4 small:px-8 large:px-12">
+      <header className="garden-header border-b border-white/20 bg-black/35 text-white backdrop-blur-sm">
+        <div className="garden-header-main mx-auto flex h-[76px] max-w-[1800px] items-center gap-5 px-4 small:px-8 large:px-12">
           <div className="small:hidden">
             <SideMenu regions={regions} items={items} tone="inverse" />
           </div>
           <LocalizedClientLink
             href="/"
             aria-label="Pip Garden ana sayfa"
-            className="mr-auto text-[28px] font-bold uppercase tracking-[-.06em] small:text-[34px]"
+            className="garden-header-logo mr-auto text-[28px] font-bold uppercase tracking-[-.06em] small:text-[34px]"
           >
             PIP<span className="font-normal tracking-[-.04em]">GARDEN</span>
             <span className="ml-1 text-[#e3262e]">.</span>
@@ -53,7 +53,7 @@ export default function GardenNav({ regions }: { regions: StoreRegion[] }) {
           >
             Hesabım
           </LocalizedClientLink>
-          <div className="flex h-10 min-w-11 items-stretch rounded-full bg-[#e3262e]">
+          <div className="garden-header-cart flex h-10 min-w-11 items-stretch rounded-full bg-[#e3262e]">
             <Suspense
               fallback={
                 <LocalizedClientLink href="/cart" className="px-3 py-2 text-xs">
