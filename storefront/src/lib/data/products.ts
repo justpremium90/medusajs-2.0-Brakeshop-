@@ -1,3 +1,5 @@
+import { getCategoryByHandle } from "./categories"
+import { GARDEN_CATEGORIES } from "@lib/constants/garden"
 import { sdk } from "@lib/config"
 import { HttpTypes } from "@medusajs/types"
 import { cache } from "react"
@@ -69,10 +71,16 @@ export const getProductsList = cache(async function ({
       nextPage: null,
     }
   }
+  const { product_categories } = await getCategoryByHandle(
+    GARDEN_CATEGORIES.map((category) => category.handle)
+  )
+  if (!product_categories.length)
+    return { response: { products: [], count: 0 }, nextPage: null, queryParams }
   return sdk.client
     .fetch<HttpTypes.StoreProductListResponse>("/store/products", {
       method: "GET",
       query: {
+        category_id: product_categories.map((category) => category.id),
         limit,
         offset,
         region_id: region.id,
