@@ -17,8 +17,12 @@ const fetchCart = async () => {
   return cart
 }
 
-export default async function CartButton() {
+export default async function CartButton({
+  tone = "default",
+}: {
+  tone?: "default" | "inverse"
+} = {}) {
   const cart = await fetchCart()
 
-  return <CartDropdown cart={cart} />
+  return <CartDropdown cart={cart} tone={tone} />
 }

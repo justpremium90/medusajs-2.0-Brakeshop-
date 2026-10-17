@@ -1,12 +1,25 @@
 import repeat from "@lib/util/repeat"
 import SkeletonProductPreview from "@modules/skeletons/components/skeleton-product-preview"
 
-const SkeletonProductGrid = () => {
+const SkeletonProductGrid = ({
+  variant = "default",
+}: {
+  variant?: "default" | "performance"
+}) => {
+  const isPerformance = variant === "performance"
+
   return (
-    <ul className="grid grid-cols-2 small:grid-cols-3 medium:grid-cols-4 gap-x-6 gap-y-8 flex-1" data-testid="products-list-loader">
-      {repeat(8).map((index) => (
+    <ul
+      className={
+        isPerformance
+          ? "grid flex-1 grid-cols-2 gap-2 xsmall:gap-4 min-[768px]:grid-cols-3 min-[768px]:gap-5 medium:grid-cols-4 large:gap-6 xlarge:grid-cols-5"
+          : "grid flex-1 grid-cols-2 gap-x-5 gap-y-8 small:grid-cols-5 medium:grid-cols-5 large:grid-cols-5"
+      }
+      data-testid="products-list-loader"
+    >
+      {repeat(10).map((index) => (
         <li key={index}>
-          <SkeletonProductPreview />
+          <SkeletonProductPreview variant={variant} />
         </li>
       ))}
     </ul>

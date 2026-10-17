@@ -1,18 +1,18 @@
 "use client"
 
 import { clx } from "@medusajs/ui"
-import { usePathname, useRouter, useSearchParams } from "next/navigation"
+import Link from "next/link"
+import { usePathname, useSearchParams } from "next/navigation"
 
 export function Pagination({
   page,
   totalPages,
-  'data-testid': dataTestid
+  "data-testid": dataTestid,
 }: {
   page: number
   totalPages: number
-  'data-testid'?: string
+  "data-testid"?: string
 }) {
-  const router = useRouter()
   const pathname = usePathname()
   const searchParams = useSearchParams()
 
@@ -20,11 +20,11 @@ export function Pagination({
   const arrayRange = (start: number, stop: number) =>
     Array.from({ length: stop - start + 1 }, (_, index) => start + index)
 
-  // Function to handle page changes
-  const handlePageChange = (newPage: number) => {
-    const params = new URLSearchParams(searchParams)
+  // Build a real URL so crawlers and users without JavaScript can navigate.
+  const getPageHref = (newPage: number) => {
+    const params = new URLSearchParams(searchParams.toString())
     params.set("page", newPage.toString())
-    router.push(`${pathname}?${params.toString()}`)
+    return `${pathname}?${params.toString()}`
   }
 
   // Function to render a page button
@@ -32,18 +32,32 @@ export function Pagination({
     p: number,
     label: string | number,
     isCurrent: boolean
-  ) => (
-    <button
-      key={p}
-      className={clx("txt-xlarge-plus text-ui-fg-muted", {
-        "text-ui-fg-base hover:text-ui-fg-subtle": isCurrent,
-      })}
-      disabled={isCurrent}
-      onClick={() => handlePageChange(p)}
-    >
-      {label}
-    </button>
-  )
+  ) => {
+    const className = clx(
+      "txt-xlarge-plus inline-flex min-h-11 min-w-11 items-center justify-center rounded-md px-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600",
+      {
+        "bg-neutral-900 text-white": isCurrent,
+        "text-ui-fg-muted hover:bg-neutral-100 hover:text-ui-fg-base":
+          !isCurrent,
+      }
+    )
+
+    return isCurrent ? (
+      <span key={p} className={className} aria-current="page">
+        {label}
+      </span>
+    ) : (
+      <Link
+        key={p}
+        href={getPageHref(p)}
+        className={className}
+        aria-label={`${p}. sayfaya git`}
+        rel={p === page - 1 ? "prev" : p === page + 1 ? "next" : undefined}
+      >
+        {label}
+      </Link>
+    )
+  }
 
   // Function to render ellipsis
   const renderEllipsis = (key: string) => (
@@ -107,8 +121,13 @@ export function Pagination({
 
   // Render the component
   return (
-    <div className="flex justify-center w-full mt-12">
-      <div className="flex gap-3 items-end" data-testid={dataTestid}>{renderPageButtons()}</div>
-    </div>
+    <nav
+      className="flex justify-center w-full mt-12"
+      aria-label="Ürün sayfaları"
+    >
+      <div className="flex gap-3 items-end" data-testid={dataTestid}>
+        {renderPageButtons()}
+      </div>
+    </nav>
   )
 }

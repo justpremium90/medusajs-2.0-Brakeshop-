@@ -1,0 +1,706 @@
+[
+  {
+    "slug": "delphi",
+    "name": "Delphi",
+    "aliases": [
+      "DELPHI"
+    ]
+  },
+  {
+    "slug": "brembo",
+    "name": "Brembo",
+    "aliases": [
+      "BREMBO"
+    ]
+  },
+  {
+    "slug": "bosch",
+    "name": "Bosch",
+    "aliases": [
+      "BOSCH"
+    ]
+  },
+  {
+    "slug": "trw",
+    "name": "TRW",
+    "aliases": [
+      "TRW"
+    ]
+  },
+  {
+    "slug": "valeo",
+    "name": "Valeo",
+    "aliases": [
+      "VALEO"
+    ]
+  },
+  {
+    "slug": "ferodo",
+    "name": "Ferodo",
+    "aliases": [
+      "FERODO"
+    ]
+  },
+  {
+    "slug": "textar",
+    "name": "Textar",
+    "aliases": [
+      "TEXTAR"
+    ]
+  },
+  {
+    "slug": "braxis",
+    "name": "Braxis",
+    "aliases": [
+      "BRAXIS"
+    ]
+  },
+  {
+    "slug": "ayd",
+    "name": "AYD",
+    "aliases": [
+      "AYD"
+    ]
+  },
+  {
+    "slug": "mga",
+    "name": "MGA",
+    "aliases": [
+      "MGA"
+    ]
+  },
+  {
+    "slug": "bsg",
+    "name": "BSG",
+    "aliases": [
+      "BSG"
+    ]
+  },
+  {
+    "slug": "blue-print",
+    "name": "Blue Print",
+    "aliases": [
+      "BLUEPRINT"
+    ]
+  },
+  {
+    "slug": "febi-bilstein",
+    "name": "Febi Bilstein",
+    "aliases": [
+      "FEBI BILSTEIN",
+      "Febi Bilstein"
+    ]
+  },
+  {
+    "slug": "walburg",
+    "name": "Walburg",
+    "aliases": [
+      "WALBURG"
+    ]
+  },
+  {
+    "slug": "maher",
+    "name": "Maher",
+    "aliases": [
+      "MAHER"
+    ]
+  },
+  {
+    "slug": "frow",
+    "name": "Frow",
+    "aliases": [
+      "FROW FREN",
+      "FROW PABUCLU BALATA",
+      "FROW FREN HORTUMU"
+    ]
+  },
+  {
+    "slug": "kraftvoll",
+    "name": "Kraftvoll",
+    "aliases": [
+      "KRAFTVOLL"
+    ]
+  },
+  {
+    "slug": "swag",
+    "name": "Swag",
+    "aliases": [
+      "SWAG"
+    ]
+  },
+  {
+    "slug": "meyle",
+    "name": "Meyle",
+    "aliases": [
+      "MEYLE"
+    ]
+  },
+  {
+    "slug": "hella-pagid",
+    "name": "Hella Pagid",
+    "aliases": [
+      "HELLA PAGID"
+    ]
+  },
+  {
+    "slug": "roadhouse",
+    "name": "Roadhouse",
+    "aliases": [
+      "ROADHOUSE"
+    ]
+  },
+  {
+    "slug": "eurorepar",
+    "name": "Eurorepar",
+    "aliases": [
+      "EUROREPAR"
+    ]
+  },
+  {
+    "slug": "zegen",
+    "name": "Zegen",
+    "aliases": [
+      "ZEGEN"
+    ]
+  },
+  {
+    "slug": "ate",
+    "name": "ATE",
+    "aliases": [
+      "ATE"
+    ]
+  },
+  {
+    "slug": "mando",
+    "name": "Mando",
+    "aliases": [
+      "MANDO"
+    ]
+  },
+  {
+    "slug": "ap",
+    "name": "AP",
+    "aliases": [
+      "AP"
+    ]
+  },
+  {
+    "slug": "zimmermann",
+    "name": "Zimmermann",
+    "aliases": [
+      "ZIMMERMANN"
+    ]
+  },
+  {
+    "slug": "aspart",
+    "name": "Aspart",
+    "aliases": [
+      "ASPART"
+    ]
+  },
+  {
+    "slug": "mopar",
+    "name": "Mopar (PSA)",
+    "aliases": [
+      "MOPAR (PSA)"
+    ]
+  },
+  {
+    "slug": "netex",
+    "name": "Netex",
+    "aliases": [
+      "NETEX"
+    ]
+  },
+  {
+    "slug": "jurid",
+    "name": "Jurid",
+    "aliases": [
+      "JURID"
+    ]
+  },
+  {
+    "slug": "skf",
+    "name": "SKF",
+    "aliases": [
+      "SKF"
+    ]
+  },
+  {
+    "slug": "leo",
+    "name": "Leo",
+    "aliases": [
+      "LEO"
+    ]
+  },
+  {
+    "slug": "fte",
+    "name": "FTE",
+    "aliases": [
+      "FTE"
+    ]
+  },
+  {
+    "slug": "mercedes-benz",
+    "name": "Mercedes-Benz",
+    "aliases": [
+      "MERCEDES-BENZ"
+    ]
+  },
+  {
+    "slug": "hella",
+    "name": "Hella",
+    "aliases": [
+      "HELLA"
+    ]
+  },
+  {
+    "slug": "japan-parts",
+    "name": "Japan Parts",
+    "aliases": [
+      "JAPAN PARTS"
+    ]
+  },
+  {
+    "slug": "optimal",
+    "name": "Optimal",
+    "aliases": [
+      "OPTIMAL"
+    ]
+  },
+  {
+    "slug": "kale",
+    "name": "Kale",
+    "aliases": [
+      "KALE"
+    ]
+  },
+  {
+    "slug": "hi-q",
+    "name": "Hi-Q",
+    "aliases": [
+      "HI-Q"
+    ]
+  },
+  {
+    "slug": "vag-orijinal",
+    "name": "VAG Orijinal",
+    "aliases": [
+      "VAG / ORJINAL"
+    ]
+  },
+  {
+    "slug": "remsa",
+    "name": "Remsa",
+    "aliases": [
+      "REMSA"
+    ]
+  },
+  {
+    "slug": "ford-otosan",
+    "name": "Ford Otosan",
+    "aliases": [
+      "FORD OTOSAN"
+    ]
+  },
+  {
+    "slug": "herth-buss",
+    "name": "Herth+Buss",
+    "aliases": [
+      "HERTH+BUSS"
+    ]
+  },
+  {
+    "slug": "magneti-marelli",
+    "name": "Magneti Marelli",
+    "aliases": [
+      "MAGNETI MARELLI"
+    ]
+  },
+  {
+    "slug": "bmw",
+    "name": "BMW",
+    "aliases": [
+      "BMW",
+      "Bmw Genuine"
+    ]
+  },
+  {
+    "slug": "fremax",
+    "name": "Fremax",
+    "aliases": [
+      "FREMAX"
+    ]
+  },
+  {
+    "slug": "mais",
+    "name": "Mais",
+    "aliases": [
+      "MAIS"
+    ]
+  },
+  {
+    "slug": "corals",
+    "name": "Corals",
+    "aliases": [
+      "CORALS"
+    ]
+  },
+  {
+    "slug": "hattat",
+    "name": "Hattat",
+    "aliases": [
+      "HATTAT"
+    ]
+  },
+  {
+    "slug": "dj-parts",
+    "name": "DJ Parts",
+    "aliases": [
+      "DJ PARTS"
+    ]
+  },
+  {
+    "slug": "metelli",
+    "name": "Metelli",
+    "aliases": [
+      "METELLİ"
+    ]
+  },
+  {
+    "slug": "opar",
+    "name": "Opar",
+    "aliases": [
+      "OPAR"
+    ]
+  },
+  {
+    "slug": "topran",
+    "name": "Topran",
+    "aliases": [
+      "TOPRAN"
+    ]
+  },
+  {
+    "slug": "wgn",
+    "name": "WGN",
+    "aliases": [
+      "WGN"
+    ]
+  },
+  {
+    "slug": "tdf",
+    "name": "TDF",
+    "aliases": [
+      "TDF"
+    ]
+  },
+  {
+    "slug": "yavuzsan",
+    "name": "Yavuzsan",
+    "aliases": [
+      "YAVUZSAN"
+    ]
+  },
+  {
+    "slug": "nagama",
+    "name": "Nagama",
+    "aliases": [
+      "NAGAMA"
+    ]
+  },
+  {
+    "slug": "wisco",
+    "name": "Wisco",
+    "aliases": [
+      "WISCO"
+    ]
+  },
+  {
+    "slug": "aisin",
+    "name": "Aisin",
+    "aliases": [
+      "AISIN"
+    ]
+  },
+  {
+    "slug": "veka",
+    "name": "Veka",
+    "aliases": [
+      "VEKA"
+    ]
+  },
+  {
+    "slug": "margo",
+    "name": "Margo",
+    "aliases": [
+      "MARGO"
+    ]
+  },
+  {
+    "slug": "reppa",
+    "name": "Reppa",
+    "aliases": [
+      "REPPA"
+    ]
+  },
+  {
+    "slug": "wenderparts",
+    "name": "Wenderparts",
+    "aliases": [
+      "WENDERPARTS"
+    ]
+  },
+  {
+    "slug": "trucktec",
+    "name": "Trucktec",
+    "aliases": [
+      "TRUCKTEC"
+    ]
+  },
+  {
+    "slug": "art",
+    "name": "Art",
+    "aliases": [
+      "ART"
+    ]
+  },
+  {
+    "slug": "borsehung",
+    "name": "Borsehung",
+    "aliases": [
+      "BORSEHUNG"
+    ]
+  },
+  {
+    "slug": "land-rover",
+    "name": "Land Rover",
+    "aliases": [
+      "LANDROVER"
+    ]
+  },
+  {
+    "slug": "winpower",
+    "name": "Winpower",
+    "aliases": [
+      "WINPOWER"
+    ]
+  },
+  {
+    "slug": "gautoparts",
+    "name": "Gautoparts",
+    "aliases": [
+      "GAUTOPARTS"
+    ]
+  },
+  {
+    "slug": "snr",
+    "name": "SNR",
+    "aliases": [
+      "SNR"
+    ]
+  },
+  {
+    "slug": "autolux",
+    "name": "Autolux",
+    "aliases": [
+      "AUTOLUX"
+    ]
+  },
+  {
+    "slug": "ossca",
+    "name": "Ossca",
+    "aliases": [
+      "OSSCA"
+    ]
+  },
+  {
+    "slug": "dayco",
+    "name": "Dayco",
+    "aliases": [
+      "DAYCO"
+    ]
+  },
+  {
+    "slug": "cavo",
+    "name": "Cavo",
+    "aliases": [
+      "CAVO"
+    ]
+  },
+  {
+    "slug": "recover",
+    "name": "Recover",
+    "aliases": [
+      "RECOVER"
+    ]
+  },
+  {
+    "slug": "neko",
+    "name": "Neko",
+    "aliases": [
+      "NEKO"
+    ]
+  },
+  {
+    "slug": "mobis",
+    "name": "Mobis",
+    "aliases": [
+      "MOBİS"
+    ]
+  },
+  {
+    "slug": "ioe-vw",
+    "name": "IOE-VW",
+    "aliases": [
+      "IOE-VW"
+    ]
+  },
+  {
+    "slug": "tribro",
+    "name": "Tribro",
+    "aliases": [
+      "TRIBRO"
+    ]
+  },
+  {
+    "slug": "vaico",
+    "name": "Vaico",
+    "aliases": [
+      "VAICO"
+    ]
+  },
+  {
+    "slug": "4u",
+    "name": "4U",
+    "aliases": [
+      "4U"
+    ]
+  },
+  {
+    "slug": "hyundai",
+    "name": "Hyundai",
+    "aliases": [
+      "HYUNDAI"
+    ]
+  },
+  {
+    "slug": "rts",
+    "name": "RTS",
+    "aliases": [
+      "RTS"
+    ]
+  },
+  {
+    "slug": "goodyear",
+    "name": "Goodyear",
+    "aliases": [
+      "GOODYEAR"
+    ]
+  },
+  {
+    "slug": "swapp",
+    "name": "Swapp",
+    "aliases": [
+      "SWAPP"
+    ]
+  },
+  {
+    "slug": "puga",
+    "name": "Puga",
+    "aliases": [
+      "PUGA"
+    ]
+  },
+  {
+    "slug": "m-performance",
+    "name": "M Performance",
+    "aliases": [
+      "M Performance"
+    ]
+  },
+  {
+    "slug": "icer",
+    "name": "ICER",
+    "aliases": [
+      "ICER"
+    ]
+  },
+  {
+    "slug": "akd",
+    "name": "AKD",
+    "aliases": [
+      "AKD"
+    ]
+  },
+  {
+    "slug": "vagnersa",
+    "name": "Vagnersa",
+    "aliases": [
+      "VAGNERSA"
+    ]
+  },
+  {
+    "slug": "kapars",
+    "name": "Kapars",
+    "aliases": [
+      "KAPARS"
+    ]
+  },
+  {
+    "slug": "stop",
+    "name": "Stop",
+    "aliases": [
+      "STOP"
+    ]
+  },
+  {
+    "slug": "stoptech",
+    "name": "StopTech",
+    "aliases": [
+      "StopTech"
+    ]
+  },
+  {
+    "slug": "castrol",
+    "name": "Castrol",
+    "aliases": [
+      "CASTROL"
+    ]
+  },
+  {
+    "slug": "ytt",
+    "name": "YTT",
+    "aliases": [
+      "YTT"
+    ]
+  },
+  {
+    "slug": "lemforder",
+    "name": "Lemförder",
+    "aliases": [
+      "LEMFORDER"
+    ]
+  },
+  {
+    "slug": "ioe-psa",
+    "name": "IOE-PSA",
+    "aliases": [
+      "IOE-PSA"
+    ]
+  },
+  {
+    "slug": "estas",
+    "name": "Estas",
+    "aliases": [
+      "ESTAS"
+    ]
+  },
+  {
+    "slug": "bitapart",
+    "name": "Bitapart",
+    "aliases": [
+      "BİTAPART"
+    ]
+  }
+]

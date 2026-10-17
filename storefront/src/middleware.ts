@@ -162,7 +162,7 @@ export async function middleware(request: NextRequest) {
     /^\/(?:api(?:\/|$)|_next(?:\/|$)|favicon\.ico$|sitemap\.xml$|robots\.txt$|opengraph-image)/.test(
       request.nextUrl.pathname
     ) ||
-    /\.(?:png|jpg|gif|svg)$/.test(request.nextUrl.pathname)
+    /\.(?:png|jpe?g|gif|svg|webp|avif|ico|woff2?|ttf|otf|mp4|webm)$/i.test(request.nextUrl.pathname)
   ) {
     return NextResponse.next()
   }

@@ -30,7 +30,7 @@ const LineItemPrice = ({ item, style = "default" }: LineItemPriceProps) => {
           <>
             <p>
               {style === "default" && (
-                <span className="text-ui-fg-subtle">Original: </span>
+                <span className="text-ui-fg-subtle">Orijinal: </span>
               )}
               <span
                 className="line-through text-ui-fg-muted"

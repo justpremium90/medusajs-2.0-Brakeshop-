@@ -13,16 +13,28 @@ import LineItemPrice from "@modules/common/components/line-item-price"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 import Thumbnail from "@modules/products/components/thumbnail"
 
+const BagIcon = () => (
+  <svg
+    aria-hidden="true"
+    className="h-5 w-5 stroke-[1.55] small:h-6 small:w-6"
+    fill="none"
+    viewBox="0 0 28 28"
+    stroke="currentColor"
+  >
+    <path d="M7.2 9.4h13.6l1 14.5H6.2L7.2 9.4Z" />
+    <path d="M10.4 12.2V8.1a3.6 3.6 0 0 1 7.2 0v4.1" />
+  </svg>
+)
+
 const CartDropdown = ({
   cart: cartState,
+  tone = "default",
 }: {
   cart?: HttpTypes.StoreCart | null
+  tone?: "default" | "inverse"
 }) => {
-  // NodeJS.Timer is the legacy interface and is not what setTimeout returns,
-  // so clearTimeout rejected it. This stays correct in both DOM and Node.
-  const [activeTimer, setActiveTimer] = useState<
-    ReturnType<typeof setTimeout> | undefined
-  >(
+  const [cart, setCart] = useState(cartState)
+  const [activeTimer, setActiveTimer] = useState<ReturnType<typeof setTimeout> | undefined>(
     undefined
   )
   const [cartDropdownOpen, setCartDropdownOpen] = useState(false)
@@ -31,11 +43,11 @@ const CartDropdown = ({
   const close = () => setCartDropdownOpen(false)
 
   const totalItems =
-    cartState?.items?.reduce((acc, item) => {
+    cart?.items?.reduce((acc, item) => {
       return acc + item.quantity
     }, 0) || 0
 
-  const subtotal = cartState?.subtotal ?? 0
+  const subtotal = cart?.subtotal ?? 0
   const itemRef = useRef<number>(totalItems || 0)
 
   const timedOpen = () => {
@@ -56,6 +68,10 @@ const CartDropdown = ({
 
   // Clean up the timer when the component unmounts
   useEffect(() => {
+    setCart(cartState)
+  }, [cartState])
+
+  useEffect(() => {
     return () => {
       if (activeTimer) {
         clearTimeout(activeTimer)
@@ -75,17 +91,41 @@ const CartDropdown = ({
 
   return (
     <div
-      className="h-full z-50"
+      className={`h-full z-50 ${
+        tone === "inverse" ? "w-full text-white" : "text-[#3a080a]"
+      }`}
       onMouseEnter={openAndCancel}
       onMouseLeave={close}
     >
-      <Popover className="relative h-full">
-        <Popover.Button className="h-full">
+      <Popover
+        className={`relative h-full ${tone === "inverse" ? "w-full" : ""}`}
+      >
+        <Popover.Button
+          className={`relative h-full ${tone === "inverse" ? "w-full" : ""}`}
+        >
           <LocalizedClientLink
-            className="hover:text-ui-fg-base"
+            className={`relative flex h-full items-center transition-colors ${
+              tone === "inverse"
+                ? "w-full justify-center hover:text-white/75"
+                : "hover:text-[#7b3432]"
+            }`}
             href="/cart"
             data-testid="nav-cart-link"
-          >{`Cart (${totalItems})`}</LocalizedClientLink>
+            aria-label={`Sepet (${totalItems})`}
+          >
+            <BagIcon />
+            <span
+              className={`absolute z-10 flex h-[18px] min-w-[18px] items-center justify-center rounded-full border px-1 text-[10px] font-bold leading-none shadow-[0_2px_7px_rgba(0,0,0,.22)] small:h-5 small:min-w-5 small:text-[11px] ${
+                tone === "inverse"
+                  ? "right-0 top-0.5 border-[#b71920]/20 bg-white text-[#b71920] small:right-0 small:top-1"
+                  : "-right-2 -top-2 border-white bg-[#c42026] text-white"
+              }`}
+              aria-hidden="true"
+              data-testid="nav-cart-count"
+            >
+              {totalItems}
+            </span>
+          </LocalizedClientLink>
         </Popover.Button>
         <Transition
           show={cartDropdownOpen}
@@ -103,12 +143,12 @@ const CartDropdown = ({
             data-testid="nav-cart-dropdown"
           >
             <div className="p-4 flex items-center justify-center">
-              <h3 className="text-large-semi">Cart</h3>
+              <h3 className="text-large-semi">Sepetiniz</h3>
             </div>
-            {cartState && cartState.items?.length ? (
+            {cart && cart.items?.length ? (
               <>
                 <div className="overflow-y-scroll max-h-[402px] px-4 grid grid-cols-1 gap-y-8 no-scrollbar p-px">
-                  {cartState.items
+                  {[...cart.items]
                     .sort((a, b) => {
                       return (a.created_at ?? "") > (b.created_at ?? "")
                         ? -1
@@ -121,11 +161,11 @@ const CartDropdown = ({
                         data-testid="cart-item"
                       >
                         <LocalizedClientLink
-                          href={`/products/${item.variant?.product?.handle}`}
+                          href={item.product_handle || item.variant?.product?.handle ? `/products/${item.product_handle || item.variant?.product?.handle}` : "/store"}
                           className="w-24"
                         >
                           <Thumbnail
-                            thumbnail={item.variant?.product?.thumbnail}
+                            thumbnail={item.thumbnail}
                             images={item.variant?.product?.images}
                             size="square"
                           />
@@ -134,9 +174,12 @@ const CartDropdown = ({
                           <div className="flex flex-col flex-1">
                             <div className="flex items-start justify-between">
                               <div className="flex flex-col overflow-ellipsis whitespace-nowrap mr-4 w-[180px]">
-                                <h3 className="text-base-regular overflow-hidden text-ellipsis">
+                                <h3
+                                  className="text-base-regular overflow-hidden text-ellipsis"
+                                  data-testid="product-title"
+                                >
                                   <LocalizedClientLink
-                                    href={`/products/${item.variant?.product?.handle}`}
+                                    href={item.product_handle || item.variant?.product?.handle ? `/products/${item.product_handle || item.variant?.product?.handle}` : "/store"}
                                     data-testid="product-link"
                                   >
                                     {item.title}
@@ -145,13 +188,9 @@ const CartDropdown = ({
                                 <LineItemOptions
                                   variant={item.variant}
                                   data-testid="cart-item-variant"
-                                  data-value={item.variant}
                                 />
-                                <span
-                                  data-testid="cart-item-quantity"
-                                  data-value={item.quantity}
-                                >
-                                  Quantity: {item.quantity}
+                                <span data-testid="cart-item-quantity">
+                                  Adet: {item.quantity}
                                 </span>
                               </div>
                               <div className="flex justify-end">
@@ -164,7 +203,7 @@ const CartDropdown = ({
                             className="mt-1"
                             data-testid="cart-item-remove-button"
                           >
-                            Remove
+                            Sil
                           </DeleteButton>
                         </div>
                       </div>
@@ -173,27 +212,22 @@ const CartDropdown = ({
                 <div className="p-4 flex flex-col gap-y-4 text-small-regular">
                   <div className="flex items-center justify-between">
                     <span className="text-ui-fg-base font-semibold">
-                      Subtotal{" "}
-                      <span className="font-normal">(excl. taxes)</span>
+                      Ara toplam
                     </span>
                     <span
                       className="text-large-semi"
                       data-testid="cart-subtotal"
-                      data-value={subtotal}
+                      data-value={subtotal || 0}
                     >
                       {convertToLocale({
                         amount: subtotal,
-                        currency_code: cartState.currency_code,
+                        currency_code: cart.currency_code,
                       })}
                     </span>
                   </div>
                   <LocalizedClientLink href="/cart" passHref>
-                    <Button
-                      className="w-full"
-                      size="large"
-                      data-testid="go-to-cart-button"
-                    >
-                      Go to cart
+                    <Button className="w-full" size="large">
+                      Sepeti görüntüle
                     </Button>
                   </LocalizedClientLink>
                 </div>
@@ -201,16 +235,13 @@ const CartDropdown = ({
             ) : (
               <div>
                 <div className="flex py-16 flex-col gap-y-4 items-center justify-center">
-                  <div className="bg-gray-900 text-small-regular flex items-center justify-center w-6 h-6 rounded-full text-white">
-                    <span>0</span>
+                  <div className="bg-gray-900 flex items-center justify-center w-6 h-6 rounded-full text-white">
+                    <span className="text-small-regular">0</span>
                   </div>
-                  <span>Your shopping bag is empty.</span>
+                  <span>Sepetinizde henüz fren parçası yok.</span>
                   <div>
                     <LocalizedClientLink href="/store">
-                      <>
-                        <span className="sr-only">Go to all products page</span>
-                        <Button onClick={close}>Explore products</Button>
-                      </>
+                      <Button onClick={close}>Ürünleri keşfet</Button>
                     </LocalizedClientLink>
                   </div>
                 </div>

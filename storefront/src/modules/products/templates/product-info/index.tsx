@@ -1,37 +1,61 @@
-import { HttpTypes } from "@medusajs/types"
-import { Heading, Text } from "@medusajs/ui"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
+import { HttpTypes } from "@medusajs/types"
+import { Heading } from "@medusajs/ui"
+import BrandLogo from "@modules/products/components/product-preview/brand-logo"
+import { getProductBrandName } from "@lib/util/product-brand"
+import ProductPrice from "@modules/products/components/product-price"
 
 type ProductInfoProps = {
   product: HttpTypes.StoreProduct
+  id?: string
+  className?: string
 }
 
-const ProductInfo = ({ product }: ProductInfoProps) => {
-  return (
-    <div id="product-info">
-      <div className="flex flex-col gap-y-4 lg:max-w-[500px] mx-auto">
-        {product.collection && (
-          <LocalizedClientLink
-            href={`/collections/${product.collection.handle}`}
-            className="text-medium text-ui-fg-muted hover:text-ui-fg-subtle"
-          >
-            {product.collection.title}
-          </LocalizedClientLink>
-        )}
-        <Heading
-          level="h2"
-          className="text-3xl leading-10 text-ui-fg-base"
-          data-testid="product-title"
-        >
-          {product.title}
-        </Heading>
+const productTitleStyle = {
+  fontFamily:
+    '"Helvetica Neue LT Condensed", "Avenir Next Condensed Medium", Helvetica, Arial, sans-serif',
+  fontStretch: "condensed",
+  fontWeight: 500,
+  letterSpacing: ".03125rem",
+}
 
-        <Text
-          className="text-medium text-ui-fg-subtle whitespace-pre-line"
-          data-testid="product-description"
+const ProductInfo = ({
+  product,
+  id = "product-info",
+  className = "",
+}: ProductInfoProps) => {
+  return (
+    <div id={id} className={`relative w-full pr-10 ${className}`}>
+      <LocalizedClientLink
+        href="/account"
+        aria-label="Favorilere ekle"
+        className="absolute right-0 top-0 text-[#3a080a] transition-colors hover:text-[#7b3432]"
+      >
+        <svg
+          aria-hidden="true"
+          className="h-7 w-7 stroke-[1.5]"
+          fill="none"
+          viewBox="0 0 28 28"
+          stroke="currentColor"
         >
-          {product.description}
-        </Text>
+          <path d="M14 24.4S4.5 18.7 4.5 10.9c0-3.1 2.2-5.5 5.1-5.5 1.9 0 3.5 1 4.4 2.5.9-1.5 2.5-2.5 4.4-2.5 2.9 0 5.1 2.4 5.1 5.5 0 7.8-9.5 13.5-9.5 13.5Z" />
+        </svg>
+      </LocalizedClientLink>
+
+      <div className="mb-3">
+        <BrandLogo name={getProductBrandName(product)} kind="product" />
+      </div>
+      <Heading
+        level="h1"
+        className="max-w-[340px] text-[21px] uppercase leading-[23px] text-[#3a080a] small:text-[25px] small:leading-[29px] medium:text-[27px] medium:leading-[31px] large:text-[32px] large:leading-9"
+        style={productTitleStyle}
+        data-testid="product-title"
+      >
+        {product.title}
+      </Heading>
+
+      <div className="mt-2 [&_span]:!text-[22px] [&_span]:!leading-7 small:hidden">
+        <ProductPrice product={product} showFromLabel={false} />
       </div>
     </div>
   )

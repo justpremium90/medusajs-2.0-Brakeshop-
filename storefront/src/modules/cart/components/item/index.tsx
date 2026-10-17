@@ -14,18 +14,18 @@ import LocalizedClientLink from "@modules/common/components/localized-client-lin
 import Spinner from "@modules/common/icons/spinner"
 import Thumbnail from "@modules/products/components/thumbnail"
 import { useRouter } from "next/navigation"
-import { useState, useTransition } from "react"
+import { useState } from "react"
 
 type ItemProps = {
   item: HttpTypes.StoreCartLineItem
-  type?: "full" | "preview"
+  type?: "full" | "preview" | "mobile"
 }
 
 const Item = ({ item, type = "full" }: ItemProps) => {
   const [updating, setUpdating] = useState(false)
-  const router = useRouter()
-  const [, startTransition] = useTransition()
+  const [removed, setRemoved] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const router = useRouter()
 
   const { handle } = item.variant?.product ?? {}
 
@@ -38,9 +38,7 @@ const Item = ({ item, type = "full" }: ItemProps) => {
       quantity,
     })
       .then(() => {
-        // Belt and braces on top of the scoped cache tag the action
-        // revalidates. See the note in product-actions.
-        startTransition(() => router.refresh())
+        router.refresh()
       })
       .catch((err) => {
         setError(err.message)
@@ -53,6 +51,73 @@ const Item = ({ item, type = "full" }: ItemProps) => {
   // TODO: Update this to grab the actual max inventory
   const maxQtyFromInventory = 10
   const maxQuantity = item.variant?.manage_inventory ? 10 : maxQtyFromInventory
+
+  if (removed) {
+    return null
+  }
+
+  if (type === "mobile") {
+    return (
+      <article
+        className="grid grid-cols-[88px_minmax(0,1fr)] gap-4 border-b border-[#eadfdb] py-5 last:border-b-0"
+        data-testid="mobile-product-row"
+      >
+        <LocalizedClientLink href={`/products/${handle}`} className="w-[88px]">
+          <Thumbnail
+            thumbnail={item.variant?.product?.thumbnail}
+            images={item.variant?.product?.images}
+            size="square"
+          />
+        </LocalizedClientLink>
+
+        <div className="min-w-0">
+          <LocalizedClientLink
+            href={`/products/${handle}`}
+            className="block text-[14px] font-medium leading-5 text-[#252221]"
+          >
+            {item.product_title}
+          </LocalizedClientLink>
+          <div className="mt-1 text-[12px] leading-5 text-[#756b68]">
+            <LineItemOptions variant={item.variant} data-testid="mobile-product-variant" />
+          </div>
+          <div className="mt-2 text-[15px] font-semibold leading-6 text-[#252221]">
+            <LineItemPrice item={item} style="tight" />
+          </div>
+
+          <div className="mt-3 flex flex-wrap items-start gap-2">
+            <label className="flex h-11 items-center gap-2 border border-[#d9cfcb] bg-white px-3 text-[12px] leading-5 text-[#514946]">
+              <span>Adet</span>
+              <CartItemSelect
+                value={item.quantity}
+                onChange={(value) =>
+                  changeQuantity(parseInt(value.target.value, 10))
+                }
+                className="h-9 w-12 border-0 bg-transparent p-0 text-center text-[14px] leading-5"
+                data-testid="mobile-product-select-button"
+              >
+                {Array.from({ length: Math.min(maxQuantity, 10) }, (_, i) => (
+                  <option value={i + 1} key={i + 1}>
+                    {i + 1}
+                  </option>
+                ))}
+              </CartItemSelect>
+            </label>
+
+            <DeleteButton
+              id={item.id}
+              onDeleted={() => setRemoved(true)}
+              buttonClassName="h-11 border border-[#c42026] px-3 text-[12px] font-medium leading-5 text-[#a7191e] hover:bg-[#fff3f1] hover:text-[#a7191e]"
+              data-testid="mobile-product-delete-button"
+            >
+              Sepetten sil
+            </DeleteButton>
+            {updating ? <Spinner className="mt-3" /> : null}
+          </div>
+          <ErrorMessage error={error} data-testid="mobile-product-error-message" />
+        </div>
+      </article>
+    )
+  }
 
   return (
     <Table.Row className="w-full" data-testid="product-row">
@@ -85,7 +150,13 @@ const Item = ({ item, type = "full" }: ItemProps) => {
       {type === "full" && (
         <Table.Cell>
           <div className="flex gap-2 items-center w-28">
-            <DeleteButton id={item.id} data-testid="product-delete-button" />
+            <DeleteButton
+              id={item.id}
+              onDeleted={() => setRemoved(true)}
+              data-testid="product-delete-button"
+            >
+              Sil
+            </DeleteButton>
             <CartItemSelect
               value={item.quantity}
               onChange={(value) => changeQuantity(parseInt(value.target.value))}
@@ -103,6 +174,10 @@ const Item = ({ item, type = "full" }: ItemProps) => {
                   </option>
                 )
               )}
+
+              <option value={1} key={1}>
+                1
+              </option>
             </CartItemSelect>
             {updating && <Spinner />}
           </div>

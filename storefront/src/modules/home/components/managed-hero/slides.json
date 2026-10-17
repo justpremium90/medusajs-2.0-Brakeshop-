@@ -1,0 +1,47 @@
+[
+  {
+    "id": "brakeshop-hero-1",
+    "title": "",
+    "cta_label": null,
+    "cta_url": null,
+    "image_url": "/performance-media/v1/d9bfc6263e23c87b-poster.webp",
+    "mobile_image_url": "/performance-media/v1/d9bfc6263e23c87b-poster.webp",
+    "video_url": "/performance-media/v1/d9bfc6263e23c87b-desktop.mp4",
+    "mobile_video_url": "/performance-media/v1/d9bfc6263e23c87b-mobile.mp4",
+    "mobile_video_position": "center",
+    "slide_duration_ms": 8000,
+    "slide_timing_mode": "fixed",
+    "video_rotation": 270,
+    "mobile_video_rotation": 270
+  },
+  {
+    "id": "brakeshop-hero-2",
+    "title": "",
+    "cta_label": null,
+    "cta_url": null,
+    "image_url": "/performance-media/v1/e3ce55021973c499-poster.webp",
+    "mobile_image_url": "/performance-media/v1/e3ce55021973c499-poster.webp",
+    "video_url": "/performance-media/v1/e3ce55021973c499-desktop.mp4",
+    "mobile_video_url": "/performance-media/v1/e3ce55021973c499-mobile.mp4",
+    "mobile_video_position": "center",
+    "slide_duration_ms": 8000,
+    "slide_timing_mode": "fixed",
+    "video_rotation": 270,
+    "mobile_video_rotation": 270
+  },
+  {
+    "id": "brakeshop-hero-3",
+    "title": "",
+    "cta_label": null,
+    "cta_url": null,
+    "image_url": "/performance-media/v1/90f31f6be2b27f1b-poster.webp",
+    "mobile_image_url": "/performance-media/v1/90f31f6be2b27f1b-poster.webp",
+    "video_url": "/performance-media/v1/90f31f6be2b27f1b-desktop.mp4",
+    "mobile_video_url": "/performance-media/v1/90f31f6be2b27f1b-mobile.mp4",
+    "mobile_video_position": "center",
+    "slide_duration_ms": 8000,
+    "slide_timing_mode": "fixed",
+    "video_rotation": 270,
+    "mobile_video_rotation": 270
+  }
+]

@@ -1,59 +1,37 @@
 import { Metadata } from "next"
-
-import FeaturedProducts from "@modules/home/components/featured-products"
-import Hero from "@modules/home/components/hero"
-import LatestProducts from "@modules/home/components/latest-products"
-import { getCollectionsWithProducts } from "@lib/data/collections"
+import Hero from "@modules/home/components/managed-hero"
+import HomeBestSellers from "@modules/home/components/home-best-sellers"
+import LocalizedClientLink from "@modules/common/components/localized-client-link"
 import { getRegion } from "@lib/data/regions"
-import { getStoreName } from "@lib/util/env"
 
 export const metadata: Metadata = {
-  title: getStoreName(),
-  description: `Shop the latest at ${getStoreName()}.`,
+  title: "Fren Diski ve Fren Balatası | Brakeshop",
+  description: "Aracınıza uygun fren balatası ve fren diskini marka, model ve parça koduna göre bulun.",
 }
-
-export default async function Home({
-  params,
-}: {
-  params: Promise<{ countryCode: string }>
-}) {
+export default async function Home({ params }: { params: Promise<{ countryCode: string }> }) {
   const { countryCode } = await params
-  const collections = await getCollectionsWithProducts(countryCode)
   const region = await getRegion(countryCode)
-
-  if (!collections || !region) {
-    return null
-  }
-
-  // The seed creates categories but no collections, so on a fresh store the
-  // featured section would render nothing at all.
-  const hasFeaturedProducts = collections.some(
-    (collection) => collection.products?.length
-  )
-
   return (
     <>
-      {/* ===================================================================
-        * EXAMPLE SECTION START
-        *
-        * <Hero /> is the dashed placeholder block on your homepage. To delete
-        * it: remove the <Hero /> line just below, remove its import at the top
-        * of this file, then delete the folder
-        * src/modules/home/components/hero. Nothing else depends on it.
-        * =================================================================== */}
+      <h1 className="sr-only">Fren diski ve fren balatası</h1>
       <Hero />
-      {/* ===================================================================
-        * EXAMPLE SECTION END
-        * =================================================================== */}
-      <div className="py-12">
-        {hasFeaturedProducts ? (
-          <ul className="flex flex-col gap-x-6">
-            <FeaturedProducts collections={collections} region={region} />
-          </ul>
-        ) : (
-          <LatestProducts countryCode={countryCode} region={region} />
-        )}
-      </div>
+      {region && <HomeBestSellers region={region} countryCode={countryCode} />}
+      <section className="bg-white px-[5%] py-12 text-[#171918] small:py-16">
+        <div className="mx-auto max-w-[1100px]">
+          <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#8b1e22]">Doğru parçayı seçin</p>
+          <h2 className="mt-3 text-2xl font-semibold small:text-3xl">Fren balatası ve fren diski uzmanı</h2>
+          <p className="mt-4 max-w-[820px] text-[15px] leading-7 text-[#4b4d4c] small:text-base">
+            Brakeshop; ön ve arka fren balatası, havalı veya düz fren diski,
+            disk-balata seti ve fren sistemi yardımcı parçalarını araç
+            uyumluluğu ve teknik ölçülerle birlikte sunar. Marka, model, kasa ve
+            parça kodunu karşılaştırarak aracınız için doğru ürüne ulaşın.
+          </p>
+          <div className="mt-7 flex flex-wrap gap-3">
+            <LocalizedClientLink className="border border-[#171918] px-5 py-3 text-xs font-semibold uppercase tracking-[0.08em]" href="/fren-balatalari">Fren balataları</LocalizedClientLink>
+            <LocalizedClientLink className="border border-[#171918] px-5 py-3 text-xs font-semibold uppercase tracking-[0.08em]" href="/fren-diskleri">Fren diskleri</LocalizedClientLink>
+          </div>
+        </div>
+      </section>
     </>
   )
 }

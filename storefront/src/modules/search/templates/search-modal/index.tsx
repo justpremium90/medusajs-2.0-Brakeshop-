@@ -1,131 +1,183 @@
 "use client"
 
-import { InstantSearch } from "react-instantsearch"
-import { useRouter } from "next/navigation"
+import type { ProductSearchSuggestion } from "@lib/util/product-search"
+import { fetchSearchSuggestions } from "@lib/util/search-suggestions"
+import { toPublicPath } from "@lib/util/public-path"
 import { MagnifyingGlassMini } from "@medusajs/icons"
-
-import { SEARCH_INDEX_NAME, searchClient } from "@lib/search-client"
-import Hit from "@modules/search/components/hit"
-import Hits from "@modules/search/components/hits"
-import SearchBox from "@modules/search/components/search-box"
-import { useEffect, useRef } from "react"
+import { useParams, useRouter } from "next/navigation"
+import { FormEvent, useEffect, useRef, useState } from "react"
 
 export default function SearchModal() {
   const router = useRouter()
-  const searchRef = useRef(null)
-  const dialogRef = useRef<HTMLDivElement>(null)
+  const { countryCode } = useParams() as { countryCode?: string }
+  const requestRef = useRef(0)
+  const [query, setQuery] = useState("")
+  const [hits, setHits] = useState<ProductSearchSuggestion[]>([])
+  const [loading, setLoading] = useState(false)
+  const [failed, setFailed] = useState(false)
 
-  // close modal on outside click
-  const handleOutsideClick = (event: MouseEvent) => {
-    if (event.target === searchRef.current) {
-      router.back()
+  useEffect(() => {
+    const normalizedQuery = query.trim()
+    const requestId = ++requestRef.current
+
+    if (normalizedQuery.length < 2) {
+      setHits([])
+      setLoading(false)
+      setFailed(false)
+      return
     }
+
+    setLoading(true)
+    setFailed(false)
+    const timer = window.setTimeout(async () => {
+      try {
+        const results = await fetchSearchSuggestions(normalizedQuery, undefined, countryCode)
+        if (requestRef.current === requestId) setHits(results)
+      } catch {
+        if (requestRef.current === requestId) {
+          setHits([])
+          setFailed(true)
+        }
+      } finally {
+        if (requestRef.current === requestId) setLoading(false)
+      }
+    }, 180)
+
+    return () => window.clearTimeout(timer)
+  }, [query, countryCode])
+
+  const showAll = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    const normalizedQuery = String(
+      new FormData(event.currentTarget).get("query") || ""
+    ).trim()
+    if (!normalizedQuery || !countryCode) return
+    const nativeEvent = event.nativeEvent as Event & {
+      agentInvoked?: boolean
+      respondWith?: (result: Promise<unknown>) => void
+    }
+    if (nativeEvent.agentInvoked && nativeEvent.respondWith) {
+      nativeEvent.respondWith(
+        Promise.resolve({
+          query: normalizedQuery,
+          resultsUrl: `/${countryCode}/results/${encodeURIComponent(normalizedQuery)}`,
+        })
+      )
+    }
+    router.push(
+      `/${countryCode}/results/${encodeURIComponent(normalizedQuery)}`
+    )
   }
 
-  useEffect(() => {
-    window.addEventListener("click", handleOutsideClick)
-    // cleanup
-    return () => {
-      window.removeEventListener("click", handleOutsideClick)
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
-  // disable scroll on body when modal is open
-  useEffect(() => {
-    document.body.style.overflow = "hidden"
-    return () => {
-      document.body.style.overflow = "unset"
-    }
-  }, [])
-
-  // on escape key press, close modal
-  useEffect(() => {
-    const handleEsc = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
-        router.back()
-      }
-    }
-    window.addEventListener("keydown", handleEsc)
-
-    // cleanup
-    return () => {
-      window.removeEventListener("keydown", handleEsc)
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
-  // Keep Tab inside the dialog and hand focus back to whatever opened it.
-  // Without this, tabbing walked straight out into the page behind the
-  // overlay, which is invisible but still fully interactive.
-  useEffect(() => {
-    const opener = document.activeElement as HTMLElement | null
-
-    const focusableSelector =
-      'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
-
-    const handleTab = (event: KeyboardEvent) => {
-      if (event.key !== "Tab" || !dialogRef.current) {
-        return
-      }
-
-      const focusable = Array.from(
-        dialogRef.current.querySelectorAll<HTMLElement>(focusableSelector)
-      ).filter((el) => el.offsetParent !== null)
-
-      if (!focusable.length) {
-        return
-      }
-
-      const first = focusable[0]
-      const last = focusable[focusable.length - 1]
-      const active = document.activeElement
-
-      if (event.shiftKey && (active === first || !dialogRef.current.contains(active))) {
-        event.preventDefault()
-        last.focus()
-      } else if (!event.shiftKey && active === last) {
-        event.preventDefault()
-        first.focus()
-      }
-    }
-
-    window.addEventListener("keydown", handleTab)
-
-    return () => {
-      window.removeEventListener("keydown", handleTab)
-      opener?.focus?.()
-    }
-  }, [])
-
   return (
-    <div className="relative z-[75]">
-      <div className="fixed inset-0 bg-opacity-75 backdrop-blur-md opacity-100 h-screen w-screen" />
-      <div className="fixed inset-0 px-5 sm:p-0" ref={searchRef}>
-        <div className="flex flex-col justify-start w-full h-fit transform p-5 items-center text-left align-middle transition-all max-h-[75vh] bg-transparent shadow-none">
-          <InstantSearch
-            indexName={SEARCH_INDEX_NAME}
-            searchClient={searchClient}
+    <main className="bg-white px-4 py-8 text-[#3a080a] small:px-10 small:py-12">
+      <section
+        className="mx-auto flex w-full max-w-4xl flex-col gap-y-6"
+        data-testid="search-modal-container"
+      >
+        <form
+          className="flex h-14 w-full items-center gap-x-3 rounded-circle border border-[#3a080a] px-4 text-[#3a080a]"
+          onSubmit={showAll}
+          role="search"
+          aria-label="Katalogda parça ara"
+          {...{
+            toolname: "search_products_page",
+            tooldescription:
+              "Search Brakeshop brake parts by brand, vehicle model, OEM number or part code.",
+            toolautosubmit: "",
+            action: `/${countryCode}/search`,
+            method: "get",
+          }}
+        >
+          <MagnifyingGlassMini />
+          <label className="sr-only" htmlFor="catalog-search-query">
+            Marka, model, OEM veya parça kodu
+          </label>
+          <input
+            id="catalog-search-query"
+            name="query"
+            required
+            {...{
+              toolparamdescription:
+                "Brand, vehicle model, OEM number or product code to search for.",
+            }}
+            autoFocus
+            autoComplete="off"
+            className="h-full min-w-0 flex-1 bg-transparent text-[16px] outline-none placeholder:text-[#92706e]"
+            data-testid="search-input"
+            onChange={(event) => setQuery(event.currentTarget.value)}
+            placeholder="Marka, model, OEM veya parça kodu ile ara"
+            type="search"
+            value={query}
+          />
+          <button
+            className="text-[12px] font-bold uppercase tracking-[.1em]"
+            type="submit"
           >
-            <div
-              className="flex absolute flex-col h-fit w-full sm:w-fit"
-              data-testid="search-modal-container"
-              ref={dialogRef}
-              role="dialog"
-              aria-modal="true"
-              aria-label="Search products"
-            >
-              <div className="w-full flex items-center gap-x-2 p-4 bg-[rgba(3,7,18,0.5)] text-ui-fg-on-color backdrop-blur-2xl rounded-rounded">
-                <MagnifyingGlassMini />
-                <SearchBox />
-              </div>
-              <div className="flex-1 mt-6">
-                <Hits hitComponent={Hit} />
-              </div>
-            </div>
-          </InstantSearch>
-        </div>
-      </div>
-    </div>
+            Tümünü gör
+          </button>
+        </form>
+
+        {loading ? (
+          <p className="text-sm text-[#765c5b]">Parçalar aranıyor…</p>
+        ) : null}
+
+        {!loading && failed ? (
+          <p
+            className="border border-[#8f090f]/25 p-5 text-sm"
+            data-testid="no-search-results-container"
+          >
+            Arama servisine ulaşılamadı. Lütfen tekrar deneyin.
+          </p>
+        ) : null}
+
+        {!loading && !failed && query.trim().length >= 2 && !hits.length ? (
+          <p
+            className="border border-black/10 p-5 text-sm"
+            data-testid="no-search-results-container"
+          >
+            Sonuç bulunamadı. Farklı bir OEM, ürün kodu veya araç modeli
+            deneyin.
+          </p>
+        ) : null}
+
+        {hits.length ? (
+          <ul
+            className="grid grid-cols-1 gap-4 sm:grid-cols-3"
+            data-testid="search-results"
+          >
+            {hits.slice(0, 6).map((hit) => (
+              <li key={hit.id}>
+                <button
+                  className="flex h-full w-full flex-col gap-3 border border-black/10 p-4 text-left transition hover:border-[#8f090f]"
+                  data-testid="search-result"
+                  onClick={() =>
+                    router.push(`/${countryCode}${toPublicPath(`/products/${hit.handle}`)}`)
+                  }
+                  type="button"
+                >
+                  <span className="flex aspect-square w-full items-center justify-center bg-[#f5f5f3]">
+                    {hit.thumbnail ? (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img
+                        alt=""
+                        className="h-full w-full object-contain p-3"
+                        src={hit.thumbnail}
+                      />
+                    ) : null}
+                  </span>
+                  <span
+                    className="line-clamp-2 text-sm font-semibold"
+                    data-testid="search-result-title"
+                  >
+                    {hit.title}
+                  </span>
+                </button>
+              </li>
+            ))}
+          </ul>
+        ) : null}
+      </section>
+    </main>
   )
 }
