@@ -146,6 +146,7 @@ const SideMenu = ({
                   leaveTo="opacity-0"
                 >
                   <Popover.Panel
+                    focus
                     className={`fixed inset-0 z-[200] text-[#151617] ${
                       desktopEnabled ? "" : "small:hidden"
                     }`}
@@ -153,6 +154,8 @@ const SideMenu = ({
                     <BodyScrollLock />
                     <button
                       type="button"
+                      tabIndex={-1}
+                      aria-hidden="true"
                       className="absolute inset-0 cursor-default bg-black/55"
                       onClick={close}
                       aria-label="Menüyü kapat"
@@ -160,12 +163,12 @@ const SideMenu = ({
 
                     <div
                       data-testid="nav-menu-popup"
+                      data-garden-mobile-menu="true"
                       className={`relative flex h-dvh w-[88vw] flex-col overflow-hidden border-r border-black/10 bg-white shadow-[18px_0_56px_rgba(0,0,0,.28)] overscroll-contain [-webkit-tap-highlight-color:transparent] ${
                         compactItems ? "max-w-[420px]" : "max-w-[360px]"
                       }`}
                       style={{
-                        fontFamily:
-                          '"Helvetica Neue LT Condensed", "Arial Narrow", "Segoe UI", sans-serif',
+                        fontFamily: '"Segoe UI", Roboto, Arial, sans-serif',
                       }}
                     >
                       <div
@@ -208,7 +211,7 @@ const SideMenu = ({
 
                       <nav className="flex-1 overflow-y-auto overscroll-contain px-5 py-4">
                         <p className="mb-2 text-[10px] font-semibold uppercase tracking-[.18em] text-[#797b7c]">
-                          Alışveriş
+                          Koleksiyon
                         </p>
                         <ul className="divide-y divide-[#e7e7e5] border-y border-[#e7e7e5]">
                           {menuItems.map((item) => {
@@ -278,6 +281,22 @@ const SideMenu = ({
                             )
                           })}
                         </ul>
+                        <div className="garden-mobile-secondary-links">
+                          <LocalizedClientLink
+                            href="/about"
+                            onClick={close}
+                            data-secondary-link="true"
+                          >
+                            Hakkımızda
+                          </LocalizedClientLink>
+                          <LocalizedClientLink
+                            href="/contact"
+                            onClick={close}
+                            data-secondary-link="true"
+                          >
+                            İletişim
+                          </LocalizedClientLink>
+                        </div>
                       </nav>
 
                       <div
