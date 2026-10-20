@@ -1,0 +1,205 @@
+.garden-film {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  height: 100svh;
+  min-height: 620px;
+  background: #20241e;
+  color: #fff;
+}
+.garden-film-poster {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.garden-film-player {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 1.2s ease;
+  container-type: size;
+}
+.garden-film-player.is-visible {
+  opacity: 1;
+}
+.garden-film-player > div {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: max(100cqw, 177.778cqh);
+  height: max(100cqh, 56.25cqw);
+  transform: translate(-50%, -50%);
+}
+.garden-film-player iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+.garden-film-shade {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(180deg, #1117107a, transparent 30%),
+    linear-gradient(0deg, #111710b8, #11171012 75%);
+}
+.garden-film-content {
+  position: absolute;
+  left: 6%;
+  right: 6%;
+  bottom: 19%;
+  pointer-events: none;
+  animation: garden-film-enter 1s 100ms both;
+}
+.garden-film-content > p {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  margin-bottom: 27px;
+}
+.garden-film-content > p > span {
+  width: 28px;
+  height: 1px;
+  background: #e0d6c7;
+}
+.garden-film-content h2 {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(52px, 6.8vw, 108px);
+  font-weight: 400;
+  line-height: 1.04;
+  letter-spacing: -0.045em;
+  max-width: 850px;
+  text-shadow: 0 2px 30px #0002;
+}
+.garden-film-content h2 em {
+  font-weight: 400;
+}
+.garden-film-cta {
+  pointer-events: auto;
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 60px;
+  margin-top: 33px;
+  border-bottom: 1px solid #fff8;
+  padding-bottom: 7px;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  transition: gap 250ms, border-color 250ms;
+}
+.garden-film-cta:hover {
+  gap: 75px;
+  border-color: white;
+}
+.garden-film-cta > span {
+  font-size: 21px;
+  font-weight: 300;
+}
+.garden-film-bottom {
+  position: absolute;
+  bottom: 28px;
+  left: 6%;
+  right: 6%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+.garden-film-bottom > a {
+  display: inline-flex;
+  gap: 14px;
+  align-items: center;
+  min-height: 44px;
+  font-size: 9px;
+  letter-spacing: 0.07em;
+  color: #ffffffe0;
+}
+.garden-film-bottom > button {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 44px;
+  padding: 0 18px;
+  border: 1px solid #ffffff60;
+  border-radius: 30px;
+  background: #111b1426;
+  font-size: 10px;
+  transition: background 200ms;
+}
+.garden-film-bottom > button:hover {
+  background: #111b1460;
+}
+.garden-film-bottom > button:disabled {
+  opacity: 0.5;
+  cursor: wait;
+}
+.garden-film-bottom button svg {
+  width: 14px;
+  height: 14px;
+}
+.garden-film-still {
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  color: #ffffffbd;
+}
+.garden-film :is(a, button):focus-visible {
+  outline: 2px solid white;
+  outline-offset: 5px;
+}
+@keyframes garden-film-enter {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@media (max-width: 767px) {
+  .garden-film {
+    min-height: 600px;
+  }
+  .garden-film-content {
+    left: 24px;
+    right: 24px;
+    bottom: 20%;
+  }
+  .garden-film-content > p {
+    font-size: 8px;
+    letter-spacing: 0.17em;
+    margin-bottom: 22px;
+    gap: 10px;
+  }
+  .garden-film-content h2 {
+    font-size: clamp(47px, 11vw, 70px);
+  }
+  .garden-film-cta {
+    margin-top: 27px;
+    font-size: 9px;
+  }
+  .garden-film-bottom {
+    left: 24px;
+    right: 24px;
+    bottom: 20px;
+  }
+  .garden-film-bottom > button {
+    padding-inline: 14px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .garden-film-content {
+    animation: none;
+  }
+  .garden-film-player,
+  .garden-film-cta,
+  .garden-film-bottom > button {
+    transition: none;
+  }
+}
