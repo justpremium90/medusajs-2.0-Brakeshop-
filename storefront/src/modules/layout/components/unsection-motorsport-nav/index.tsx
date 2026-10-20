@@ -4,81 +4,98 @@ import LocalizedClientLink from "@modules/common/components/localized-client-lin
 import CartButton from "@modules/layout/components/cart-button"
 import HeaderFrame from "@modules/layout/components/motorsport-header-frame"
 import SideMenu from "@modules/layout/components/side-menu"
+import CollectionMenu from "./collection-menu"
 import { GARDEN_CATEGORIES } from "@lib/constants/garden"
+import "./garden-header.css"
+
+const BagIcon = () => (
+  <svg
+    aria-hidden="true"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="1.2"
+  >
+    <path d="M5 7.5h14L20 21H4L5 7.5Z" />
+    <path d="M8.5 9V6a3.5 3.5 0 0 1 7 0v3" />
+  </svg>
+)
 
 export default function GardenNav({ regions }: { regions: StoreRegion[] }) {
-  const items = GARDEN_CATEGORIES.map((c) => ({ ...c }))
   return (
     <HeaderFrame>
-      <header className="garden-header border-b border-white/20 bg-black/35 text-white backdrop-blur-sm">
-        <div className="garden-header-main mx-auto flex h-[76px] max-w-[1800px] items-center gap-5 px-4 small:px-8 large:px-12">
-          <div className="small:hidden">
-            <SideMenu regions={regions} items={items} tone="inverse" />
+      <header className="garden-header">
+        <div className="garden-header-main">
+          <div className="garden-header-mobile-menu">
+            <SideMenu
+              regions={regions}
+              items={[...GARDEN_CATEGORIES]}
+              tone="inverse"
+            />
           </div>
           <LocalizedClientLink
             href="/"
             aria-label="Pip Garden ana sayfa"
-            className="garden-header-logo mr-auto text-[28px] font-bold uppercase tracking-[-.06em] small:text-[34px]"
+            className="garden-header-logo"
           >
-            PIP<span className="font-normal tracking-[-.04em]">GARDEN</span>
-            <span className="ml-1 text-[#e3262e]">.</span>
+            PIP<span>GARDEN</span>
+            <span className="garden-header-dot">.</span>
           </LocalizedClientLink>
-          <nav
-            aria-label="Ana menü"
-            className="hidden items-center gap-7 text-[11px] font-semibold uppercase tracking-[.12em] small:flex"
-          >
-            <LocalizedClientLink href="/store">Koleksiyon</LocalizedClientLink>
-            <LocalizedClientLink href="/about">
-              Pip Garden hakkında
-            </LocalizedClientLink>
+          <nav aria-label="Ana menü" className="garden-header-nav">
+            <CollectionMenu />
+            <LocalizedClientLink href="/about">Hakkımızda</LocalizedClientLink>
             <LocalizedClientLink href="/contact">İletişim</LocalizedClientLink>
           </nav>
-          <LocalizedClientLink
-            href="/search"
-            aria-label="Ürün ara"
-            className="flex h-10 w-10 items-center justify-center rounded-full border border-white/30"
-          >
-            <svg
-              aria-hidden="true"
-              viewBox="0 0 24 24"
-              className="h-5 w-5 fill-none stroke-current"
+          <div className="garden-header-tools">
+            <LocalizedClientLink
+              href="/search"
+              aria-label="Ürün ara"
+              className="garden-header-icon"
             >
-              <circle cx="10" cy="10" r="6" strokeWidth="1.5" />
-              <path d="m15 15 5 5" strokeWidth="1.5" />
-            </svg>
-          </LocalizedClientLink>
-          <LocalizedClientLink
-            href="/account"
-            className="hidden text-xs small:block"
-          >
-            Hesabım
-          </LocalizedClientLink>
-          <div className="garden-header-cart flex h-10 min-w-11 items-stretch rounded-full bg-[#e3262e]">
-            <Suspense
-              fallback={
-                <LocalizedClientLink href="/cart" className="px-3 py-2 text-xs">
-                  Sepet
-                </LocalizedClientLink>
-              }
+              <svg
+                aria-hidden="true"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.2"
+              >
+                <circle cx="10.5" cy="10.5" r="6.2" />
+                <path d="m15 15 5.5 5.5" />
+              </svg>
+            </LocalizedClientLink>
+            <LocalizedClientLink
+              href="/account"
+              aria-label="Hesabım"
+              className="garden-header-icon garden-header-account"
             >
-              <CartButton tone="inverse" />
-            </Suspense>
+              <svg
+                aria-hidden="true"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.2"
+              >
+                <circle cx="12" cy="7.5" r="3.5" />
+                <path d="M5 21v-1.5a7 7 0 0 1 14 0V21" />
+              </svg>
+            </LocalizedClientLink>
+            <div className="garden-header-cart">
+              <Suspense
+                fallback={
+                  <LocalizedClientLink
+                    href="/cart"
+                    aria-label="Sepet"
+                    className="garden-header-icon"
+                  >
+                    <BagIcon />
+                  </LocalizedClientLink>
+                }
+              >
+                <CartButton tone="inverse" />
+              </Suspense>
+            </div>
           </div>
         </div>
-        <nav
-          aria-label="Ürün kategorileri"
-          className="flex gap-7 overflow-x-auto border-t border-white/15 px-5 py-3 text-[11px] font-semibold uppercase tracking-[.08em] small:justify-center small:px-8"
-        >
-          {items.map((c) => (
-            <LocalizedClientLink
-              key={c.handle}
-              href={c.href}
-              className="shrink-0 py-1 text-white/85 transition-colors hover:text-white"
-            >
-              {c.label}
-            </LocalizedClientLink>
-          ))}
-        </nav>
       </header>
     </HeaderFrame>
   )

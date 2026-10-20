@@ -1,47 +1,3 @@
-[data-header-page="product"] {
-  background: #f8f8f3;
-  color: #292b25;
-}
-[data-header-page="product"] .garden-header {
-  background: #f8f8f3;
-  color: #292b25;
-  border-color: #dfe1d6;
-}
-[data-header-page="product"] .garden-header-main {
-  max-width: 1760px;
-  padding-inline: 40px;
-}
-[data-header-page="product"] nav {
-  border-color: #e2e4da;
-  font-weight: 400;
-  letter-spacing: 0.1em;
-}
-[data-header-page="product"] nav a {
-  color: #5c6253;
-}
-[data-header-page="product"] nav a:hover {
-  color: #22281c;
-}
-[data-header-page="product"] [aria-label="Ürün ara"] {
-  border-color: #caced0;
-}
-[data-header-page="product"] .garden-header-cart {
-  background: #323b2b;
-  color: white;
-}
-[data-header-page="product"] .garden-header-logo {
-  font-size: 30px;
-}
-@media (max-width: 1023px) {
-  [data-header-page="product"] .garden-header-main {
-    padding-inline: 20px;
-  }
-}
-@media (min-width: 1600px) {
-  [data-header-page="product"] .garden-header-main {
-    padding-inline: 64px;
-  }
-}
 .pdp {
   --pdp-ink: #292b25;
   --pdp-muted: #74766c;
@@ -83,7 +39,7 @@
 }
 .pdp-visual {
   position: sticky;
-  top: 32px;
+  top: 108px;
   min-width: 0;
 }
 .pdp-information {
@@ -324,7 +280,7 @@
   border-top: 1px solid var(--pdp-line);
   margin-top: 100px;
   padding-block: 70px 80px;
-  scroll-margin-top: 32px;
+  scroll-margin-top: 108px;
 }
 .pdp-details-heading h2 {
   font-family: Georgia, "Times New Roman", serif;
@@ -585,7 +541,7 @@
     margin-top: 50px;
     gap: 35px;
     padding-block: 42px;
-    scroll-margin-top: 24px;
+    scroll-margin-top: 96px;
   }
   .pdp-details-heading h2 {
     font-size: 40px;
@@ -646,29 +602,8 @@
   font-size: 9px;
   letter-spacing: 0.05em;
 }
-[data-header-page="product"] [aria-label="Menüyü aç"] {
-  color: #343b2c;
-  min-width: 24px;
-  min-height: 44px;
-}
 @media (max-width: 600px) {
-  [data-header-page="product"] .garden-header-main {
-    gap: 12px;
-  }
-  [data-header-page="product"] .garden-header-logo {
-    font-size: 26px;
-    white-space: nowrap;
-  }
   .pdp-related [data-testid="product-title"] {
     font-size: 18px;
-  }
-}
-@media (max-width: 359px) {
-  [data-header-page="product"] .garden-header-main {
-    padding-inline: 14px;
-    gap: 9px;
-  }
-  [data-header-page="product"] .garden-header-logo {
-    font-size: 23px;
   }
 }
