@@ -1,3 +1,4 @@
+import { T } from "@lib/i18n/client"
 import { Button, Container, Text } from "@medusajs/ui"
 import { cookies } from "next/headers"
 
@@ -13,13 +14,15 @@ const ProductOnboardingCta = async () => {
     <Container className="max-w-4xl h-full bg-ui-bg-subtle w-full p-8">
       <div className="flex flex-col gap-y-4 center">
         <Text className="text-ui-fg-base text-xl">
-          Demo ürününüz başarıyla oluşturuldu! 🎉
+          <T>Demo ürününüz başarıyla oluşturuldu! 🎉</T>
         </Text>
         <Text className="text-ui-fg-subtle text-small-regular">
-          Mağaza kurulumuna admin panelinde devam edebilirsiniz.
+          <T>Mağaza kurulumuna admin panelinde devam edebilirsiniz.</T>
         </Text>
         <a href="http://localhost:7001/a/orders?onboarding_step=create_order_nextjs">
-          <Button className="w-full">Kuruluma adminde devam et</Button>
+          <Button className="w-full">
+            <T>Kuruluma adminde devam et</T>
+          </Button>
         </a>
       </div>
     </Container>

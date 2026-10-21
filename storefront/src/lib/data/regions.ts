@@ -41,6 +41,8 @@ export const retrieveRegion = cache(async function (id: string) {
 const regionMap = new Map<string, HttpTypes.StoreRegion>()
 
 export const getRegion = cache(async function (countryCode: string) {
+  // Search requests can carry a public language prefix; sales stay in Türkiye.
+  if (countryCode === "en" || countryCode === "ar") countryCode = "tr"
   try {
     if (regionMap.has(countryCode)) {
       return regionMap.get(countryCode)

@@ -1,3 +1,4 @@
+import { T } from "@lib/i18n/client"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 import { GARDEN_CATEGORIES } from "@lib/constants/garden"
 import { PIPGARDEN_COMPANY as company } from "@lib/constants/company"
@@ -10,30 +11,33 @@ export default function Footer() {
             href="/"
             className="text-3xl font-bold tracking-tighter"
           >
-            PIP<span className="font-normal">GARDEN</span>
+            <T>PIP</T>
+            <span className="font-normal">
+              <T>GARDEN</T>
+            </span>
             <span className="text-[#e3262e]">.</span>
           </LocalizedClientLink>
           <p className="mt-5 max-w-xs text-sm leading-7 text-white/55">
-            Bahçeniz, terasınız, balkonunuz.
+            <T>Bahçeniz, terasınız, balkonunuz.</T>
             <br />
-            Dışarıda yaşam için bir araya getirdik.
+            <T>Dışarıda yaşam için bir araya getirdik.</T>
           </p>
         </div>
         <div>
           <h2 className="mb-5 text-[11px] uppercase tracking-widest text-white/45">
-            Koleksiyon
+            <T>Koleksiyon</T>
           </h2>
           <div className="grid grid-cols-2 gap-3 text-xs">
             {GARDEN_CATEGORIES.map((c) => (
               <LocalizedClientLink href={c.href} key={c.handle}>
-                {c.label}
+                <T>{c.label}</T>
               </LocalizedClientLink>
             ))}
           </div>
         </div>
         <div>
           <h2 className="mb-5 text-[11px] uppercase tracking-widest text-white/45">
-            Pip Garden
+            <T>Pip Garden</T>
           </h2>
           <div className="flex flex-col gap-3 text-xs">
             {[
@@ -43,33 +47,47 @@ export default function Footer() {
               ["Sık sorulan sorular", "/faq"],
             ].map(([label, href]) => (
               <LocalizedClientLink key={href} href={href}>
-                {label}
+                <T>{label}</T>
               </LocalizedClientLink>
             ))}
           </div>
         </div>
         <div>
           <h2 className="mb-5 text-[11px] uppercase tracking-widest text-white/45">
-            İletişim
+            <T>İletişim</T>
           </h2>
           <dl className="space-y-3 text-xs">
             <div>
-              <dt className="text-white/45">Telefon / WhatsApp</dt>
-              <dd className="mt-1">{company.telephoneDisplay}</dd>
+              <dt className="text-white/45">
+                <T>Telefon / WhatsApp</T>
+              </dt>
+              <dd className="mt-1">
+                <T>{company.telephoneDisplay}</T>
+              </dd>
             </div>
             <div>
-              <dt className="text-white/45">E-posta</dt>
-              <dd className="mt-1">{company.email}</dd>
+              <dt className="text-white/45">
+                <T>E-posta</T>
+              </dt>
+              <dd className="mt-1">
+                <T>{company.email}</T>
+              </dd>
             </div>
             <div>
-              <dt className="text-white/45">Adres</dt>
-              <dd className="mt-1">{company.address}</dd>
+              <dt className="text-white/45">
+                <T>Adres</T>
+              </dt>
+              <dd className="mt-1">
+                <T>{company.address}</T>
+              </dd>
             </div>
           </dl>
         </div>
       </div>
       <div className="mx-auto flex max-w-[1600px] flex-wrap justify-between gap-5 border-t border-white/15 pt-7 text-[10px] text-white/45">
-        <p>© {new Date().getFullYear()} Pip Garden</p>
+        <p>
+          © <T>{new Date().getFullYear()}</T> <T>Pip Garden</T>
+        </p>
         <div className="flex flex-wrap gap-5">
           {[
             ["Gizlilik", "/privacy-policy"],
@@ -77,7 +95,7 @@ export default function Footer() {
             ["Mesafeli satış", "/mesafeli-satis-sozlesmesi"],
           ].map(([label, href]) => (
             <LocalizedClientLink key={href} href={href}>
-              {label}
+              <T>{label}</T>
             </LocalizedClientLink>
           ))}
         </div>

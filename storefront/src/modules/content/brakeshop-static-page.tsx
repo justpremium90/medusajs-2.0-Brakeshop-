@@ -1,3 +1,4 @@
+import { T } from "@lib/i18n/client"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 export type BrakeshopPageKey =
   | "about"
@@ -224,21 +225,26 @@ export default function BrakeshopStaticPage({
   return (
     <main className="mx-auto max-w-[1000px] px-5 py-14 small:py-20">
       <LocalizedClientLink href="/" className="text-xs text-gray-500">
-        Ana sayfa / {p.title}
+        <T>Ana sayfa / </T>
+        <T>{p.title}</T>
       </LocalizedClientLink>
       <p className="mt-10 text-xs uppercase tracking-widest text-[#c42026]">
-        {p.eyebrow}
+        <T>{p.eyebrow}</T>
       </p>
-      <h1 className="mt-3 text-4xl font-semibold">{p.title}</h1>
+      <h1 className="mt-3 text-4xl font-semibold">
+        <T>{p.title}</T>
+      </h1>
       <p className="mt-6 max-w-2xl text-lg leading-8 text-gray-500">
-        {p.description}
+        <T>{p.description}</T>
       </p>
       {p.sections.map((s, i) => (
         <section key={i} className="mt-10 border-t border-gray-200 pt-7">
-          <h2 className="text-xl font-semibold">{s.title}</h2>
+          <h2 className="text-xl font-semibold">
+            <T>{s.title}</T>
+          </h2>
           {s.body.map((b, j) => (
             <p key={j} className="mt-4 text-sm leading-7 text-gray-600">
-              {b}
+              <T>{b}</T>
             </p>
           ))}
         </section>

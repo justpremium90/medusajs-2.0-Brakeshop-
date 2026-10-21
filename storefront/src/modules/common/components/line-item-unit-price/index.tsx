@@ -1,3 +1,4 @@
+import { T } from "@lib/i18n/client"
 import { getPricesForVariant } from "@lib/util/get-product-price"
 import { HttpTypes } from "@medusajs/types"
 import { clx } from "@medusajs/ui"
@@ -26,17 +27,21 @@ const LineItemUnitPrice = ({
         <>
           <p>
             {style === "default" && (
-              <span className="text-ui-fg-muted">Orijinal: </span>
+              <span className="text-ui-fg-muted">
+                <T>Orijinal: </T>
+              </span>
             )}
             <span
               className="line-through"
               data-testid="product-unit-original-price"
             >
-              {original_price}
+              <T>{original_price}</T>
             </span>
           </p>
           {style === "default" && (
-            <span className="text-ui-fg-interactive">-{percentage_diff}%</span>
+            <span className="text-ui-fg-interactive">
+              -<T>{percentage_diff}</T>%
+            </span>
           )}
         </>
       )}
@@ -46,7 +51,7 @@ const LineItemUnitPrice = ({
         })}
         data-testid="product-unit-price"
       >
-        {calculated_price}
+        <T>{calculated_price}</T>
       </span>
     </div>
   )

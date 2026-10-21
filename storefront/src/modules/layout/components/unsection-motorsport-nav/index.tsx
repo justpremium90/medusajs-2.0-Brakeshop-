@@ -1,3 +1,5 @@
+import LanguageSelector from "@lib/i18n/language-selector"
+import { T, I18nElement } from "@lib/i18n/client"
 import { Suspense } from "react"
 import type { StoreRegion } from "@medusajs/types"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
@@ -38,15 +40,27 @@ export default function GardenNav({ regions }: { regions: StoreRegion[] }) {
             aria-label="Pip Garden ana sayfa"
             className="garden-header-logo"
           >
-            PIP<span>GARDEN</span>
+            <T>PIP</T>
+            <span>
+              <T>GARDEN</T>
+            </span>
             <span className="garden-header-dot">.</span>
           </LocalizedClientLink>
-          <nav aria-label="Ana menü" className="garden-header-nav">
+          <I18nElement
+            as="nav"
+            aria-label="Ana menü"
+            className="garden-header-nav"
+          >
             <CollectionMenu />
-            <LocalizedClientLink href="/about">Hakkımızda</LocalizedClientLink>
-            <LocalizedClientLink href="/contact">İletişim</LocalizedClientLink>
-          </nav>
+            <LocalizedClientLink href="/about">
+              <T>Hakkımızda</T>
+            </LocalizedClientLink>
+            <LocalizedClientLink href="/contact">
+              <T>İletişim</T>
+            </LocalizedClientLink>
+          </I18nElement>
           <div className="garden-header-tools">
+            <LanguageSelector />
             <LocalizedClientLink
               href="/search"
               aria-label="Ürün ara"

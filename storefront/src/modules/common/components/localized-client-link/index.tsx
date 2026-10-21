@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import { toInternalPath } from "@lib/util/public-path"
-import { useParams } from "next/navigation"
+import { useLocale, useT } from "@lib/i18n/client"
 import React from "react"
 
 /**
@@ -21,10 +21,24 @@ const LocalizedClientLink = ({
   passHref?: true
   [x: string]: any
 }) => {
-  const { countryCode } = useParams()
+  const locale = useLocale()
+  const t = useT()
+  const localizedProps = { ...props }
+  for (const key of ["aria-label", "title"])
+    if (typeof localizedProps[key] === "string")
+      localizedProps[key] = t(localizedProps[key])
 
   return (
-    <Link href={href.startsWith("/") && !href.startsWith("//") ? `/${countryCode}${toInternalPath(href)}` : href} {...props}>
+    <Link
+      href={
+        href.startsWith("/") && !href.startsWith("//")
+          ? `/${locale}${
+              toInternalPath(href) === "/" ? "" : toInternalPath(href)
+            }`
+          : href
+      }
+      {...localizedProps}
+    >
       {children}
     </Link>
   )

@@ -1,3 +1,4 @@
+import { T } from "@lib/i18n/client"
 import { Heading, Text } from "@medusajs/ui"
 import Link from "next/link"
 
@@ -67,16 +68,16 @@ const SearchResultsTemplate = async ({
         ) : (
           <div className="rounded-[8px] border border-[#e5e5e5] px-5 py-12 text-center">
             <h1 className="text-[26px] font-semibold text-[#171717]">
-              Sonuç bulunamadı
+              <T>Sonuç bulunamadı</T>
             </h1>
             <p className="mt-2 text-[14px] text-[#737373]">
-              Farklı bir ürün adı veya malzeme deneyin.
+              <T>Farklı bir ürün adı veya malzeme deneyin.</T>
             </p>
             <LocalizedClientLink
               href="/store"
               className="mt-6 inline-flex h-11 items-center rounded-[5px] bg-[#171717] px-5 text-[13px] font-semibold text-white transition-colors hover:bg-[#c42026]"
             >
-              Tüm ürünleri göster
+              <T>Tüm ürünleri göster</T>
             </LocalizedClientLink>
           </div>
         )}
@@ -91,16 +92,18 @@ const SearchResultsTemplate = async ({
       </div>
       <div className="flex justify-between border-b w-full py-6 px-8 small:px-14 items-center">
         <div className="flex flex-col items-start">
-          <Text className="text-ui-fg-muted">Arama sonuçları:</Text>
+          <Text className="text-ui-fg-muted">
+            <T>Arama sonuçları:</T>
+          </Text>
           <Heading>
-            {decodedQuery} ({ids.length})
+            <T>{decodedQuery}</T> (<T>{ids.length}</T>)
           </Heading>
         </div>
         <LocalizedClientLink
           href="/store"
           className="txt-medium text-ui-fg-subtle hover:text-ui-fg-base"
         >
-          Temizle
+          <T>Temizle</T>
         </LocalizedClientLink>
       </div>
       <div className="flex flex-col p-3 small:flex-row small:items-start small:p-6">
@@ -125,7 +128,9 @@ const SearchResultsTemplate = async ({
             </div>
           </>
         ) : (
-          <Text className="ml-8 small:ml-14 mt-3">Sonuç bulunamadı.</Text>
+          <Text className="ml-8 small:ml-14 mt-3">
+            <T>Sonuç bulunamadı.</T>
+          </Text>
         )}
       </div>
     </>

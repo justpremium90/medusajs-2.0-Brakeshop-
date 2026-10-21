@@ -1,5 +1,6 @@
 "use client"
 
+import { I18nElement } from "@lib/i18n/client"
 import { useEffect, useState } from "react"
 import useVisibleMedia from "@lib/hooks/use-visible-media"
 import { getVideoAsset } from "@lib/util/performance-media"
@@ -34,7 +35,8 @@ export default function HeaderBackgroundVideo({ src }: { src: string }) {
       className="pointer-events-none absolute inset-0 overflow-hidden"
     >
       {asset?.poster ? (
-        <img
+        <I18nElement
+          as="img"
           src={asset.poster}
           alt=""
           decoding="async"

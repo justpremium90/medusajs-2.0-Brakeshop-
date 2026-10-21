@@ -1,3 +1,4 @@
+import { T } from "@lib/i18n/client"
 import { clx } from "@medusajs/ui"
 
 import { getPercentageDiff } from "@lib/util/get-precentage-diff"
@@ -30,21 +31,25 @@ const LineItemPrice = ({ item, style = "default" }: LineItemPriceProps) => {
           <>
             <p>
               {style === "default" && (
-                <span className="text-ui-fg-subtle">Orijinal: </span>
+                <span className="text-ui-fg-subtle">
+                  <T>Orijinal: </T>
+                </span>
               )}
               <span
                 className="line-through text-ui-fg-muted"
                 data-testid="product-original-price"
               >
-                {convertToLocale({
-                  amount: originalPrice,
-                  currency_code,
-                })}
+                <T>
+                  {convertToLocale({
+                    amount: originalPrice,
+                    currency_code,
+                  })}
+                </T>
               </span>
             </p>
             {style === "default" && (
               <span className="text-ui-fg-interactive">
-                -{getPercentageDiff(originalPrice, currentPrice || 0)}%
+                -<T>{getPercentageDiff(originalPrice, currentPrice || 0)}</T>%
               </span>
             )}
           </>
@@ -55,10 +60,12 @@ const LineItemPrice = ({ item, style = "default" }: LineItemPriceProps) => {
           })}
           data-testid="product-price"
         >
-          {convertToLocale({
-            amount: currentPrice,
-            currency_code,
-          })}
+          <T>
+            {convertToLocale({
+              amount: currentPrice,
+              currency_code,
+            })}
+          </T>
         </span>
       </div>
     </div>

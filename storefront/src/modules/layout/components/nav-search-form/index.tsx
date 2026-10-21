@@ -1,5 +1,7 @@
 "use client"
+import { useLocale } from "@lib/i18n/client"
 
+import { T, I18nElement } from "@lib/i18n/client"
 import type {
   ComponentPropsWithoutRef,
   FocusEvent,
@@ -59,7 +61,7 @@ const NavSearchForm = ({
     return () => document.removeEventListener("pointerdown", closeOutside)
   }, [])
   const router = useRouter()
-  const { countryCode } = useParams() as { countryCode?: string }
+  const countryCode = useLocale()
   const toolAttributes = {
     toolname: `search_products_${inputId.replace(/[^a-zA-Z0-9]/g, "")}`,
     tooldescription:
@@ -97,12 +99,18 @@ const NavSearchForm = ({
       nativeEvent.respondWith(
         Promise.resolve({
           query: normalizedQuery,
-          resultsUrl: `/${countryCode}/results/${encodeURIComponent(normalizedQuery)}`,
+          resultsUrl: `/${countryCode}/results/${encodeURIComponent(
+            normalizedQuery
+          )}`,
         })
       )
     }
     setSearchOpen(false)
-    router.push(`/${countryCode}${toPublicPath(`/results/${encodeURIComponent(normalizedQuery)}`)}`)
+    router.push(
+      `/${countryCode}${toPublicPath(
+        `/results/${encodeURIComponent(normalizedQuery)}`
+      )}`
+    )
   }
 
   const searchResults = (
@@ -141,7 +149,8 @@ const NavSearchForm = ({
 
     return (
       <div {...containerAttributes}>
-        <form
+        <I18nElement
+          as="form"
           {...props}
           {...toolAttributes}
           className={className}
@@ -151,10 +160,11 @@ const NavSearchForm = ({
           style={style}
         >
           <label className="sr-only" htmlFor={inputId}>
-            {SEARCH_PLACEHOLDER}
+            <T>{SEARCH_PLACEHOLDER}</T>
           </label>
           <SearchIcon className={searchIconClassName} />
-          <input
+          <I18nElement
+            as="input"
             {...inputAttributes}
             id={inputId}
             className={inputClassName}
@@ -174,18 +184,19 @@ const NavSearchForm = ({
                 : undefined
             }
           />
-          <button
+          <I18nElement
+            as="button"
             className={buttonClassName}
             type="submit"
             aria-label="Ürünleri ara"
           >
             <span className={heroStyle === "floating" ? "sr-only" : undefined}>
-              Ara
+              <T>Ara</T>
             </span>
             <SearchIcon className="h-5 w-5" />
-          </button>
-        </form>
-        {searchResults}
+          </I18nElement>
+        </I18nElement>
+        <T>{searchResults}</T>
       </div>
     )
   }
@@ -193,7 +204,8 @@ const NavSearchForm = ({
   if (compact) {
     return (
       <div {...containerAttributes}>
-        <form
+        <I18nElement
+          as="form"
           {...props}
           {...toolAttributes}
           className={className}
@@ -202,16 +214,18 @@ const NavSearchForm = ({
           aria-label="Site içinde ara"
         >
           <label className="sr-only" htmlFor={inputId}>
-            {SEARCH_PLACEHOLDER}
+            <T>{SEARCH_PLACEHOLDER}</T>
           </label>
-          <button
+          <I18nElement
+            as="button"
             className="transition-colors hover:text-[#7b3432]"
             type="submit"
             aria-label="Ara"
           >
             <SearchIcon className="h-7 w-7" />
-          </button>
-          <input
+          </I18nElement>
+          <I18nElement
+            as="input"
             {...inputAttributes}
             id={inputId}
             className={inputClassName}
@@ -229,15 +243,16 @@ const NavSearchForm = ({
                 : undefined
             }
           />
-        </form>
-        {searchResults}
+        </I18nElement>
+        <T>{searchResults}</T>
       </div>
     )
   }
 
   return (
     <div {...containerAttributes}>
-      <form
+      <I18nElement
+        as="form"
         {...props}
         {...toolAttributes}
         className={className}
@@ -247,10 +262,11 @@ const NavSearchForm = ({
         style={style}
       >
         <label className="sr-only" htmlFor={inputId}>
-          {SEARCH_PLACEHOLDER}
+          <T>{SEARCH_PLACEHOLDER}</T>
         </label>
         <SearchIcon className="h-7 w-7 shrink-0" />
-        <input
+        <I18nElement
+          as="input"
           {...inputAttributes}
           id={inputId}
           className={inputClassName}
@@ -268,8 +284,8 @@ const NavSearchForm = ({
               : undefined
           }
         />
-      </form>
-      {searchResults}
+      </I18nElement>
+      <T>{searchResults}</T>
     </div>
   )
 }

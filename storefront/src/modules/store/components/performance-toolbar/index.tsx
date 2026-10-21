@@ -1,5 +1,6 @@
 "use client"
 
+import { T, I18nElement } from "@lib/i18n/client"
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
 import { useEffect, useState } from "react"
 
@@ -85,12 +86,15 @@ const PerformanceToolbar = ({
           aria-expanded={filtersOpen}
         >
           <FilterIcon />
-          Sıralama
+          <T>Sıralama</T>
         </button>
 
         <label className="relative flex h-11 min-w-0 items-center rounded-[5px] border border-[#d9d9d9] bg-white pl-3 pr-9 text-[13px] text-[#525252] transition-colors focus-within:border-[#171717] focus-within:outline focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-[#c42026] small:min-w-[230px]">
-          <span className="sr-only">Ürünleri sırala</span>
-          <select
+          <span className="sr-only">
+            <T>Ürünleri sırala</T>
+          </span>
+          <I18nElement
+            as="select"
             value={sortBy}
             onChange={(event) =>
               setSort(event.currentTarget.value as SortOptions)
@@ -100,10 +104,11 @@ const PerformanceToolbar = ({
           >
             {visibleSortOptions.map((option) => (
               <option key={option.value} value={option.value}>
-                Sırala: {option.label}
+                <T>Sırala: </T>
+                <T>{option.label}</T>
               </option>
             ))}
-          </select>
+          </I18nElement>
           <span className="pointer-events-none absolute right-3">
             <ChevronIcon />
           </span>
@@ -112,7 +117,8 @@ const PerformanceToolbar = ({
 
       {filtersOpen ? (
         <div className="fixed inset-0 z-[100]" role="presentation">
-          <button
+          <I18nElement
+            as="button"
             type="button"
             className="absolute inset-0 bg-black/35"
             onClick={() => setFiltersOpen(false)}
@@ -130,25 +136,26 @@ const PerformanceToolbar = ({
                   id="performance-filter-title"
                   className="text-[20px] font-semibold"
                 >
-                  Sıralama
+                  <T>Sıralama</T>
                 </h2>
                 <p className="mt-1 text-[12px] text-[#737373]">
-                  Katalog görünümünü düzenleyin
+                  <T>Katalog görünümünü düzenleyin</T>
                 </p>
               </div>
-              <button
+              <I18nElement
+                as="button"
                 type="button"
                 onClick={() => setFiltersOpen(false)}
                 className="flex h-11 w-11 items-center justify-center rounded-full border border-[#e5e5e5] text-[24px] leading-none transition-colors hover:border-[#c42026] hover:text-[#c42026] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#c42026]"
                 aria-label="Filtre panelini kapat"
               >
-                ×
-              </button>
+                <T>×</T>
+              </I18nElement>
             </div>
 
             <fieldset className="mt-6">
               <legend className="text-[13px] font-semibold uppercase tracking-[0.08em] text-[#525252]">
-                Sıralama
+                <T>Sıralama</T>
               </legend>
               <div className="mt-3 divide-y divide-[#eeeeee] border-y border-[#eeeeee]">
                 {visibleSortOptions.map((option) => (
@@ -156,7 +163,9 @@ const PerformanceToolbar = ({
                     key={option.value}
                     className="flex min-h-12 cursor-pointer items-center justify-between gap-3 text-[14px]"
                   >
-                    <span>{option.label}</span>
+                    <span>
+                      <T>{option.label}</T>
+                    </span>
                     <input
                       type="radio"
                       name="performance-sort"

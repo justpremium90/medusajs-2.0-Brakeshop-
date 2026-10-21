@@ -1,5 +1,6 @@
 "use client"
 
+import { T } from "@lib/i18n/client"
 import { Button } from "@medusajs/ui"
 import { isEqual } from "lodash"
 import { useParams, useRouter } from "next/navigation"
@@ -142,7 +143,13 @@ export default function ProductActions({
 
   const pendingStock =
     (product.metadata as Record<string, unknown> | null)
-      ?.stock_quantity_verified === false
+      ?.stock_quantity_verified === false &&
+    !product.variants?.some(
+      (variant) =>
+        !variant.manage_inventory ||
+        variant.allow_backorder ||
+        (variant.inventory_quantity || 0) > 0
+    )
   const buttonLabel = !selectedVariant
     ? "Seçenekleri belirleyin"
     : !inStock
@@ -175,7 +182,7 @@ export default function ProductActions({
     >
       <div className="pdp-price-block">
         <span className="pdp-price-label">
-          {selectedVariant ? "Seçiminizin fiyatı" : "Ürün fiyatı"}
+          <T>{selectedVariant ? "Seçiminizin fiyatı" : "Ürün fiyatı"}</T>
         </span>
         <ProductPrice
           product={product}
@@ -207,22 +214,24 @@ export default function ProductActions({
           isLoading={isAdding}
           data-testid="add-product-button"
         >
-          {buttonLabel}
+          <T>{buttonLabel}</T>
           <span aria-hidden="true">↗</span>
         </Button>
         <p className="pdp-availability" role="status">
           <span className={inStock ? "is-available" : ""} aria-hidden="true" />
-          {pendingStock && !inStock
-            ? "Stok bilgisi henüz doğrulanmadı."
-            : selectedVariant
-            ? inStock
-              ? "Seçtiğiniz ürün siparişe hazır."
-              : "Seçtiğiniz varyant şu anda stokta bulunmuyor."
-            : "Ürününüzü renk ve ölçü seçenekleriyle kişiselleştirin."}
+          <T>
+            {pendingStock && !inStock
+              ? "Stok bilgisi henüz doğrulanmadı."
+              : selectedVariant
+              ? inStock
+                ? "Seçtiğiniz ürün siparişe hazır."
+                : "Seçtiğiniz varyant şu anda stokta bulunmuyor."
+              : "Ürününüzü renk ve ölçü seçenekleriyle kişiselleştirin."}
+          </T>
         </p>
         {error && (
           <p className="pdp-error" role="alert">
-            {error}
+            <T>{error}</T>
           </p>
         )}
         <WhatsAppContactButton

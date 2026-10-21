@@ -1,5 +1,6 @@
 "use client"
 
+import { T, I18nElement, useT } from "@lib/i18n/client"
 import { Fragment, useEffect, useRef } from "react"
 import { Popover, Transition } from "@headlessui/react"
 import { usePathname } from "next/navigation"
@@ -19,13 +20,14 @@ function CloseOnNavigation({ close }: { close: () => void }) {
 }
 
 export default function CollectionMenu() {
+  const t = useT()
   return (
     <Popover className="garden-collection">
       {({ open, close }) => (
         <div data-open={open} className="garden-collection-disclosure">
           <CloseOnNavigation close={close} />
           <Popover.Button className="garden-collection-trigger">
-            Koleksiyon
+            <T>Koleksiyon</T>
             <svg
               aria-hidden="true"
               viewBox="0 0 12 12"
@@ -49,14 +51,17 @@ export default function CollectionMenu() {
             <Popover.Panel
               focus
               className="garden-collection-panel"
-              aria-label="Bahçe mobilyası koleksiyonları"
+              aria-label={t("Bahçe mobilyası koleksiyonları")}
             >
               <div className="garden-collection-inner">
                 <div className="garden-collection-categories">
                   <div className="garden-collection-heading">
-                    <span>Koleksiyon</span>
+                    <span>
+                      <T>Koleksiyon</T>
+                    </span>
                     <LocalizedClientLink href="/store" onClick={() => close()}>
-                      Tümünü keşfet <span aria-hidden="true">↗</span>
+                      <T>Tümünü keşfet </T>
+                      <span aria-hidden="true">↗</span>
                     </LocalizedClientLink>
                   </div>
                   <ul>
@@ -66,13 +71,15 @@ export default function CollectionMenu() {
                           href={category.href}
                           onClick={() => close()}
                         >
-                          {category.label}
+                          <T>{category.label}</T>
                           <span aria-hidden="true">↗</span>
                         </LocalizedClientLink>
                       </li>
                     ))}
                   </ul>
-                  <p>Bahçeniz, terasınız, balkonunuz.</p>
+                  <p>
+                    <T>Bahçeniz, terasınız, balkonunuz.</T>
+                  </p>
                 </div>
                 <LocalizedClientLink
                   href="/categories/oturma-gruplari"
@@ -81,7 +88,8 @@ export default function CollectionMenu() {
                 >
                   <div>
                     {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
+                    <I18nElement
+                      as="img"
                       src="/images/garden/entry_slider_image_1.jpeg"
                       alt="Bahçede oturma grubu"
                       width={800}
@@ -89,7 +97,8 @@ export default function CollectionMenu() {
                     />
                   </div>
                   <span>
-                    Birlikte geçirilen zaman <span aria-hidden="true">↗</span>
+                    <T>Birlikte geçirilen zaman </T>
+                    <span aria-hidden="true">↗</span>
                   </span>
                 </LocalizedClientLink>
               </div>

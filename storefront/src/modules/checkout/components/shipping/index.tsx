@@ -1,5 +1,6 @@
 "use client"
 
+import { T } from "@lib/i18n/client"
 import { RadioGroup } from "@headlessui/react"
 import { CheckCircleSolid } from "@medusajs/icons"
 import { Button, Heading, Text, clx } from "@medusajs/ui"
@@ -72,7 +73,7 @@ const Shipping: React.FC<ShippingProps> = ({
             }
           )}
         >
-          Delivery
+          <T>Delivery</T>
           {!isOpen && (cart.shipping_methods?.length ?? 0) > 0 && (
             <CheckCircleSolid />
           )}
@@ -87,7 +88,7 @@ const Shipping: React.FC<ShippingProps> = ({
                 className="text-ui-fg-interactive hover:text-ui-fg-interactive-hover"
                 data-testid="edit-delivery-button"
               >
-                Edit
+                <T>Edit</T>
               </button>
             </Text>
           )}
@@ -114,13 +115,17 @@ const Shipping: React.FC<ShippingProps> = ({
                       <Radio
                         checked={option.id === selectedShippingMethod?.id}
                       />
-                      <span className="text-base-regular">{option.name}</span>
+                      <span className="text-base-regular">
+                        <T>{option.name}</T>
+                      </span>
                     </div>
                     <span className="justify-self-end text-ui-fg-base">
-                      {convertToLocale({
-                        amount: option.amount!,
-                        currency_code: cart?.currency_code,
-                      })}
+                      <T>
+                        {convertToLocale({
+                          amount: option.amount!,
+                          currency_code: cart?.currency_code,
+                        })}
+                      </T>
                     </span>
                   </RadioGroup.Option>
                 )
@@ -141,7 +146,7 @@ const Shipping: React.FC<ShippingProps> = ({
             disabled={!cart.shipping_methods?.[0]}
             data-testid="submit-delivery-option-button"
           >
-            Continue to payment
+            <T>Continue to payment</T>
           </Button>
         </div>
       ) : (
@@ -150,14 +155,17 @@ const Shipping: React.FC<ShippingProps> = ({
             {cart && (cart.shipping_methods?.length ?? 0) > 0 && (
               <div className="flex flex-col w-1/3">
                 <Text className="txt-medium-plus text-ui-fg-base mb-1">
-                  Method
+                  <T>Method</T>
                 </Text>
                 <Text className="txt-medium text-ui-fg-subtle">
-                  {selectedShippingMethod?.name}{" "}
-                  {convertToLocale({
-                    amount: selectedShippingMethod?.amount!,
-                    currency_code: cart?.currency_code,
-                  })}
+                  <T>{selectedShippingMethod?.name}</T>
+                  <T> </T>
+                  <T>
+                    {convertToLocale({
+                      amount: selectedShippingMethod?.amount!,
+                      currency_code: cart?.currency_code,
+                    })}
+                  </T>
                 </Text>
               </div>
             )}

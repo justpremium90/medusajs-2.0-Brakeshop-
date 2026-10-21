@@ -1,3 +1,4 @@
+import { T } from "@lib/i18n/client"
 import { Text, clx } from "@medusajs/ui"
 import { VariantPrice } from "types/global"
 
@@ -13,7 +14,7 @@ export default async function PreviewPrice({ price }: { price: VariantPrice }) {
           className="line-through text-ui-fg-muted"
           data-testid="original-price"
         >
-          {price.original_price}
+          <T>{price.original_price}</T>
         </Text>
       )}
       <Text
@@ -22,7 +23,7 @@ export default async function PreviewPrice({ price }: { price: VariantPrice }) {
         })}
         data-testid="price"
       >
-        {price.calculated_price}
+        <T>{price.calculated_price}</T>
       </Text>
     </>
   )

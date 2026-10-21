@@ -1,4 +1,5 @@
 ﻿"use server"
+import { getLocale } from "@lib/i18n/server"
 
 import { sdk } from "@lib/config"
 import medusaError from "@lib/util/medusa-error"
@@ -56,7 +57,7 @@ export async function signup(_currentState: unknown, formData: FormData) {
     })
 
     const customHeaders = { authorization: `Bearer ${token}` }
-    
+
     const { customer: createdCustomer } = await sdk.store.customer.create(
       customerForm,
       {},
@@ -167,12 +168,7 @@ export async function resetPassword(
   }
 
   try {
-    await sdk.auth.updateProvider(
-      "customer",
-      "emailpass",
-      { password },
-      token
-    )
+    await sdk.auth.updateProvider("customer", "emailpass", { password }, token)
     return { success: true, error: null }
   } catch (error: any) {
     // The token is single use and expires after 15 minutes, and both cases come
@@ -190,7 +186,7 @@ export async function signout(countryCode: string) {
   await removeAuthToken()
   await revalidateCacheTag("auth")
   await revalidateCacheTag("customers")
-  redirect(`/${countryCode}/account`)
+  redirect(`/${await getLocale()}/account`)
 }
 
 export const addCustomerAddress = async (

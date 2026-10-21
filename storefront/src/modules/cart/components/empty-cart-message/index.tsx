@@ -1,3 +1,4 @@
+import { T } from "@lib/i18n/client"
 import { Heading, Text } from "@medusajs/ui"
 
 import InteractiveLink from "@modules/common/components/interactive-link"
@@ -12,14 +13,18 @@ const EmptyCartMessage = () => {
         level="h1"
         className="flex flex-row text-3xl-regular gap-x-2 items-baseline"
       >
-        Sepetiniz
+        <T>Sepetiniz</T>
       </Heading>
       <Text className="text-base-regular mt-4 mb-6 max-w-[32rem]">
-        Sepetiniz henüz boş. Bahçeniz, terasınız veya balkonunuz için
-        koleksiyonumuzu keşfedebilirsiniz.
+        <T>
+          Sepetiniz henüz boş. Bahçeniz, terasınız veya balkonunuz için
+          koleksiyonumuzu keşfedebilirsiniz.
+        </T>
       </Text>
       <div>
-        <InteractiveLink href="/store">Ürünleri keşfet</InteractiveLink>
+        <InteractiveLink href="/store">
+          <T>Ürünleri keşfet</T>
+        </InteractiveLink>
       </div>
     </div>
   )

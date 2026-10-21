@@ -1,5 +1,6 @@
 "use client"
 
+import { T, I18nElement } from "@lib/i18n/client"
 import { PointerEvent, useEffect, useRef, useState } from "react"
 
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
@@ -153,11 +154,12 @@ const VehicleBrandRail = ({
     >
       {!isCategory ? (
         <div className="hidden h-12 w-[142px] shrink-0 items-center border-r border-white/10 px-7 text-[10px] font-bold uppercase tracking-[.18em] text-white/45 large:flex">
-          Markaya göre
+          <T>Markaya göre</T>
         </div>
       ) : null}
       <div className="relative min-w-0 flex-1">
-        <button
+        <I18nElement
+          as="button"
           type="button"
           aria-label={`${scrollLabel} sola kaydır`}
           onClick={() => scrollBy(-SCROLL_AMOUNT)}
@@ -171,9 +173,10 @@ const VehicleBrandRail = ({
           }`}
         >
           ‹
-        </button>
+        </I18nElement>
 
-        <nav
+        <I18nElement
+          as="nav"
           ref={railRef}
           className={`flex ${
             isCategory
@@ -209,7 +212,8 @@ const VehicleBrandRail = ({
               } shrink-0 items-center gap-2 rounded-full border border-white/20 bg-black/15 px-3.5 text-[11px] font-bold uppercase tracking-[.09em] text-white/82 backdrop-blur-[3px] transition-[background-color,border-color,color] duration-200 hover:border-[#ef3b42] hover:bg-[#ef3b42] hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white small:px-4 small:text-[11px]`}
             >
               {item.logo && (
-                <img
+                <I18nElement
+                  as="img"
                   src={item.logo}
                   alt=""
                   aria-hidden="true"
@@ -218,12 +222,15 @@ const VehicleBrandRail = ({
                   loading="lazy"
                 />
               )}
-              <span>{item.label}</span>
+              <span>
+                <T>{item.label}</T>
+              </span>
             </LocalizedClientLink>
           ))}
-        </nav>
+        </I18nElement>
 
-        <button
+        <I18nElement
+          as="button"
           type="button"
           aria-label={`${scrollLabel} sağa kaydır`}
           onClick={() => scrollBy(SCROLL_AMOUNT)}
@@ -237,7 +244,7 @@ const VehicleBrandRail = ({
           }`}
         >
           ›
-        </button>
+        </I18nElement>
       </div>
     </div>
   )

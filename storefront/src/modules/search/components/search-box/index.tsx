@@ -1,5 +1,6 @@
 "use client"
 
+import { T, I18nElement } from "@lib/i18n/client"
 import { XMarkMini } from "@medusajs/icons"
 import { FormEvent } from "react"
 import { useRouter } from "next/navigation"
@@ -45,7 +46,8 @@ const ControlledSearchBox = ({
     <div {...props} className="w-full">
       <form action="" noValidate onSubmit={handleSubmit} onReset={handleReset}>
         <div className="flex items-center justify-between">
-          <input
+          <I18nElement
+            as="input"
             ref={inputRef}
             data-testid="search-input"
             autoComplete="off"
@@ -65,7 +67,7 @@ const ControlledSearchBox = ({
               className="items-center justify-center text-ui-fg-on-color focus:outline-none gap-x-2 px-2 txt-compact-large flex"
             >
               <XMarkMini />
-              Cancel
+              <T>Cancel</T>
             </button>
           )}
         </div>

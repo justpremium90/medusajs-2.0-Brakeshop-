@@ -1,5 +1,6 @@
 "use client"
 
+import { T, I18nElement, useT } from "@lib/i18n/client"
 import { HttpTypes } from "@medusajs/types"
 import Image from "next/image"
 import { getImageVariant } from "@lib/util/performance-media"
@@ -109,8 +110,10 @@ const isVisuallyBlankImage = (image: HTMLImageElement) => {
 
 const ImageGallery = ({
   images,
-  productTitle = "Product",
+  productTitle: sourceProductTitle = "Product",
 }: ImageGalleryProps) => {
+  const t = useT()
+  const productTitle = t(sourceProductTitle)
   const [failedUrls, setFailedUrls] = useState<string[]>([])
   const [activeIndex, setActiveIndex] = useState(0)
   const [zoomed, setZoomed] = useState(false)
@@ -172,18 +175,20 @@ const ImageGallery = ({
     <div className="product-gallery">
       <div className="product-gallery-stage">
         <span className="product-gallery-signature" aria-hidden="true">
-          Pip Garden / Outdoor living
+          <T>Pip Garden / Outdoor living</T>
         </span>
         {usesFallback ? (
           // eslint-disable-next-line @next/next/no-img-element
-          <img
+          <I18nElement
+            as="img"
             src={PRODUCT_FALLBACK_IMAGE}
             alt={`${productTitle} görseli hazırlanıyor`}
             className="product-gallery-fallback"
             decoding="async"
           />
         ) : (
-          <button
+          <I18nElement
+            as="button"
             className="product-gallery-image-button"
             type="button"
             onClick={() => setZoomed(true)}
@@ -195,7 +200,7 @@ const ImageGallery = ({
               src={getImageVariant(activeImage.url!, 1280)}
               priority
               className="product-gallery-image"
-              alt={`${productTitle} — ${activeIndex + 1}. görsel`}
+              alt={t(`${productTitle} — ${activeIndex + 1}. görsel`)}
               fill
               sizes="(max-width: 1023px) 100vw, 60vw"
               onError={() => markFailed(activeImage.url)}
@@ -211,26 +216,31 @@ const ImageGallery = ({
                 />
               </svg>
             </span>
-          </button>
+          </I18nElement>
         )}
         <div className="product-gallery-caption">
           <span>
-            {usesFallback ? "Görsel hazırlanıyor" : `${current} / ${count}`}
+            <T>
+              {usesFallback ? "Görsel hazırlanıyor" : `${current} / ${count}`}
+            </T>
           </span>
           {!usesFallback && (
             <button type="button" onClick={() => setZoomed(true)}>
-              Yakından inceleyin <span aria-hidden="true">+</span>
+              <T>Yakından inceleyin </T>
+              <span aria-hidden="true">+</span>
             </button>
           )}
         </div>
       </div>
       {validImages.length > 1 && (
-        <div
+        <I18nElement
+          as="div"
           className="product-gallery-thumbnails"
           aria-label="Ürün görselleri"
         >
           {validImages.map((image, index) => (
-            <button
+            <I18nElement
+              as="button"
               key={image.id || image.url}
               type="button"
               aria-label={`${productTitle} — ${index + 1}. görseli göster`}
@@ -245,12 +255,13 @@ const ImageGallery = ({
                 className="object-contain"
                 onError={() => markFailed(image.url)}
               />
-            </button>
+            </I18nElement>
           ))}
-        </div>
+        </I18nElement>
       )}
       {zoomed && (
-        <dialog
+        <I18nElement
+          as="dialog"
           ref={dialogRef}
           className="product-gallery-dialog"
           aria-label={`${productTitle} — görsel galerisi`}
@@ -269,15 +280,18 @@ const ImageGallery = ({
           }}
         >
           <div className="product-gallery-dialog-header">
-            <span>{productTitle}</span>
-            <button
+            <span>
+              <T>{productTitle}</T>
+            </span>
+            <I18nElement
+              as="button"
               type="button"
               onClick={closeZoom}
               aria-label="Galeriyi kapat"
               autoFocus
             >
               ✕
-            </button>
+            </I18nElement>
           </div>
           <div className="product-gallery-dialog-image">
             {activeImage && (
@@ -295,28 +309,30 @@ const ImageGallery = ({
           </div>
           <div className="product-gallery-dialog-controls">
             {validImages.length > 1 && (
-              <button
+              <I18nElement
+                as="button"
                 type="button"
                 onClick={() => stepImage(-1)}
                 aria-label="Önceki görsel"
               >
                 ←
-              </button>
+              </I18nElement>
             )}
             <span aria-live="polite">
-              {current} / {count}
+              <T>{current}</T> / <T>{count}</T>
             </span>
             {validImages.length > 1 && (
-              <button
+              <I18nElement
+                as="button"
                 type="button"
                 onClick={() => stepImage(1)}
                 aria-label="Sonraki görsel"
               >
                 →
-              </button>
+              </I18nElement>
             )}
           </div>
-        </dialog>
+        </I18nElement>
       )}
     </div>
   )

@@ -1,5 +1,6 @@
 "use client"
 
+import { T } from "@lib/i18n/client"
 import { Heading, Text, clx } from "@medusajs/ui"
 
 import PaymentButton from "../payment-button"
@@ -31,7 +32,7 @@ const Review = ({ cart }: { cart: any }) => {
             }
           )}
         >
-          Review
+          <T>Review</T>
         </Heading>
       </div>
       {isOpen && previousStepsCompleted && (
@@ -39,10 +40,14 @@ const Review = ({ cart }: { cart: any }) => {
           <div className="flex items-start gap-x-1 w-full mb-6">
             <div className="w-full">
               <Text className="txt-medium-plus text-ui-fg-base mb-1">
-                By clicking the Place Order button, you confirm that you have
-                read, understand and accept our Terms of Use, Terms of Sale and
-                Returns Policy and acknowledge that you have read{" "}
-                {getStoreName()}&apos;s Privacy Policy.
+                <T>
+                  By clicking the Place Order button, you confirm that you have
+                  read, understand and accept our Terms of Use, Terms of Sale
+                  and Returns Policy and acknowledge that you have read
+                </T>
+                <T> </T>
+                <T>{getStoreName()}</T>
+                <T>&apos;s Privacy Policy.</T>
               </Text>
             </div>
           </div>

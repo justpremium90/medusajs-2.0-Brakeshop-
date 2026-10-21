@@ -1,5 +1,6 @@
 "use client"
 
+import { T } from "@lib/i18n/client"
 import { Popover, Transition } from "@headlessui/react"
 import { Button } from "@medusajs/ui"
 import { usePathname } from "next/navigation"
@@ -123,7 +124,7 @@ const CartDropdown = ({
               aria-hidden="true"
               data-testid="nav-cart-count"
             >
-              {totalItems}
+              <T>{totalItems}</T>
             </span>
           </LocalizedClientLink>
         </Popover.Button>
@@ -143,7 +144,9 @@ const CartDropdown = ({
             data-testid="nav-cart-dropdown"
           >
             <div className="p-4 flex items-center justify-center">
-              <h3 className="text-large-semi">Sepetiniz</h3>
+              <h3 className="text-large-semi">
+                <T>Sepetiniz</T>
+              </h3>
             </div>
             {cart && cart.items?.length ? (
               <>
@@ -197,7 +200,7 @@ const CartDropdown = ({
                                     }
                                     data-testid="product-link"
                                   >
-                                    {item.title}
+                                    <T>{item.title}</T>
                                   </LocalizedClientLink>
                                 </h3>
                                 <LineItemOptions
@@ -205,7 +208,8 @@ const CartDropdown = ({
                                   data-testid="cart-item-variant"
                                 />
                                 <span data-testid="cart-item-quantity">
-                                  Adet: {item.quantity}
+                                  <T>Adet: </T>
+                                  <T>{item.quantity}</T>
                                 </span>
                               </div>
                               <div className="flex justify-end">
@@ -218,7 +222,7 @@ const CartDropdown = ({
                             className="mt-1"
                             data-testid="cart-item-remove-button"
                           >
-                            Sil
+                            <T>Sil</T>
                           </DeleteButton>
                         </div>
                       </div>
@@ -227,22 +231,24 @@ const CartDropdown = ({
                 <div className="p-4 flex flex-col gap-y-4 text-small-regular">
                   <div className="flex items-center justify-between">
                     <span className="text-ui-fg-base font-semibold">
-                      Ara toplam
+                      <T>Ara toplam</T>
                     </span>
                     <span
                       className="text-large-semi"
                       data-testid="cart-subtotal"
                       data-value={subtotal || 0}
                     >
-                      {convertToLocale({
-                        amount: subtotal,
-                        currency_code: cart.currency_code,
-                      })}
+                      <T>
+                        {convertToLocale({
+                          amount: subtotal,
+                          currency_code: cart.currency_code,
+                        })}
+                      </T>
                     </span>
                   </div>
                   <LocalizedClientLink href="/cart" passHref>
                     <Button className="w-full" size="large">
-                      Sepeti görüntüle
+                      <T>Sepeti görüntüle</T>
                     </Button>
                   </LocalizedClientLink>
                 </div>
@@ -253,10 +259,14 @@ const CartDropdown = ({
                   <div className="bg-gray-900 flex items-center justify-center w-6 h-6 rounded-full text-white">
                     <span className="text-small-regular">0</span>
                   </div>
-                  <span>Sepetiniz henüz boş.</span>
+                  <span>
+                    <T>Sepetiniz henüz boş.</T>
+                  </span>
                   <div>
                     <LocalizedClientLink href="/store">
-                      <Button onClick={close}>Ürünleri keşfet</Button>
+                      <Button onClick={close}>
+                        <T>Ürünleri keşfet</T>
+                      </Button>
                     </LocalizedClientLink>
                   </div>
                 </div>

@@ -1,5 +1,6 @@
 "use client"
 
+import { T } from "@lib/i18n/client"
 import { useActionState } from "react"
 
 import Input from "@modules/common/components/input"
@@ -23,11 +24,15 @@ const Register = ({ setCurrentView }: Props) => {
       data-testid="register-page"
     >
       <h1 className="text-large-semi uppercase mb-6">
-        Become a {getStoreName()} Member
+        <T>Become a </T>
+        <T>{getStoreName()}</T> <T>Member</T>
       </h1>
       <p className="text-center text-base-regular text-ui-fg-base mb-4">
-        Create your {getStoreName()} Member profile, and get access to an enhanced
-        shopping experience.
+        <T>Create your </T>
+        <T>{getStoreName()}</T>{" "}
+        <T>
+          Member profile, and get access to an enhanced shopping experience.
+        </T>
       </p>
       <form className="w-full flex flex-col" action={formAction}>
         <div className="flex flex-col w-full gap-y-2">
@@ -71,33 +76,33 @@ const Register = ({ setCurrentView }: Props) => {
         </div>
         <ErrorMessage error={message} data-testid="register-error" />
         <span className="text-center text-ui-fg-base text-small-regular mt-6">
-          By creating an account, you agree to {getStoreName()}&apos;s{" "}
-          <LocalizedClientLink
-            href="/content/privacy-policy"
-            className="underline"
-          >
-            Privacy Policy
-          </LocalizedClientLink>{" "}
-          and{" "}
-          <LocalizedClientLink
-            href="/content/terms-of-use"
-            className="underline"
-          >
-            Terms of Use
+          <T>By creating an account, you agree to </T>
+          <T>{getStoreName()}</T>
+          <T>&apos;s</T>
+          <T> </T>
+          <LocalizedClientLink href="/privacy-policy" className="underline">
+            <T>Privacy Policy</T>
+          </LocalizedClientLink>
+          <T> </T>
+          <T>and</T>
+          <T> </T>
+          <LocalizedClientLink href="/kullanim-kosullari" className="underline">
+            <T>Terms of Use</T>
           </LocalizedClientLink>
           .
         </span>
         <SubmitButton className="w-full mt-6" data-testid="register-button">
-          Join
+          <T>Join</T>
         </SubmitButton>
       </form>
       <span className="text-center text-ui-fg-base text-small-regular mt-6">
-        Already a member?{" "}
+        <T>Already a member?</T>
+        <T> </T>
         <button
           onClick={() => setCurrentView(LOGIN_VIEW.SIGN_IN)}
           className="underline"
         >
-          Sign in
+          <T>Sign in</T>
         </button>
         .
       </span>

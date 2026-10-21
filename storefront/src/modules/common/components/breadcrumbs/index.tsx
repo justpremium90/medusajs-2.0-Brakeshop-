@@ -1,3 +1,4 @@
+import { T, I18nElement } from "@lib/i18n/client"
 import type { BreadcrumbItem } from "@lib/util/product-breadcrumbs"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 
@@ -36,7 +37,8 @@ const Breadcrumbs = ({
   }
 
   return (
-    <nav
+    <I18nElement
+      as="nav"
       aria-label="Sayfa yolu"
       className={`w-full overflow-x-auto border-b pb-3 no-scrollbar ${variantClasses[variant]} ${className}`}
       style={baseFont}
@@ -61,7 +63,7 @@ const Breadcrumbs = ({
                   href={item.href}
                   className="truncate underline-offset-4 transition-colors hover:text-current hover:underline"
                 >
-                  {item.label}
+                  <T>{item.label}</T>
                 </LocalizedClientLink>
               ) : (
                 <span
@@ -70,14 +72,14 @@ const Breadcrumbs = ({
                     isCurrent ? `${currentClasses[variant]} font-semibold` : ""
                   }`}
                 >
-                  {item.label}
+                  <T>{item.label}</T>
                 </span>
               )}
             </li>
           )
         })}
       </ol>
-    </nav>
+    </I18nElement>
   )
 }
 

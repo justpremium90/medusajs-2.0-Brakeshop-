@@ -1,3 +1,4 @@
+import { T } from "@lib/i18n/client"
 import { Container, Text } from "@medusajs/ui"
 import { useHits, useSearchBox } from "react-instantsearch"
 
@@ -16,7 +17,9 @@ const ShowAll = () => {
         className="flex gap-2 justify-center h-fit py-2"
         data-testid="no-search-results-container"
       >
-        <Text>No results found.</Text>
+        <Text>
+          <T>No results found.</T>
+        </Text>
       </Container>
     )
   }
@@ -30,10 +33,13 @@ const ShowAll = () => {
         text mismatched on hydration and never updated on resize.
       */}
       <Text>
-        Showing the first <span className="sm:hidden">3</span>
-        <span className="hidden sm:inline">6</span> results.
+        <T>Showing the first </T>
+        <span className="sm:hidden">3</span>
+        <span className="hidden sm:inline">6</span> <T>results.</T>
       </Text>
-      <InteractiveLink href={`/results/${query}`}>View all</InteractiveLink>
+      <InteractiveLink href={`/results/${query}`}>
+        <T>View all</T>
+      </InteractiveLink>
     </Container>
   )
 }

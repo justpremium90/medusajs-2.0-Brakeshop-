@@ -1,5 +1,6 @@
 "use client"
 
+import { T } from "@lib/i18n/client"
 import React, { useActionState, useEffect, useMemo } from "react"
 
 import Input from "@modules/common/components/input"
@@ -63,17 +64,23 @@ const ProfileBillingAddress: React.FC<MyInformationProps> = ({
     return (
       <div className="flex flex-col font-semibold" data-testid="current-info">
         <span>
-          {billingAddress.first_name} {billingAddress.last_name}
-        </span>
-        <span>{billingAddress.company}</span>
-        <span>
-          {billingAddress.address_1}
-          {billingAddress.address_2 ? `, ${billingAddress.address_2}` : ""}
+          <T>{billingAddress.first_name}</T> <T>{billingAddress.last_name}</T>
         </span>
         <span>
-          {billingAddress.postal_code}, {billingAddress.city}
+          <T>{billingAddress.company}</T>
         </span>
-        <span>{country}</span>
+        <span>
+          <T>{billingAddress.address_1}</T>
+          <T>
+            {billingAddress.address_2 ? `, ${billingAddress.address_2}` : ""}
+          </T>
+        </span>
+        <span>
+          <T>{billingAddress.postal_code}</T>, <T>{billingAddress.city}</T>
+        </span>
+        <span>
+          <T>{country}</T>
+        </span>
       </div>
     )
   }, [billingAddress, regionOptions])
@@ -156,7 +163,7 @@ const ProfileBillingAddress: React.FC<MyInformationProps> = ({
             {regionOptions.map((option, i) => {
               return (
                 <option key={i} value={option?.value}>
-                  {option?.label}
+                  <T>{option?.label}</T>
                 </option>
               )
             })}

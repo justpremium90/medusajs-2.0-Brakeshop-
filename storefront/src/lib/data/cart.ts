@@ -1,4 +1,5 @@
 "use server"
+import { getLocale } from "@lib/i18n/server"
 
 import { sdk } from "@lib/config"
 import medusaError from "@lib/util/medusa-error"
@@ -333,7 +334,9 @@ export async function submitPromotionForm(
     const cart = await retrieveCart()
     const existing = (cart?.promotions ?? [])
       .map((promotion) => promotion.code)
-      .filter((promotionCode): promotionCode is string => Boolean(promotionCode))
+      .filter((promotionCode): promotionCode is string =>
+        Boolean(promotionCode)
+      )
 
     if (existing.includes(code)) {
       return "That promotion code is already applied."
@@ -393,9 +396,7 @@ export async function setAddresses(currentState: unknown, formData: FormData) {
     return e.message
   }
 
-  redirect(
-    `/${formData.get("shipping_address.country_code")}/checkout?step=delivery`
-  )
+  redirect(`/${await getLocale()}/checkout?step=delivery`)
 }
 
 export async function placeOrder() {
@@ -420,7 +421,7 @@ export async function placeOrder() {
     const countryCode =
       cartRes.order.shipping_address?.country_code?.toLowerCase()
     await removeCartId()
-    redirect(`/${countryCode}/order/confirmed/${cartRes?.order.id}`)
+    redirect(`/${await getLocale()}/order/confirmed/${cartRes?.order.id}`)
   }
 
   return cartRes.cart
@@ -448,5 +449,5 @@ export async function updateRegion(countryCode: string, currentPath: string) {
   await revalidateCacheTag("regions")
   await revalidateCacheTag("products")
 
-  redirect(`/${countryCode}${currentPath}`)
+  redirect(`/${await getLocale()}${currentPath}`)
 }

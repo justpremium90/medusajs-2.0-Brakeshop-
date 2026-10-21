@@ -1,5 +1,6 @@
 "use client"
 
+import { T } from "@lib/i18n/client"
 import { Badge, Heading, Input, Label, Text } from "@medusajs/ui"
 import React from "react"
 
@@ -66,7 +67,7 @@ const DiscountCode: React.FC<DiscountCodeProps> = ({ cart }) => {
               className="txt-medium text-ui-fg-interactive hover:text-ui-fg-interactive-hover"
               data-testid="add-discount-button"
             >
-              Add Promotion Code(s)
+              <T>Add Promotion Code(s)</T>
             </button>
 
             {/* <Tooltip content="You can add multiple promotion codes">
@@ -89,7 +90,7 @@ const DiscountCode: React.FC<DiscountCodeProps> = ({ cart }) => {
                   variant="secondary"
                   data-testid="discount-apply-button"
                 >
-                  Apply
+                  <T>Apply</T>
                 </SubmitButton>
               </div>
 
@@ -105,7 +106,7 @@ const DiscountCode: React.FC<DiscountCodeProps> = ({ cart }) => {
           <div className="w-full flex items-center">
             <div className="flex flex-col w-full">
               <Heading className="txt-medium mb-2">
-                Promotion(s) applied:
+                <T>Promotion(s) applied:</T>
               </Heading>
 
               {promotions.map((promotion) => {
@@ -121,22 +122,25 @@ const DiscountCode: React.FC<DiscountCodeProps> = ({ cart }) => {
                           color={promotion.is_automatic ? "green" : "grey"}
                           size="small"
                         >
-                          {promotion.code}
-                        </Badge>{" "}
-                        (
+                          <T>{promotion.code}</T>
+                        </Badge>
+                        <T> </T>(
                         {promotion.application_method?.value !== undefined &&
                           promotion.application_method.currency_code !==
                             undefined && (
                             <>
-                              {promotion.application_method.type ===
-                              "percentage"
-                                ? `${promotion.application_method.value}%`
-                                : convertToLocale({
-                                    amount: +promotion.application_method.value,
-                                    currency_code:
-                                      promotion.application_method
-                                        .currency_code,
-                                  })}
+                              <T>
+                                {promotion.application_method.type ===
+                                "percentage"
+                                  ? `${promotion.application_method.value}%`
+                                  : convertToLocale({
+                                      amount:
+                                        +promotion.application_method.value,
+                                      currency_code:
+                                        promotion.application_method
+                                          .currency_code,
+                                    })}
+                              </T>
                             </>
                           )}
                         )
@@ -161,7 +165,7 @@ const DiscountCode: React.FC<DiscountCodeProps> = ({ cart }) => {
                       >
                         <Trash size={14} />
                         <span className="sr-only">
-                          Remove discount code from order
+                          <T>Remove discount code from order</T>
                         </span>
                       </button>
                     )}

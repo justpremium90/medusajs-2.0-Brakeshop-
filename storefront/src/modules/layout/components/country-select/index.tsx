@@ -1,5 +1,7 @@
 "use client"
+import { stripCountryPrefix } from "@lib/util/public-path"
 
+import { T } from "@lib/i18n/client"
 import { Listbox, Transition } from "@headlessui/react"
 import { Fragment, useEffect, useMemo, useState } from "react"
 import ReactCountryFlag from "react-country-flag"
@@ -24,7 +26,7 @@ const CountrySelect = ({ toggleState, regions }: CountrySelectProps) => {
   const [current, setCurrent] = useState<CountryOption | undefined>(undefined)
 
   const { countryCode } = useParams()
-  const currentPath = usePathname().split(`/${countryCode}`)[1]
+  const currentPath = stripCountryPrefix(usePathname())
 
   const { state, close } = toggleState
 
@@ -35,7 +37,7 @@ const CountrySelect = ({ toggleState, regions }: CountrySelectProps) => {
     return (regions ?? [])
       .flatMap((r) =>
         (r.countries ?? []).flatMap((c) =>
-          c.iso_2
+          c.iso_2 === "tr"
             ? [
                 {
                   country: c.iso_2,
@@ -71,9 +73,14 @@ const CountrySelect = ({ toggleState, regions }: CountrySelectProps) => {
             : undefined
         }
       >
-        <Listbox.Button className="py-1 w-full" data-testid="shipping-to-button">
+        <Listbox.Button
+          className="py-1 w-full"
+          data-testid="shipping-to-button"
+        >
           <div className="txt-compact-small flex items-start gap-x-2">
-            <span>Shipping to:</span>
+            <span>
+              <T>Shipping to:</T>
+            </span>
             {current && (
               <span className="txt-compact-small flex items-center gap-x-2">
                 <ReactCountryFlag
@@ -84,7 +91,7 @@ const CountrySelect = ({ toggleState, regions }: CountrySelectProps) => {
                   }}
                   countryCode={current.country ?? ""}
                 />
-                {current.label}
+                <T>{current.label}</T>
               </span>
             )}
           </div>
@@ -117,8 +124,9 @@ const CountrySelect = ({ toggleState, regions }: CountrySelectProps) => {
                         height: "16px",
                       }}
                       countryCode={o.country}
-                    />{" "}
-                    {o.label}
+                    />
+                    <T> </T>
+                    <T>{o.label}</T>
                   </Listbox.Option>
                 )
               })}

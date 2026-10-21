@@ -1,3 +1,4 @@
+import { T } from "@lib/i18n/client"
 import { HttpTypes } from "@medusajs/types"
 import { Table, Text } from "@medusajs/ui"
 
@@ -24,10 +25,13 @@ const Item = ({ item }: ItemProps) => {
           className="txt-medium-plus text-ui-fg-base"
           data-testid="product-name"
         >
-          {item.title}
+          <T>{item.title}</T>
         </Text>
         {item.variant && (
-          <LineItemOptions variant={item.variant} data-testid="product-variant" />
+          <LineItemOptions
+            variant={item.variant}
+            data-testid="product-variant"
+          />
         )}
       </Table.Cell>
 
@@ -35,7 +39,11 @@ const Item = ({ item }: ItemProps) => {
         <span className="!pr-0 flex flex-col items-end h-full justify-center">
           <span className="flex gap-x-1 ">
             <Text className="text-ui-fg-muted">
-              <span data-testid="product-quantity">{item.quantity}</span>x{" "}
+              <span data-testid="product-quantity">
+                <T>{item.quantity}</T>
+              </span>
+              <T>x</T>
+              <T> </T>
             </Text>
             <LineItemUnitPrice item={item} style="tight" />
           </span>

@@ -1,3 +1,4 @@
+import { T } from "@lib/i18n/client"
 import { getListingPage } from "@lib/data/listing-page"
 import { PRODUCT_LISTING_LIMIT } from "@lib/util/listing-page"
 import { getRegion } from "@lib/data/regions"
@@ -53,8 +54,16 @@ export default async function PaginatedProducts({
   const effectiveSortBy = preserveProductOrder ? "relevance" : sortBy
   const {
     response: { products, count },
-  } = await getListingPage(countryCode, page, effectiveSortBy, categoryId, collectionId,
-    productsIds ? JSON.stringify(productsIds) : undefined, period, categoryHandle)
+  } = await getListingPage(
+    countryCode,
+    page,
+    effectiveSortBy,
+    categoryId,
+    collectionId,
+    productsIds ? JSON.stringify(productsIds) : undefined,
+    period,
+    categoryHandle
+  )
 
   const totalPages = Math.ceil(count / PRODUCT_LISTING_LIMIT)
   const gridClass =
@@ -75,10 +84,11 @@ export default async function PaginatedProducts({
           <div className="flex flex-col gap-5 small:flex-row small:items-end small:justify-between small:gap-8">
             <div>
               <h1 className="text-[28px] font-semibold leading-[1.1] tracking-[-0.025em] text-[#171717] small:text-[34px]">
-                {performanceTitle}
+                <T>{performanceTitle}</T>
               </h1>
               <p className="mt-2 text-[13px] text-[#737373] small:text-[14px]">
-                {new Intl.NumberFormat("tr-TR").format(count)} ürün bulundu
+                <T>{new Intl.NumberFormat("tr-TR").format(count)}</T>{" "}
+                <T>ürün bulundu</T>
               </p>
             </div>
             <div className="small:min-w-[360px]">
@@ -92,14 +102,22 @@ export default async function PaginatedProducts({
       ) : null}
       {displayStyle === "technical" ? (
         <div className="mb-2 hidden grid-cols-[190px_minmax(230px,1fr)_minmax(430px,1.65fr)] bg-[#30343a] text-[9px] font-bold uppercase tracking-[0.08em] text-white small:grid">
-          <span className="px-4 py-3">Ürün görseli</span>
+          <span className="px-4 py-3">
+            <T>Ürün görseli</T>
+          </span>
           <span className="border-l border-[#4c5158] px-5 py-3">
-            Ürün bilgisi
+            <T>Ürün bilgisi</T>
           </span>
           <span className="grid grid-cols-[minmax(120px,1fr)_100px_105px_46px] border-l border-[#4c5158] px-3 py-3">
-            <span>Varyant / ölçü</span>
-            <span>Stok</span>
-            <span className="text-right">Fiyat</span>
+            <span>
+              <T>Varyant / ölçü</T>
+            </span>
+            <span>
+              <T>Stok</T>
+            </span>
+            <span className="text-right">
+              <T>Fiyat</T>
+            </span>
             <span />
           </span>
         </div>

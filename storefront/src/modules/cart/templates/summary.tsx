@@ -1,5 +1,6 @@
 "use client"
 
+import { T } from "@lib/i18n/client"
 import { Button, Heading } from "@medusajs/ui"
 
 import CartTotals from "@modules/common/components/cart-totals"
@@ -30,7 +31,7 @@ const Summary = ({ cart }: SummaryProps) => {
   return (
     <div className="flex flex-col gap-y-4">
       <Heading level="h2" className="text-[2rem] leading-[2.75rem]">
-        Özet
+        <T>Özet</T>
       </Heading>
       <DiscountCode cart={cart} />
       <Divider />
@@ -40,7 +41,7 @@ const Summary = ({ cart }: SummaryProps) => {
         data-testid="checkout-button"
       >
         <Button className="h-11 w-full text-[14px] leading-6">
-          Ödemeye geç
+          <T>Ödemeye geç</T>
         </Button>
       </LocalizedClientLink>
     </div>

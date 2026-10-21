@@ -1,3 +1,4 @@
+import { T } from "@lib/i18n/client"
 import { Suspense } from "react"
 
 import { getProductListingSettings } from "@lib/data/product-listing-settings"
@@ -171,7 +172,9 @@ export default async function CollectionTemplate({
     <div className="w-full px-[3%] py-6 small:px-[5%]">
       <Breadcrumbs items={breadcrumbItems} className="mb-6" />
       <div className="mb-8 flex items-center justify-between gap-x-4 text-2xl-semi">
-        <h1>{collection.title}</h1>
+        <h1>
+          <T>{collection.title}</T>
+        </h1>
         <RefinementList sortBy={sort} />
       </div>
       <Suspense fallback={<SkeletonProductGrid />}>

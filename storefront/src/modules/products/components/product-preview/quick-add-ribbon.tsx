@@ -1,5 +1,6 @@
 "use client"
 
+import { T, I18nElement } from "@lib/i18n/client"
 import { addToCart } from "@lib/data/cart"
 import { clx } from "@medusajs/ui"
 import { useParams, useRouter } from "next/navigation"
@@ -66,7 +67,8 @@ const QuickAddRibbon = ({
     : "Sepete Ekle"
 
   return (
-    <button
+    <I18nElement
+      as="button"
       type="button"
       onClick={handleAddToCart}
       disabled={!variantId || disabled || isAdding}
@@ -77,8 +79,8 @@ const QuickAddRibbon = ({
       style={condensedFont}
       aria-label={disabled ? disabledLabel : "Sepete ekle"}
     >
-      {label}
-    </button>
+      <T>{label}</T>
+    </I18nElement>
   )
 }
 

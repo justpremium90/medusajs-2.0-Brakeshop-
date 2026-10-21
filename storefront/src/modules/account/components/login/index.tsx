@@ -1,5 +1,6 @@
 "use client"
 
+import { T } from "@lib/i18n/client"
 import { useActionState } from "react"
 
 import { LOGIN_VIEW } from "@modules/account/templates/login-template"
@@ -20,9 +21,11 @@ const Login = ({ setCurrentView }: Props) => {
       className="max-w-sm w-full flex flex-col items-center"
       data-testid="login-page"
     >
-      <h1 className="text-large-semi uppercase mb-6">Welcome back</h1>
+      <h1 className="text-large-semi uppercase mb-6">
+        <T>Welcome back</T>
+      </h1>
       <p className="text-center text-base-regular text-ui-fg-base mb-8">
-        Sign in to access an enhanced shopping experience.
+        <T>Sign in to access an enhanced shopping experience.</T>
       </p>
       <form className="w-full" action={formAction}>
         <div className="flex flex-col w-full gap-y-2">
@@ -46,7 +49,7 @@ const Login = ({ setCurrentView }: Props) => {
         </div>
         <ErrorMessage error={message} data-testid="login-error-message" />
         <SubmitButton data-testid="sign-in-button" className="w-full mt-6">
-          Sign in
+          <T>Sign in</T>
         </SubmitButton>
       </form>
       <button
@@ -54,16 +57,17 @@ const Login = ({ setCurrentView }: Props) => {
         className="underline text-small-regular mt-4"
         data-testid="forgot-password-button"
       >
-        Forgot your password?
+        <T>Forgot your password?</T>
       </button>
       <span className="text-center text-ui-fg-base text-small-regular mt-6">
-        Not a member?{" "}
+        <T>Not a member?</T>
+        <T> </T>
         <button
           onClick={() => setCurrentView(LOGIN_VIEW.REGISTER)}
           className="underline"
           data-testid="register-button"
         >
-          Join us
+          <T>Join us</T>
         </button>
         .
       </span>

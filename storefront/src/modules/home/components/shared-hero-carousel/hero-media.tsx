@@ -1,5 +1,6 @@
 "use client"
 
+import { I18nElement } from "@lib/i18n/client"
 import type { CSSProperties, SyntheticEvent } from "react"
 import { useCallback, useEffect, useRef, useState } from "react"
 import {
@@ -190,7 +191,8 @@ export default function HeroMedia({
           {mobilePoster ? (
             <source media="(max-width: 767px)" srcSet={mobilePoster} />
           ) : null}
-          <img
+          <I18nElement
+            as="img"
             src={desktopPoster || mobilePoster}
             alt=""
             loading={priority || loadVideo ? "eager" : "lazy"}

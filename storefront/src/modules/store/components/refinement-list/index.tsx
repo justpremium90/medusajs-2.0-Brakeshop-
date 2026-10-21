@@ -1,5 +1,6 @@
 "use client"
 
+import { T } from "@lib/i18n/client"
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
 import { useCallback } from "react"
 
@@ -66,10 +67,12 @@ const RefinementList = ({
               <path d="M4 6h16M7 12h10M10 18h4" strokeLinecap="round" />
             </svg>
           ) : null}
-          <span>{isEditorial ? "Sırala" : "Filtrele"}</span>
+          <span>
+            <T>{isEditorial ? "Sırala" : "Filtrele"}</T>
+          </span>
           {!isEditorial ? (
             <span className="hidden text-[#8f6f6b] small:inline">
-              {sortLabels[sortBy]}
+              <T>{sortLabels[sortBy]}</T>
             </span>
           ) : null}
         </summary>

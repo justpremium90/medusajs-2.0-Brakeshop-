@@ -1,3 +1,4 @@
+import { T } from "@lib/i18n/client"
 import { HttpTypes } from "@medusajs/types"
 
 type OptionSelectProps = {
@@ -28,8 +29,10 @@ export default function OptionSelect({
   return (
     <fieldset className="pdp-option" disabled={disabled}>
       <legend>
-        {label}
-        <span>{current || "Seçiminizi yapın"}</span>
+        <T>{label}</T>
+        <span>
+          <T>{current || "Seçiminizi yapın"}</T>
+        </span>
       </legend>
       <div className="pdp-option-values" data-testid={dataTestId}>
         {values.map((value) => (
@@ -41,7 +44,7 @@ export default function OptionSelect({
             aria-pressed={value === current}
             data-testid="option-button"
           >
-            {value}
+            <T>{value}</T>
             <span className="pdp-option-check" aria-hidden="true">
               ✓
             </span>

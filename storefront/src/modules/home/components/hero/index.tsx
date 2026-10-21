@@ -1,3 +1,4 @@
+import { T, I18nElement } from "@lib/i18n/client"
 import { ArrowUpRightMini, LightBulb } from "@medusajs/icons"
 import { Button, Heading, Text } from "@medusajs/ui"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
@@ -39,7 +40,8 @@ const Hero = () => {
   return (
     <div className="w-full bg-ui-bg-base py-8 small:py-12">
       <div className="content-container">
-        <section
+        <I18nElement
+          as="section"
           data-testid="hero"
           aria-label="Example section"
           className="rounded-lg border-2 border-dashed border-ui-border-strong bg-ui-bg-subtle"
@@ -52,10 +54,10 @@ const Hero = () => {
               className="text-ui-fg-subtle uppercase tracking-wider"
               data-testid="hero-example-label"
             >
-              Example section
+              <T>Example section</T>
             </Text>
             <Text size="small" leading="compact" className="text-ui-fg-muted">
-              built to be replaced with your own content
+              <T>built to be replaced with your own content</T>
             </Text>
           </div>
 
@@ -65,13 +67,13 @@ const Hero = () => {
                 level="h1"
                 className="text-3xl leading-10 text-ui-fg-base font-normal"
               >
-                Well done! Your store is up and running
+                <T>Well done! Your store is up and running</T>
               </Heading>
               <Heading
                 level="h2"
                 className="text-3xl leading-10 text-ui-fg-subtle font-normal"
               >
-                Need help customizing your store?
+                <T>Need help customizing your store?</T>
               </Heading>
             </span>
 
@@ -87,13 +89,13 @@ const Hero = () => {
               className="flex items-center gap-x-1 text-xl underline underline-offset-4 text-ui-fg-interactive hover:text-ui-fg-interactive-hover"
               data-testid="hero-tutorial-link"
             >
-              Visit the tutorial
+              <T>Visit the tutorial</T>
               <ArrowUpRightMini />
             </a>
 
             <LocalizedClientLink href="/store">
               <Button variant="secondary" data-testid="hero-shop-button">
-                Go to shop
+                <T>Go to shop</T>
               </Button>
             </LocalizedClientLink>
           </div>
@@ -106,19 +108,27 @@ const Hero = () => {
                 two rows apart just dilutes it. */}
             <div className="flex flex-col gap-y-1">
               <Text size="small" leading="compact" className="text-ui-fg-base">
-                Make this page your own
+                <T>Make this page your own</T>
               </Text>
-              <Text size="small" leading="compact" className="text-ui-fg-subtle">
-                Everything inside this dashed box is example content that ships
-                with the template. The tutorial above walks through replacing it
-                with your own design, and the rest of the store with it.
+              <Text
+                size="small"
+                leading="compact"
+                className="text-ui-fg-subtle"
+              >
+                <T>
+                  Everything inside this dashed box is example content that
+                  ships with the template. The tutorial above walks through
+                  replacing it with your own design, and the rest of the store
+                  with it.
+                </T>
               </Text>
               <Text
                 size="small"
                 leading="compact"
                 className="mt-2 text-ui-fg-muted"
               >
-                This store was deployed from{" "}
+                <T>This store was deployed from</T>
+                <T> </T>
                 <a
                   href={REPO_URL}
                   target="_blank"
@@ -126,7 +136,7 @@ const Hero = () => {
                   className="inline-flex items-center gap-x-1 text-ui-fg-subtle underline hover:text-ui-fg-base"
                   data-testid="hero-repo-link"
                 >
-                  {REPO_SLUG}
+                  <T>{REPO_SLUG}</T>
                   <ArrowUpRightMini />
                 </a>
               </Text>
@@ -134,11 +144,17 @@ const Hero = () => {
 
             <div className="flex flex-col gap-y-1 small:max-w-sm small:border-l-2 small:border-dashed small:border-ui-border-strong small:pl-10">
               <Text size="small" leading="compact" className="text-ui-fg-muted">
-                Also from the maintainer
+                <T>Also from the maintainer</T>
               </Text>
-              <Text size="small" leading="compact" className="text-ui-fg-subtle">
-                My Own Suite, a private cloud you run yourself: passwords,
-                photos, files and calendars on your own hardware. Open source.
+              <Text
+                size="small"
+                leading="compact"
+                className="text-ui-fg-subtle"
+              >
+                <T>
+                  My Own Suite, a private cloud you run yourself: passwords,
+                  photos, files and calendars on your own hardware. Open source.
+                </T>
               </Text>
               <a
                 href="https://myownsuite.org/"
@@ -147,12 +163,12 @@ const Hero = () => {
                 className="mt-1 flex w-fit items-center gap-x-1 text-ui-fg-subtle hover:text-ui-fg-base txt-small"
                 data-testid="hero-mos-link"
               >
-                myownsuite.org
+                <T>myownsuite.org</T>
                 <ArrowUpRightMini />
               </a>
             </div>
           </div>
-        </section>
+        </I18nElement>
       </div>
     </div>
   )

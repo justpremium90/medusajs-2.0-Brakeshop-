@@ -1,5 +1,6 @@
 "use client"
 
+import { T } from "@lib/i18n/client"
 import { useActionState } from "react"
 
 import Input from "@modules/common/components/input"
@@ -31,19 +32,21 @@ const ResetPassword = ({ token, email }: Props) => {
         className="max-w-sm w-full flex flex-col items-center"
         data-testid="reset-password-page"
       >
-        <h1 className="text-large-semi uppercase mb-6">Password updated</h1>
+        <h1 className="text-large-semi uppercase mb-6">
+          <T>Password updated</T>
+        </h1>
         <p
           className="text-center text-base-regular text-ui-fg-base mb-8"
           data-testid="reset-password-success"
         >
-          Your password has been changed. You can sign in with it now.
+          <T>Your password has been changed. You can sign in with it now.</T>
         </p>
         <LocalizedClientLink
           href="/account"
           className="underline text-small-regular"
           data-testid="go-to-sign-in-link"
         >
-          Go to sign in
+          <T>Go to sign in</T>
         </LocalizedClientLink>
       </div>
     )
@@ -54,11 +57,17 @@ const ResetPassword = ({ token, email }: Props) => {
       className="max-w-sm w-full flex flex-col items-center"
       data-testid="reset-password-page"
     >
-      <h1 className="text-large-semi uppercase mb-6">Set a new password</h1>
+      <h1 className="text-large-semi uppercase mb-6">
+        <T>Set a new password</T>
+      </h1>
       <p className="text-center text-base-regular text-ui-fg-base mb-8">
         {email ? (
           <>
-            Choose a new password for <strong>{email}</strong>.
+            <T>Choose a new password for </T>
+            <strong>
+              <T>{email}</T>
+            </strong>
+            .
           </>
         ) : (
           "Choose a new password for your account."
@@ -102,18 +111,19 @@ const ResetPassword = ({ token, email }: Props) => {
           data-testid="reset-password-button"
           className="w-full mt-6"
         >
-          Save new password
+          <T>Save new password</T>
         </SubmitButton>
       </form>
 
       <span className="text-center text-ui-fg-base text-small-regular mt-6">
-        Link expired?{" "}
+        <T>Link expired?</T>
+        <T> </T>
         <LocalizedClientLink
           href="/account"
           className="underline"
           data-testid="request-new-link"
         >
-          Request a new one
+          <T>Request a new one</T>
         </LocalizedClientLink>
         .
       </span>

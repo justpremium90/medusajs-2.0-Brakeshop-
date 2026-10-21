@@ -1,3 +1,4 @@
+import { T } from "@lib/i18n/client"
 import { HttpTypes } from "@medusajs/types"
 
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
@@ -10,7 +11,8 @@ type ListingLink = {
 }
 
 const baseFont = {
-  fontFamily: '"Helvetica Neue LT Std", "Avenir light", Helvetica, Arial, sans-serif',
+  fontFamily:
+    '"Helvetica Neue LT Std", "Avenir light", Helvetica, Arial, sans-serif',
 }
 
 const editorialTitleFont = {
@@ -23,7 +25,9 @@ const defaultLinks: ListingLink[] = [
   { label: "Yeni gelenler", href: "/store?sortBy=created_at" },
 ]
 
-const buildCategoryLinks = (category?: HttpTypes.StoreProductCategory | null) => {
+const buildCategoryLinks = (
+  category?: HttpTypes.StoreProductCategory | null
+) => {
   const children = category?.category_children || []
 
   if (!children.length) {
@@ -63,24 +67,28 @@ const ListingHeading = ({
           className="min-w-0 text-[32px] leading-8 tracking-[-0.02em] small:text-[36px] small:leading-9"
           style={editorialTitleFont}
         >
-          {title}
+          <T>{title}</T>
         </h1>
 
         <div className="flex shrink-0 items-center gap-4 small:mt-1 small:justify-center">
           {hasMoreContent ? (
             <details className="group relative">
               <summary className="flex h-8 cursor-pointer list-none items-center text-[14px] font-normal leading-[18px] underline underline-offset-2 [&::-webkit-details-marker]:hidden">
-                Daha fazla
+                <T>Daha fazla</T>
               </summary>
               <div className="absolute right-0 z-40 mt-2 w-[min(330px,calc(100vw-24px))] border border-[#e4c8c0] bg-white p-4 text-left shadow-[0_10px_28px_rgba(58,8,10,0.12)] small:left-1/2 small:right-auto small:-translate-x-1/2">
                 {eyebrow ? (
                   <p className="text-[11px] font-semibold uppercase leading-4 tracking-[0.1em] text-[#8a5b58]">
-                    {eyebrow}
+                    <T>{eyebrow}</T>
                   </p>
                 ) : null}
                 {description ? (
-                  <p className={`${eyebrow ? "mt-2" : ""} text-[14px] leading-5 text-[#5f302f]`}>
-                    {description}
+                  <p
+                    className={`${
+                      eyebrow ? "mt-2" : ""
+                    } text-[14px] leading-5 text-[#5f302f]`}
+                  >
+                    <T>{description}</T>
                   </p>
                 ) : null}
               </div>
@@ -98,7 +106,7 @@ const ListingHeading = ({
               href={link.href}
               className="shrink-0 underline-offset-4 transition-colors hover:text-[#8a5b58] hover:underline"
             >
-              {link.label}
+              <T>{link.label}</T>
             </LocalizedClientLink>
           ))}
         </nav>

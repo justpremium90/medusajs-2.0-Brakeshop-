@@ -1,5 +1,6 @@
 "use client"
 
+import { T } from "@lib/i18n/client"
 import { useActionState } from "react"
 
 import { LOGIN_VIEW } from "@modules/account/templates/login-template"
@@ -23,7 +24,9 @@ const ForgotPassword = ({ setCurrentView }: Props) => {
       className="max-w-sm w-full flex flex-col items-center"
       data-testid="forgot-password-page"
     >
-      <h1 className="text-large-semi uppercase mb-6">Reset your password</h1>
+      <h1 className="text-large-semi uppercase mb-6">
+        <T>Reset your password</T>
+      </h1>
 
       {state.success ? (
         <>
@@ -37,22 +40,27 @@ const ForgotPassword = ({ setCurrentView }: Props) => {
             className="text-center text-base-regular text-ui-fg-base mb-8"
             data-testid="forgot-password-sent"
           >
-            If an account exists for that address, a link to set a new password
-            is on its way. It can be used once and expires in 15 minutes.
+            <T>
+              If an account exists for that address, a link to set a new
+              password is on its way. It can be used once and expires in 15
+              minutes.
+            </T>
           </p>
           <button
             onClick={() => setCurrentView(LOGIN_VIEW.SIGN_IN)}
             className="underline text-small-regular"
             data-testid="back-to-sign-in-button"
           >
-            Back to sign in
+            <T>Back to sign in</T>
           </button>
         </>
       ) : (
         <>
           <p className="text-center text-base-regular text-ui-fg-base mb-8">
-            Enter the email address on your account and we will send you a link
-            to set a new password.
+            <T>
+              Enter the email address on your account and we will send you a
+              link to set a new password.
+            </T>
           </p>
           <form className="w-full" action={formAction}>
             <Input
@@ -72,17 +80,18 @@ const ForgotPassword = ({ setCurrentView }: Props) => {
               data-testid="send-reset-link-button"
               className="w-full mt-6"
             >
-              Send reset link
+              <T>Send reset link</T>
             </SubmitButton>
           </form>
           <span className="text-center text-ui-fg-base text-small-regular mt-6">
-            Remembered it?{" "}
+            <T>Remembered it?</T>
+            <T> </T>
             <button
               onClick={() => setCurrentView(LOGIN_VIEW.SIGN_IN)}
               className="underline"
               data-testid="back-to-sign-in-button"
             >
-              Sign in
+              <T>Sign in</T>
             </button>
             .
           </span>

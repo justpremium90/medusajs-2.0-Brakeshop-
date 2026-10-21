@@ -1,3 +1,4 @@
+import { T, I18nElement } from "@lib/i18n/client"
 import type { CSSProperties, ReactNode } from "react"
 
 import type { BreadcrumbItem } from "@lib/util/product-breadcrumbs"
@@ -85,14 +86,16 @@ const PerformanceListingShell = ({
       </div>
 
       {bannerEnabled ? (
-        <section
+        <I18nElement
+          as="section"
           className="relative isolate flex min-h-[var(--listing-banner-height-mobile)] w-full overflow-hidden bg-[#151515] text-white small:min-h-[var(--listing-banner-height-desktop)] small:items-end"
           style={bannerStyle}
           aria-label={bannerTitle || heroTitle}
         >
           {bannerImageUrl ? (
             // eslint-disable-next-line @next/next/no-img-element
-            <img
+            <I18nElement
+              as="img"
               src={bannerImageUrl}
               alt=""
               className="absolute inset-0 -z-20 h-full w-full object-cover"
@@ -109,12 +112,14 @@ const PerformanceListingShell = ({
             <div className="max-w-[720px]">
               <span className="mb-3 block h-[3px] w-10 bg-[#c42026]" />
               <h2 className="text-[26px] font-semibold leading-[1.08] tracking-[-0.025em] small:text-[36px]">
-                {bannerTitle || heroTitle}
+                <T>{bannerTitle || heroTitle}</T>
               </h2>
               <p className="mt-3 max-w-[560px] text-[13px] leading-5 text-white/75 small:text-[15px] small:leading-6">
-                {bannerDescription ||
-                  heroDescription ||
-                  "Bahçede, terasta, balkonda. Dışarıda yaşam için Pip Garden."}
+                <T>
+                  {bannerDescription ||
+                    heroDescription ||
+                    "Bahçede, terasta, balkonda. Dışarıda yaşam için Pip Garden."}
+                </T>
               </p>
               {seoContent?.trim() ? (
                 <PerformanceSeoContent
@@ -125,12 +130,13 @@ const PerformanceListingShell = ({
               ) : null}
             </div>
           </div>
-        </section>
+        </I18nElement>
       ) : null}
 
       {showTrustItems && (
         <div className="mx-auto max-w-[1480px] px-3 pb-16 xsmall:px-6 small:px-8 small:pb-20 large:px-12 xlarge:px-16">
-          <section
+          <I18nElement
+            as="section"
             aria-label="Alışveriş güvenceleri"
             className="grid grid-cols-2 border-b border-[#e5e5e5] py-3 small:grid-cols-4 small:py-4"
           >
@@ -152,10 +158,12 @@ const PerformanceListingShell = ({
                 >
                   <path d={item.path} />
                 </svg>
-                <span>{item.label}</span>
+                <span>
+                  <T>{item.label}</T>
+                </span>
               </div>
             ))}
-          </section>
+          </I18nElement>
         </div>
       )}
     </main>

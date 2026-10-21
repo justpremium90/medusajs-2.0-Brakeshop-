@@ -1,5 +1,6 @@
 "use client"
 
+import { T } from "@lib/i18n/client"
 import { Plus } from "@medusajs/icons"
 import { Button, Heading } from "@medusajs/ui"
 import { useActionState, useEffect, useState } from "react"
@@ -46,13 +47,17 @@ const AddAddress = ({ region }: { region: HttpTypes.StoreRegion }) => {
         onClick={open}
         data-testid="add-address-button"
       >
-        <span className="text-base-semi">New address</span>
+        <span className="text-base-semi">
+          <T>New address</T>
+        </span>
         <Plus />
       </button>
 
       <Modal isOpen={state} close={close} data-testid="add-address-modal">
         <Modal.Title>
-          <Heading className="mb-2">Add address</Heading>
+          <Heading className="mb-2">
+            <T>Add address</T>
+          </Heading>
         </Modal.Title>
         <form action={formAction}>
           <Modal.Body>
@@ -133,7 +138,7 @@ const AddAddress = ({ region }: { region: HttpTypes.StoreRegion }) => {
                 className="text-rose-500 text-small-regular py-2"
                 data-testid="address-error"
               >
-                {formState.error}
+                <T>{formState.error}</T>
               </div>
             )}
           </Modal.Body>
@@ -146,9 +151,11 @@ const AddAddress = ({ region }: { region: HttpTypes.StoreRegion }) => {
                 className="h-10"
                 data-testid="cancel-button"
               >
-                Cancel
+                <T>Cancel</T>
               </Button>
-              <SubmitButton data-testid="save-button">Save</SubmitButton>
+              <SubmitButton data-testid="save-button">
+                <T>Save</T>
+              </SubmitButton>
             </div>
           </Modal.Footer>
         </form>

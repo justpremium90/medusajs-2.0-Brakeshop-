@@ -1,5 +1,6 @@
 "use client"
 
+import { T, I18nElement } from "@lib/i18n/client"
 import { useEffect, useMemo, useState } from "react"
 
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
@@ -108,7 +109,8 @@ const brakeGroups = [
 const BrandMark = ({ brand }: { brand: Brand }) => {
   if (brand.logo) {
     return (
-      <img
+      <I18nElement
+        as="img"
         src={brand.logo}
         alt=""
         className="h-6 w-9 object-contain"
@@ -136,16 +138,16 @@ const BrandMark = ({ brand }: { brand: Brand }) => {
   if (brand.name === "Land Rover") {
     return (
       <span className="rounded-[50%] border border-current px-1.5 py-1 text-[7px] font-bold italic">
-        LAND
+        <T>LAND</T>
         <br />
-        ROVER
+        <T>ROVER</T>
       </span>
     )
   }
 
   return (
     <span className="text-[9px] font-bold uppercase tracking-[.08em]">
-      {brand.name}
+      <T>{brand.name}</T>
     </span>
   )
 }
@@ -273,7 +275,7 @@ const MotorsportMegaMenu = ({
             : "relative flex items-center gap-2 whitespace-nowrap px-3 text-[13px] font-semibold uppercase tracking-[.065em] text-white transition-colors after:absolute after:inset-x-3 after:bottom-0 after:h-[3px] after:origin-left after:scale-x-0 after:bg-[#e51f28] after:transition-transform group-hover/mega:bg-white/[.045] group-hover/mega:after:scale-x-100 large:px-4 large:text-[14px] xlarge:px-5 xlarge:text-[15px]"
         }
       >
-        Fren sistemleri
+        <T>Fren sistemleri</T>
         <span className="text-[#ef3b42]">+</span>
       </button>
 
@@ -287,7 +289,7 @@ const MotorsportMegaMenu = ({
         <div className="mx-auto grid max-w-[1600px] grid-cols-[220px_minmax(350px,1fr)_minmax(330px,480px)] large:grid-cols-[250px_minmax(430px,1fr)_minmax(360px,520px)]">
           <section className="border-r border-white/10 px-8 py-8">
             <p className="mb-5 text-[10px] font-bold uppercase tracking-[.24em] text-[#e51f28]">
-              Fren sistemleri
+              <T>Fren sistemleri</T>
             </p>
             <div className="space-y-1">
               {brakeGroups.map((item) => (
@@ -297,9 +299,9 @@ const MotorsportMegaMenu = ({
                   className="group/link flex items-center gap-3 border-b border-white/8 py-3 text-[14px] font-semibold uppercase tracking-[.045em] text-white/78 transition-colors hover:text-white"
                 >
                   <span className="text-[9px] text-white/30 group-hover/link:text-[#e51f28]">
-                    {item.code}
+                    <T>{item.code}</T>
                   </span>
-                  {item.label}
+                  <T>{item.label}</T>
                 </LocalizedClientLink>
               ))}
             </div>
@@ -307,7 +309,7 @@ const MotorsportMegaMenu = ({
               href="/search"
               className="mt-7 flex h-11 items-center justify-center border border-[#e51f28] text-[11px] font-bold uppercase tracking-[.16em] text-white transition-colors hover:bg-[#e51f28]"
             >
-              Parça koduyla ara
+              <T>Parça koduyla ara</T>
             </LocalizedClientLink>
           </section>
 
@@ -315,14 +317,14 @@ const MotorsportMegaMenu = ({
             <div className="mb-5 flex items-end justify-between gap-5">
               <div>
                 <p className="text-[10px] font-bold uppercase tracking-[.24em] text-[#e51f28]">
-                  Araç markası
+                  <T>Araç markası</T>
                 </p>
                 <h2 className="mt-1 text-[22px] font-semibold uppercase tracking-[.02em] text-white">
-                  Markanı seç
+                  <T>Markanı seç</T>
                 </h2>
               </div>
               <span className="text-[10px] uppercase tracking-[.12em] text-white/35">
-                {brands.length} marka
+                <T>{brands.length}</T> <T>marka</T>
               </span>
             </div>
             <div className="grid max-h-[390px] grid-cols-4 gap-1.5 overflow-y-auto pr-2 xlarge:grid-cols-5">
@@ -343,7 +345,7 @@ const MotorsportMegaMenu = ({
                   >
                     <BrandMark brand={brand} />
                     <span className="max-w-full truncate text-[9px] font-bold uppercase tracking-[.08em]">
-                      {brand.name}
+                      <T>{brand.name}</T>
                     </span>
                   </button>
                 )
@@ -355,10 +357,10 @@ const MotorsportMegaMenu = ({
             <div className="mb-5 flex items-end justify-between gap-4">
               <div>
                 <p className="text-[10px] font-bold uppercase tracking-[.24em] text-[#e51f28]">
-                  Araç modelleri
+                  <T>Araç modelleri</T>
                 </p>
                 <h2 className="mt-1 text-[22px] font-semibold uppercase tracking-[.02em] text-white">
-                  {activeBrand.name}
+                  <T>{activeBrand.name}</T>
                 </h2>
               </div>
               <BrandMark brand={activeBrand} />
@@ -367,7 +369,7 @@ const MotorsportMegaMenu = ({
             <div className="grid max-h-[330px] grid-cols-2 gap-2 overflow-y-auto pr-2">
               {loadingBrand === activeBrand.handle && !models.length ? (
                 <div className="col-span-2 flex h-32 items-center justify-center text-[11px] uppercase tracking-[.14em] text-white/40">
-                  Modeller yükleniyor…
+                  <T>Modeller yükleniyor…</T>
                 </div>
               ) : models.length ? (
                 models.map((model) => (
@@ -378,13 +380,15 @@ const MotorsportMegaMenu = ({
                   >
                     <VehicleIcon name={model.name} />
                     <span className="block truncate border-t border-white/8 pt-2 text-[10px] font-semibold uppercase tracking-[.06em]">
-                      {model.name}
+                      <T>{model.name}</T>
                     </span>
                   </LocalizedClientLink>
                 ))
               ) : (
                 <div className="col-span-2 flex h-32 items-center justify-center text-center text-[11px] uppercase tracking-[.12em] text-white/40">
-                  Bu marka için model listesini marka sayfasından inceleyin.
+                  <T>
+                    Bu marka için model listesini marka sayfasından inceleyin.
+                  </T>
                 </div>
               )}
             </div>
@@ -393,7 +397,8 @@ const MotorsportMegaMenu = ({
               href={`/results/${encodeURIComponent(activeBrand.name)}`}
               className="mt-4 flex h-11 items-center justify-between border-t border-white/15 text-[11px] font-bold uppercase tracking-[.14em] text-white transition-colors hover:text-[#ef3b42]"
             >
-              Tüm {activeBrand.name} modelleri
+              <T>Tüm </T>
+              <T>{activeBrand.name}</T> <T>modelleri</T>
               <span aria-hidden="true">→</span>
             </LocalizedClientLink>
           </section>
