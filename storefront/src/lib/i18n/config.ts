@@ -1,4 +1,4 @@
-export const locales = ["tr", "en", "ar"] as const
+export const locales = ["tr", "en", "ar", "ru"] as const
 export type Locale = (typeof locales)[number]
 export const isLocale = (value: unknown): value is Locale =>
   locales.includes(value as Locale)
@@ -14,4 +14,5 @@ export const languageNames: Record<Locale, string> = {
   tr: "Türkçe",
   en: "English",
   ar: "العربية",
+  ru: "Русский",
 }

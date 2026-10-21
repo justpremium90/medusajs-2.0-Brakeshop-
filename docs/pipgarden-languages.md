@@ -1,11 +1,11 @@
 # Pip Garden languages
 
-Public routes use `/tr`, `/en`, and `/ar`. Middleware rewrites each language to
+Public routes use `/tr`, `/en`, `/ar`, and `/ru`. Middleware rewrites each language to
 `/[locale]/tr/...`; the internal `countryCode` remains `tr`. Language selection
 never creates a region, changes currency or shipping, or replaces the cart cookie.
 Legacy Turkish product/category URLs retain the same visible paths and handles.
 
-`src/lib/i18n/messages.json` in the storefront contains explicit `[tr, en, ar]`
+`src/lib/i18n/messages.json` in the storefront contains explicit `[tr, en, ar, ru]`
 translations. `T` renders translated text during React rendering; it adds no DOM
 wrapper and performs no text mutation or external translation request.
 `I18nElement` preserves native controls and translates their accessible labels.
@@ -17,12 +17,12 @@ The captured 135-product catalogue has translations for titles, descriptions,
 materials, options and technical specifications. Keep model names as proper names.
 When adding or editing products, add their new source strings to the dictionary,
 then run `node storefront/scripts/build-catalog-search.cjs` from the repository
-root. English/Arabic searches resolve to original handles, which Medusa filters
+root. English/Arabic/Russian searches resolve to original handles, which Medusa filters
 by the same sales channel and category scope as Turkish products.
 
 Arabic uses `dir=rtl` and the locally hosted Noto Sans Arabic font (OFL license
 included alongside the font). Canonical and hreflang links are language-specific;
-the sitemap lists all three languages. Company details and policy placeholders
+the sitemap lists all four languages. Company details and policy placeholders
 remain the existing Lorem ipsum content.
 
 Validation:
@@ -35,3 +35,6 @@ Validation:
 
 Local checkout tests use a separate fixture backend; they do not create live orders.
 The existing production password protection remains enabled.
+
+Russian uses left-to-right layout and the existing Turkish market/TRY prices.
+Model names remain unchanged; product text, option labels and search are translated.

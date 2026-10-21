@@ -15,7 +15,7 @@ export default function LanguageSelector() {
         value={locale}
         onChange={(event) => {
           const next = event.target.value as Locale
-          const path = pathname.replace(/^\/(tr|en|ar)(?=\/|$)/, "")
+          const path = pathname.replace(/^\/(tr|en|ar|ru)(?=\/|$)/, "")
           router.push(
             `/${next}${path}${window.location.search}${window.location.hash}`
           )

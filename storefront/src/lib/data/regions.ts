@@ -1,3 +1,4 @@
+import { isLocale } from "@lib/i18n/config"
 import { sdk } from "@lib/config"
 import medusaError from "@lib/util/medusa-error"
 import { cache } from "react"
@@ -42,7 +43,7 @@ const regionMap = new Map<string, HttpTypes.StoreRegion>()
 
 export const getRegion = cache(async function (countryCode: string) {
   // Search requests can carry a public language prefix; sales stay in Türkiye.
-  if (countryCode === "en" || countryCode === "ar") countryCode = "tr"
+  if (isLocale(countryCode)) countryCode = "tr"
   try {
     if (regionMap.has(countryCode)) {
       return regionMap.get(countryCode)
