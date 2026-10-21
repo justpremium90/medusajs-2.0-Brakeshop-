@@ -1,3 +1,4 @@
+import { isLocale } from "@lib/i18n/config"
 import { getLocale } from "@lib/i18n/server"
 import { translatedSearchHandles } from "@lib/i18n/search"
 import { getCategoryByHandle } from "./categories"
@@ -64,7 +65,7 @@ export const getProductsList = cache(async function ({
 }> {
   const limit = queryParams?.limit || 12
   const queryLocale =
-    countryCode === "en" || countryCode === "ar"
+    countryCode !== "tr" && isLocale(countryCode)
       ? countryCode
       : await getLocale()
   const translatedHandles =

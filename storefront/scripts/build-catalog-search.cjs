@@ -15,4 +15,4 @@ const rows = catalog.products.map((product) => ({
   ].join(" "),
 }));
 fs.writeFileSync(path.join(root, "src/lib/i18n/catalog-search.json"), JSON.stringify(rows, null, 2) + "\n");
-console.log(`Indexed ${rows.length} products in TR, EN and AR.`);
+console.log(`Indexed ${rows.length} products in TR, EN, AR and RU.`);

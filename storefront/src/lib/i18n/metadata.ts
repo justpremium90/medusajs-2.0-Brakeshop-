@@ -7,7 +7,7 @@ import { translate } from "./translate"
 export async function localizeMetadata(metadata: Metadata): Promise<Metadata> {
   const locale = await getLocale()
   const pathname = (await headers()).get("x-pipgarden-path") || `/${locale}`
-  const suffix = pathname.replace(/^\/(tr|en|ar)(?=\/|$)/, "")
+  const suffix = pathname.replace(/^\/(tr|en|ar|ru)(?=\/|$)/, "")
   const title =
     typeof metadata.title === "string"
       ? translate(metadata.title, locale)
@@ -32,7 +32,7 @@ export async function localizeMetadata(metadata: Metadata): Promise<Metadata> {
       ...metadata.openGraph,
       title: typeof title === "string" ? title : undefined,
       description: description || undefined,
-      locale: locale === "ar" ? "ar_TR" : locale === "en" ? "en_TR" : "tr_TR",
+      locale: `${locale}_TR`,
       alternateLocale: locales.filter((code) => code !== locale),
     },
   }
