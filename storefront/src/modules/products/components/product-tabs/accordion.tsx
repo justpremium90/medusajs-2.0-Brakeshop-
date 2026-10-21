@@ -1,3 +1,4 @@
+import { T } from "@lib/i18n/client"
 import { Text, clx } from "@medusajs/ui"
 import * as AccordionPrimitive from "@radix-ui/react-accordion"
 import React from "react"
@@ -59,7 +60,9 @@ const Item: React.FC<AccordionItemProps> = ({
         <div className="flex flex-col">
           <div className="flex w-full items-center justify-between">
             <div className="flex items-center gap-4">
-              <Text className="text-ui-fg-subtle text-sm">{title}</Text>
+              <Text className="text-ui-fg-subtle text-sm">
+                <T>{title}</T>
+              </Text>
             </div>
             {/* x@ts-expect-error */}
             <AccordionPrimitive.Trigger>
@@ -68,7 +71,7 @@ const Item: React.FC<AccordionItemProps> = ({
           </div>
           {subtitle && (
             <Text as="span" size="small" className="mt-1">
-              {subtitle}
+              <T>{subtitle}</T>
             </Text>
           )}
         </div>
@@ -81,7 +84,11 @@ const Item: React.FC<AccordionItemProps> = ({
         )}
       >
         <div className="inter-base-regular group-radix-state-closed:animate-accordion-close">
-          {description && <Text>{description}</Text>}
+          {description && (
+            <Text>
+              <T>{description}</T>
+            </Text>
+          )}
           <div className="w-full">{children}</div>
         </div>
       </AccordionPrimitive.Content>

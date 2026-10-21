@@ -1,5 +1,6 @@
 "use client"
 
+import { T } from "@lib/i18n/client"
 import { Stripe, StripeElementsOptions } from "@stripe/stripe-js"
 import { Elements } from "@stripe/react-stripe-js"
 import { HttpTypes } from "@medusajs/types"
@@ -41,7 +42,7 @@ const StripeWrapper: React.FC<StripeWrapperProps> = ({
         className="txt-medium text-ui-fg-error border border-ui-border-error rounded-rounded p-4"
         data-testid="stripe-unavailable-message"
       >
-        {misconfiguration}
+        <T>{misconfiguration}</T>
       </div>
     )
   }

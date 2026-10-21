@@ -1,5 +1,6 @@
 "use client"
 
+import { T, I18nElement, useT } from "@lib/i18n/client"
 import { Popover, Portal, Transition } from "@headlessui/react"
 import { XMark } from "@medusajs/icons"
 import { GARDEN_CATEGORIES } from "@lib/constants/garden"
@@ -104,6 +105,7 @@ const SideMenu = ({
   desktopEnabled = false,
   compactItems = false,
 }: SideMenuProps) => {
+  const t = useT()
   const menuItems = items?.length ? items : fallbackMenuItems
   const [openItems, setOpenItems] = useState<Record<string, boolean>>({})
 
@@ -123,7 +125,7 @@ const SideMenu = ({
               <div className="relative flex h-full">
                 <Popover.Button
                   data-testid="nav-menu-button"
-                  aria-label="Menüyü aç"
+                  aria-label={t("Menüyü aç")}
                   className={`relative flex h-full items-center transition-colors duration-200 focus:outline-none ${
                     tone === "inverse"
                       ? "text-white hover:text-[#ef3b42]"
@@ -152,7 +154,8 @@ const SideMenu = ({
                     }`}
                   >
                     <BodyScrollLock />
-                    <button
+                    <I18nElement
+                      as="button"
                       type="button"
                       tabIndex={-1}
                       aria-hidden="true"
@@ -184,10 +187,12 @@ const SideMenu = ({
                           className="flex h-12 items-center"
                         >
                           <span className="text-2xl font-semibold tracking-tighter">
-                            PIPGARDEN<span className="text-[#e3262e]">.</span>
+                            <T>PIPGARDEN</T>
+                            <span className="text-[#e3262e]">.</span>
                           </span>
                         </LocalizedClientLink>
-                        <button
+                        <I18nElement
+                          as="button"
                           type="button"
                           data-testid="close-menu-button"
                           onClick={close}
@@ -195,7 +200,7 @@ const SideMenu = ({
                           className="flex h-11 w-11 touch-manipulation select-none items-center justify-center rounded-full text-[#151617] active:bg-black/[.06] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#c42026]"
                         >
                           <XMark className="h-6 w-6" />
-                        </button>
+                        </I18nElement>
                       </div>
 
                       <div className="px-5 pb-2 pt-5">
@@ -205,13 +210,15 @@ const SideMenu = ({
                           className="flex min-h-12 touch-manipulation select-none items-center gap-3 rounded-md bg-[#151617] px-4 text-[14px] font-semibold text-white active:bg-[#c42026] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#c42026] focus-visible:ring-offset-2"
                         >
                           <SearchIcon />
-                          <span>Ürün, koleksiyon veya malzeme ara</span>
+                          <span>
+                            <T>Ürün, koleksiyon veya malzeme ara</T>
+                          </span>
                         </LocalizedClientLink>
                       </div>
 
                       <nav className="flex-1 overflow-y-auto overscroll-contain px-5 py-4">
                         <p className="mb-2 text-[10px] font-semibold uppercase tracking-[.18em] text-[#797b7c]">
-                          Koleksiyon
+                          <T>Koleksiyon</T>
                         </p>
                         <ul className="divide-y divide-[#e7e7e5] border-y border-[#e7e7e5]">
                           {menuItems.map((item) => {
@@ -230,11 +237,12 @@ const SideMenu = ({
                                       .toLowerCase()
                                       .replace(/[^a-z0-9]+/g, "-")}-link`}
                                   >
-                                    {item.label}
+                                    <T>{item.label}</T>
                                   </LocalizedClientLink>
 
                                   {hasChildren ? (
-                                    <button
+                                    <I18nElement
+                                      as="button"
                                       type="button"
                                       onClick={() => toggleItem(itemKey)}
                                       aria-label={`${item.label} alt menüsünü ${
@@ -252,7 +260,7 @@ const SideMenu = ({
                                       >
                                         <ChevronIcon />
                                       </span>
-                                    </button>
+                                    </I18nElement>
                                   ) : (
                                     <span className="flex h-11 w-11 items-center justify-center text-[#8a8c8d]">
                                       <ChevronIcon />
@@ -271,7 +279,7 @@ const SideMenu = ({
                                           onClick={close}
                                           className="flex min-h-11 touch-manipulation items-center border-b border-black/[.06] text-[14px] font-medium leading-5 text-[#4c4f50] last:border-b-0 active:text-[#c42026] focus:outline-none focus-visible:text-[#c42026]"
                                         >
-                                          {child.label}
+                                          <T>{child.label}</T>
                                         </LocalizedClientLink>
                                       </li>
                                     ))}
@@ -287,14 +295,14 @@ const SideMenu = ({
                             onClick={close}
                             data-secondary-link="true"
                           >
-                            Hakkımızda
+                            <T>Hakkımızda</T>
                           </LocalizedClientLink>
                           <LocalizedClientLink
                             href="/contact"
                             onClick={close}
                             data-secondary-link="true"
                           >
-                            İletişim
+                            <T>İletişim</T>
                           </LocalizedClientLink>
                         </div>
                       </nav>
@@ -313,7 +321,7 @@ const SideMenu = ({
                         >
                           <span className="flex items-center gap-3">
                             <AccountIcon />
-                            Hesabım / Giriş yap
+                            <T>Hesabım / Giriş yap</T>
                           </span>
                           <ChevronIcon />
                         </LocalizedClientLink>

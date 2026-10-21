@@ -1,3 +1,4 @@
+import { T } from "@lib/i18n/client"
 import { clx } from "@medusajs/ui"
 
 import { getProductPrice } from "@lib/util/get-product-price"
@@ -30,28 +31,30 @@ export default function ProductPrice({
           "text-ui-fg-interactive": selectedPrice.price_type === "sale",
         })}
       >
-        {!variant && showFromLabel && "Başlangıç "}
+        <T>{!variant && showFromLabel && "Başlangıç "}</T>
         <span
           data-testid="product-price"
           data-value={selectedPrice.calculated_price_number}
         >
-          {selectedPrice.calculated_price}
+          <T>{selectedPrice.calculated_price}</T>
         </span>
       </span>
       {selectedPrice.price_type === "sale" && (
         <>
           <p className="text-[15px] leading-5 text-[#9a7470]">
-            <span>Orijinal: </span>
+            <span>
+              <T>Orijinal: </T>
+            </span>
             <span
               className="line-through"
               data-testid="original-product-price"
               data-value={selectedPrice.original_price_number}
             >
-              {selectedPrice.original_price}
+              <T>{selectedPrice.original_price}</T>
             </span>
           </p>
           <span className="text-[15px] leading-5 text-ui-fg-interactive">
-            -{selectedPrice.percentage_diff}%
+            -<T>{selectedPrice.percentage_diff}</T>%
           </span>
         </>
       )}

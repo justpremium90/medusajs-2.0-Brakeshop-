@@ -1,5 +1,6 @@
 "use client"
 
+import { T } from "@lib/i18n/client"
 import { useActionState } from "react"
 
 import { CheckCircleSolid } from "@medusajs/icons"
@@ -49,7 +50,7 @@ const Addresses = ({
           level="h2"
           className="flex flex-row text-3xl-regular gap-x-2 items-baseline"
         >
-          Shipping Address
+          <T>Shipping Address</T>
           {!isOpen && <CheckCircleSolid />}
         </Heading>
         {!isOpen && cart?.shipping_address && (
@@ -59,7 +60,7 @@ const Addresses = ({
               className="text-ui-fg-interactive hover:text-ui-fg-interactive-hover"
               data-testid="edit-address-button"
             >
-              Edit
+              <T>Edit</T>
             </button>
           </Text>
         )}
@@ -80,14 +81,14 @@ const Addresses = ({
                   level="h2"
                   className="text-3xl-regular gap-x-4 pb-6 pt-8"
                 >
-                  Billing address
+                  <T>Billing address</T>
                 </Heading>
 
                 <BillingAddress cart={cart} />
               </div>
             )}
             <SubmitButton className="mt-6" data-testid="submit-address-button">
-              Continue to delivery
+              <T>Continue to delivery</T>
             </SubmitButton>
             <ErrorMessage error={message} data-testid="address-error-message" />
           </div>
@@ -103,22 +104,24 @@ const Addresses = ({
                     data-testid="shipping-address-summary"
                   >
                     <Text className="txt-medium-plus text-ui-fg-base mb-1">
-                      Shipping Address
+                      <T>Shipping Address</T>
                     </Text>
                     <Text className="txt-medium text-ui-fg-subtle">
-                      {cart.shipping_address.first_name}{" "}
-                      {cart.shipping_address.last_name}
+                      <T>{cart.shipping_address.first_name}</T>
+                      <T> </T>
+                      <T>{cart.shipping_address.last_name}</T>
                     </Text>
                     <Text className="txt-medium text-ui-fg-subtle">
-                      {cart.shipping_address.address_1}{" "}
-                      {cart.shipping_address.address_2}
+                      <T>{cart.shipping_address.address_1}</T>
+                      <T> </T>
+                      <T>{cart.shipping_address.address_2}</T>
                     </Text>
                     <Text className="txt-medium text-ui-fg-subtle">
-                      {cart.shipping_address.postal_code},{" "}
-                      {cart.shipping_address.city}
+                      <T>{cart.shipping_address.postal_code}</T>,<T> </T>
+                      <T>{cart.shipping_address.city}</T>
                     </Text>
                     <Text className="txt-medium text-ui-fg-subtle">
-                      {cart.shipping_address.country_code?.toUpperCase()}
+                      <T>{cart.shipping_address.country_code?.toUpperCase()}</T>
                     </Text>
                   </div>
 
@@ -127,13 +130,13 @@ const Addresses = ({
                     data-testid="shipping-contact-summary"
                   >
                     <Text className="txt-medium-plus text-ui-fg-base mb-1">
-                      Contact
+                      <T>Contact</T>
                     </Text>
                     <Text className="txt-medium text-ui-fg-subtle">
-                      {cart.shipping_address.phone}
+                      <T>{cart.shipping_address.phone}</T>
                     </Text>
                     <Text className="txt-medium text-ui-fg-subtle">
-                      {cart.email}
+                      <T>{cart.email}</T>
                     </Text>
                   </div>
 
@@ -142,29 +145,33 @@ const Addresses = ({
                     data-testid="billing-address-summary"
                   >
                     <Text className="txt-medium-plus text-ui-fg-base mb-1">
-                      Billing Address
+                      <T>Billing Address</T>
                     </Text>
 
                     {sameAsBilling ? (
                       <Text className="txt-medium text-ui-fg-subtle">
-                        Billing- and delivery address are the same.
+                        <T>Billing- and delivery address are the same.</T>
                       </Text>
                     ) : (
                       <>
                         <Text className="txt-medium text-ui-fg-subtle">
-                          {cart.billing_address?.first_name}{" "}
-                          {cart.billing_address?.last_name}
+                          <T>{cart.billing_address?.first_name}</T>
+                          <T> </T>
+                          <T>{cart.billing_address?.last_name}</T>
                         </Text>
                         <Text className="txt-medium text-ui-fg-subtle">
-                          {cart.billing_address?.address_1}{" "}
-                          {cart.billing_address?.address_2}
+                          <T>{cart.billing_address?.address_1}</T>
+                          <T> </T>
+                          <T>{cart.billing_address?.address_2}</T>
                         </Text>
                         <Text className="txt-medium text-ui-fg-subtle">
-                          {cart.billing_address?.postal_code},{" "}
-                          {cart.billing_address?.city}
+                          <T>{cart.billing_address?.postal_code}</T>,<T> </T>
+                          <T>{cart.billing_address?.city}</T>
                         </Text>
                         <Text className="txt-medium text-ui-fg-subtle">
-                          {cart.billing_address?.country_code?.toUpperCase()}
+                          <T>
+                            {cart.billing_address?.country_code?.toUpperCase()}
+                          </T>
                         </Text>
                       </>
                     )}

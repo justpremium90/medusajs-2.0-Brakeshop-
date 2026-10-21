@@ -1,3 +1,4 @@
+import { T } from "@lib/i18n/client"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 import { HttpTypes } from "@medusajs/types"
 import { Heading } from "@medusajs/ui"
@@ -51,7 +52,7 @@ const ProductInfo = ({
         style={productTitleStyle}
         data-testid="product-title"
       >
-        {product.title}
+        <T>{product.title}</T>
       </Heading>
 
       <div className="mt-2 [&_span]:!text-[22px] [&_span]:!leading-7 small:hidden">

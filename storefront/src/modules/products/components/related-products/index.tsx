@@ -1,3 +1,4 @@
+import { T } from "@lib/i18n/client"
 import ProductPreview from "../product-preview"
 import { getRegion } from "@lib/data/regions"
 import { getProductsList } from "@lib/data/products"
@@ -25,8 +26,12 @@ export default async function RelatedProducts({
   if (!products.length) return null
   return (
     <section className="pdp-related" aria-labelledby="pdp-related-title">
-      <p className="pdp-eyebrow">Koleksiyonu tamamlayın</p>
-      <h2 id="pdp-related-title">Birlikte, daha güzel.</h2>
+      <p className="pdp-eyebrow">
+        <T>Koleksiyonu tamamlayın</T>
+      </p>
+      <h2 id="pdp-related-title">
+        <T>Birlikte, daha güzel.</T>
+      </h2>
       <ul className="pdp-related-grid">
         {products.map((p) => (
           <li key={p.id}>

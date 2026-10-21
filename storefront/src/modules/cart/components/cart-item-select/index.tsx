@@ -1,5 +1,6 @@
 "use client"
 
+import { T } from "@lib/i18n/client"
 import { IconBadge, clx } from "@medusajs/ui"
 import {
   SelectHTMLAttributes,
@@ -55,7 +56,7 @@ const CartItemSelect = forwardRef<HTMLSelectElement, NativeSelectProps>(
             className="appearance-none bg-transparent border-none px-4 transition-colors duration-150 focus:border-gray-700 outline-none w-16 h-16 items-center justify-center"
           >
             <option disabled value="">
-              {placeholder}
+              <T>{placeholder}</T>
             </option>
             {children}
           </select>

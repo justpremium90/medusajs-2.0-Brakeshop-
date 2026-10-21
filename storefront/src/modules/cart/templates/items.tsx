@@ -1,3 +1,4 @@
+import { T } from "@lib/i18n/client"
 import repeat from "@lib/util/repeat"
 import { HttpTypes } from "@medusajs/types"
 import { Heading, Table } from "@medusajs/ui"
@@ -19,7 +20,9 @@ const ItemsTemplate = ({ items }: ItemsTemplateProps) => {
   return (
     <div>
       <div className="pb-3 flex items-center">
-        <Heading className="text-[2rem] leading-[2.75rem]">Sepetiniz</Heading>
+        <Heading className="text-[2rem] leading-[2.75rem]">
+          <T>Sepetiniz</T>
+        </Heading>
       </div>
       <div className="small:hidden">
         {sortedItems
@@ -37,14 +40,18 @@ const ItemsTemplate = ({ items }: ItemsTemplateProps) => {
       <Table className="hidden small:table">
         <Table.Header className="border-t-0">
           <Table.Row className="text-ui-fg-subtle txt-medium-plus">
-            <Table.HeaderCell className="!pl-0">Ürün</Table.HeaderCell>
+            <Table.HeaderCell className="!pl-0">
+              <T>Ürün</T>
+            </Table.HeaderCell>
             <Table.HeaderCell></Table.HeaderCell>
-            <Table.HeaderCell>Adet</Table.HeaderCell>
+            <Table.HeaderCell>
+              <T>Adet</T>
+            </Table.HeaderCell>
             <Table.HeaderCell className="hidden small:table-cell">
-              Fiyat
+              <T>Fiyat</T>
             </Table.HeaderCell>
             <Table.HeaderCell className="!pr-0 text-right">
-              Toplam
+              <T>Toplam</T>
             </Table.HeaderCell>
           </Table.Row>
         </Table.Header>

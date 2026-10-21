@@ -1,3 +1,4 @@
+import { T, I18nElement } from "@lib/i18n/client"
 import logos from "@lib/content/product-brand-logos.json"
 import { findBrandByName, normalizeProductBrand } from "@lib/util/product-brand"
 
@@ -83,7 +84,8 @@ const BrandLogo = ({ name, kind }: BrandLogoProps) => {
         )[brand?.slug || ""]
 
   return (
-    <span
+    <I18nElement
+      as="span"
       className={
         kind === "vehicle"
           ? "inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-black/10 bg-white p-1.5"
@@ -95,7 +97,8 @@ const BrandLogo = ({ name, kind }: BrandLogoProps) => {
     >
       {src ? (
         // eslint-disable-next-line @next/next/no-img-element
-        <img
+        <I18nElement
+          as="img"
           src={src}
           alt={
             kind === "vehicle"
@@ -121,9 +124,11 @@ const BrandLogo = ({ name, kind }: BrandLogoProps) => {
           }
         />
       ) : (
-        <span className="truncate text-xs font-semibold">{name}</span>
+        <span className="truncate text-xs font-semibold">
+          <T>{name}</T>
+        </span>
       )}
-    </span>
+    </I18nElement>
   )
 }
 export default BrandLogo

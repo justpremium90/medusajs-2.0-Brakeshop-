@@ -1,5 +1,6 @@
 "use client"
 
+import { T } from "@lib/i18n/client"
 import { Listbox, Transition } from "@headlessui/react"
 import { ChevronUpDown } from "@medusajs/icons"
 import { clx } from "@medusajs/ui"
@@ -44,9 +45,11 @@ const AddressSelect = ({
           {({ open }) => (
             <>
               <span className="block truncate">
-                {selectedAddress
-                  ? selectedAddress.address_1
-                  : "Choose an address"}
+                <T>
+                  {selectedAddress
+                    ? selectedAddress.address_1
+                    : "Choose an address"}
+                </T>
               </span>
               <ChevronUpDown
                 className={clx("transition-rotate duration-200", {
@@ -81,26 +84,28 @@ const AddressSelect = ({
                     />
                     <div className="flex flex-col">
                       <span className="text-left text-base-semi">
-                        {address.first_name} {address.last_name}
+                        <T>{address.first_name}</T> <T>{address.last_name}</T>
                       </span>
                       {address.company && (
                         <span className="text-small-regular text-ui-fg-base">
-                          {address.company}
+                          <T>{address.company}</T>
                         </span>
                       )}
                       <div className="flex flex-col text-left text-base-regular mt-2">
                         <span>
-                          {address.address_1}
+                          <T>{address.address_1}</T>
                           {address.address_2 && (
-                            <span>, {address.address_2}</span>
+                            <span>
+                              , <T>{address.address_2}</T>
+                            </span>
                           )}
                         </span>
                         <span>
-                          {address.postal_code}, {address.city}
+                          <T>{address.postal_code}</T>, <T>{address.city}</T>
                         </span>
                         <span>
-                          {address.province && `${address.province}, `}
-                          {address.country_code?.toUpperCase()}
+                          <T>{address.province && `${address.province}, `}</T>
+                          <T>{address.country_code?.toUpperCase()}</T>
                         </span>
                       </div>
                     </div>

@@ -1,3 +1,5 @@
+import { getLocale } from "@lib/i18n/server"
+import { translatedSearchHandles } from "@lib/i18n/search"
 import { getCategoryByHandle } from "./categories"
 import { GARDEN_CATEGORIES } from "@lib/constants/garden"
 import { sdk } from "@lib/config"
@@ -61,6 +63,14 @@ export const getProductsList = cache(async function ({
   queryParams?: HttpTypes.StoreProductListParams
 }> {
   const limit = queryParams?.limit || 12
+  const queryLocale =
+    countryCode === "en" || countryCode === "ar"
+      ? countryCode
+      : await getLocale()
+  const translatedHandles =
+    queryParams?.q && queryLocale !== "tr"
+      ? translatedSearchHandles(queryParams.q)
+      : []
   const validPageParam = Math.max(pageParam, 1)
   const offset = (validPageParam - 1) * limit
   const region = await getRegion(countryCode)
@@ -86,6 +96,9 @@ export const getProductsList = cache(async function ({
         region_id: region.id,
         fields: "*variants.calculated_price,+variants.inventory_quantity",
         ...queryParams,
+        ...(translatedHandles.length
+          ? { q: undefined, handle: translatedHandles }
+          : {}),
       },
       ...(await getCacheDirectives("products")),
     })

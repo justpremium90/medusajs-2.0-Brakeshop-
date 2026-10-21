@@ -1,3 +1,4 @@
+import { locales } from "@lib/i18n/config"
 import type { MetadataRoute } from "next"
 
 import { getCollectionsList } from "@lib/data/collections"
@@ -60,7 +61,9 @@ const lastModified = (value?: string | null): Date | undefined => {
 const sitemapCountryCode = async (): Promise<string | null> => {
   const regions = await listRegions()
   const served = (regions ?? [])
-    .flatMap((region) => region.countries?.map((country) => country.iso_2) ?? [])
+    .flatMap(
+      (region) => region.countries?.map((country) => country.iso_2) ?? []
+    )
     .filter((code): code is string => Boolean(code))
 
   if (!served.length) return null
@@ -139,6 +142,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       }),
   ])
 
+  for (const page of ["about", "contact", "care-guide", "faq"])
+    entries.push({
+      url: `${root}/${page}`,
+      changeFrequency: "monthly",
+      priority: 0.5,
+    })
+
   for (const product of products) {
     if (!product.handle) continue
     entries.push({
@@ -169,5 +179,17 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     })
   }
 
-  return entries
+  return entries.flatMap((entry) => {
+    const suffix = entry.url.slice(root.length)
+    const languages = Object.fromEntries(
+      locales.map((locale) => [locale, `${base}/${locale}${suffix}`])
+    )
+    return locales.map((locale) => ({
+      ...entry,
+      url: `${base}/${locale}${suffix}`,
+      alternates: {
+        languages: { ...languages, "x-default": `${base}/tr${suffix}` },
+      },
+    }))
+  })
 }

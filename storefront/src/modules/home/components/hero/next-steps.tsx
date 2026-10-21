@@ -1,3 +1,4 @@
+import { T } from "@lib/i18n/client"
 import Image from "next/image"
 import { ArrowUpRightMini, PlaySolid } from "@medusajs/icons"
 import { Text, clx } from "@medusajs/ui"
@@ -55,7 +56,7 @@ const NextSteps = () => {
         leading="compact"
         className="mb-4 text-ui-fg-base uppercase tracking-wider"
       >
-        Suggested next steps
+        <T>Suggested next steps</T>
       </Text>
 
       {/* Both column classes are written out in full so Tailwind emits them.
@@ -101,17 +102,17 @@ const NextSteps = () => {
                   leading="compact"
                   className="text-ui-fg-base group-hover:text-ui-fg-interactive"
                 >
-                  {guide.title}
+                  <T>{guide.title}</T>
                 </Text>
                 <Text
                   size="small"
                   leading="compact"
                   className="flex-1 text-ui-fg-subtle"
                 >
-                  {guide.description}
+                  <T>{guide.description}</T>
                 </Text>
                 <span className="mt-1 flex items-center gap-x-1 text-ui-fg-interactive txt-small">
-                  Watch the setup video
+                  <T>Watch the setup video</T>
                   <ArrowUpRightMini />
                 </span>
               </div>

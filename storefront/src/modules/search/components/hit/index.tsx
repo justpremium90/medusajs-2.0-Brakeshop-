@@ -1,3 +1,4 @@
+import { T } from "@lib/i18n/client"
 import { Container, Text } from "@medusajs/ui"
 
 import Thumbnail from "@modules/products/components/thumbnail"
@@ -36,7 +37,12 @@ export type ProductHit = {
   type?: { id: string; value: string } | null
   categories?: { id: string; name: string; handle: string }[]
   tags?: { id: string; value: string }[]
-  variants?: { id: string; title: string; sku: string | null; barcode: string | null }[]
+  variants?: {
+    id: string
+    title: string
+    sku: string | null
+    barcode: string | null
+  }[]
 }
 
 type HitProps = {
@@ -64,7 +70,7 @@ const Hit = ({ hit }: HitProps) => {
               className="text-ui-fg-subtle"
               data-testid="search-result-title"
             >
-              {hit.title}
+              <T>{hit.title}</T>
             </Text>
           </div>
         </div>

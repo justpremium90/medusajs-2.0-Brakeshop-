@@ -1,3 +1,4 @@
+import { T, I18nElement } from "@lib/i18n/client"
 import { BRAKESHOP_COMPANY } from "@lib/constants/company"
 
 type WhatsAppContactButtonProps = {
@@ -26,7 +27,8 @@ const WhatsAppContactButton = ({
   const href = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`
 
   return (
-    <a
+    <I18nElement
+      as="a"
       href={href}
       target="_blank"
       rel="noopener noreferrer"
@@ -34,8 +36,10 @@ const WhatsAppContactButton = ({
       className={`inline-flex items-center justify-center gap-2 ${className}`}
     >
       <WhatsAppIcon />
-      <span>{label}</span>
-    </a>
+      <span>
+        <T>{label}</T>
+      </span>
+    </I18nElement>
   )
 }
 

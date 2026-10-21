@@ -1,5 +1,6 @@
 "use client"
 
+import { T, I18nElement } from "@lib/i18n/client"
 import { useEffect, useRef, useState } from "react"
 import useVisibleMedia from "@lib/hooks/use-visible-media"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
@@ -138,7 +139,8 @@ export default function GardenFilmHero() {
   }
 
   return (
-    <section
+    <I18nElement
+      as="section"
       ref={ref}
       className="garden-film"
       aria-label="Pip Garden dışarıda yaşam"
@@ -155,7 +157,8 @@ export default function GardenFilmHero() {
     >
       {/* The original garden image stays visible if embedding or autoplay fails. */}
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
+      <I18nElement
+        as="img"
         src={film.poster}
         alt="Bahçede açık hava oturma alanı"
         fetchPriority="high"
@@ -173,28 +176,34 @@ export default function GardenFilmHero() {
       <div className="garden-film-content">
         <p>
           <span />
-          Pip Garden / Dışarıda yaşam
+          <T>Pip Garden / Dışarıda yaşam</T>
         </p>
         <h2>
-          Dışarıda,
+          <T>Dışarıda,</T>
           <br />
-          <em>hayatın içinde.</em>
+          <em>
+            <T>hayatın içinde.</T>
+          </em>
         </h2>
         <LocalizedClientLink href="/store" className="garden-film-cta">
-          Koleksiyonu keşfet <span aria-hidden="true">↗</span>
+          <T>Koleksiyonu keşfet </T>
+          <span aria-hidden="true">↗</span>
         </LocalizedClientLink>
       </div>
       <div className="garden-film-bottom">
-        <a
+        <I18nElement
+          as="a"
           href={sourceURL}
           target="_blank"
           rel="noopener noreferrer"
           aria-label={`${film.title} — YouTube’da izle`}
         >
-          Film: {film.creator} <span aria-hidden="true">↗</span>
-        </a>
+          <T>Film: </T>
+          <T>{film.creator}</T> <span aria-hidden="true">↗</span>
+        </I18nElement>
         {motionAllowed && !failed ? (
-          <button
+          <I18nElement
+            as="button"
             type="button"
             onClick={togglePlayback}
             aria-label={playing ? "Filmi duraklat" : "Filmi oynat"}
@@ -220,19 +229,23 @@ export default function GardenFilmHero() {
               </svg>
             )}
             <span>
-              {playing
-                ? "Duraklat"
-                : blocked
-                ? "Filmi oynat"
-                : paused
-                ? "Devam et"
-                : "Filmi oynat"}
+              <T>
+                {playing
+                  ? "Duraklat"
+                  : blocked
+                  ? "Filmi oynat"
+                  : paused
+                  ? "Devam et"
+                  : "Filmi oynat"}
+              </T>
             </span>
-          </button>
+          </I18nElement>
         ) : (
-          <span className="garden-film-still">Dışarıda yaşam koleksiyonu</span>
+          <span className="garden-film-still">
+            <T>Dışarıda yaşam koleksiyonu</T>
+          </span>
         )}
       </div>
-    </section>
+    </I18nElement>
   )
 }

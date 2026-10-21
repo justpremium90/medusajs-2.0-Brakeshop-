@@ -1,3 +1,4 @@
+import { T } from "@lib/i18n/client"
 import { GARDEN_FEATURED_HANDLES } from "@lib/constants/garden"
 import { HttpTypes } from "@medusajs/types"
 import { getProductsList } from "@lib/data/products"
@@ -25,17 +26,17 @@ const HomeBestSellers = async ({
         <div className="mb-7 flex items-end justify-between gap-4 small:mb-9">
           <div>
             <p className="text-[11px] font-semibold uppercase leading-4 tracking-[0.12em] text-[#c42026] small:text-[12px]">
-              Pip Garden seçkisi
+              <T>Pip Garden seçkisi</T>
             </p>
             <h2 className="mt-1.5 text-[27px] font-semibold leading-[1.1] tracking-[-0.025em] text-[#171717] small:text-[34px]">
-              Açık havaya yakışanlar
+              <T>Açık havaya yakışanlar</T>
             </h2>
           </div>
           <LocalizedClientLink
             href="/store"
             className="inline-flex min-h-11 items-center border-b-2 border-[#171717] text-[12px] font-semibold text-[#171717] transition-colors hover:border-[#c42026] hover:text-[#c42026] small:text-[13px]"
           >
-            Tümünü Gör
+            <T>Tümünü Gör</T>
           </LocalizedClientLink>
         </div>
         <ul className="grid grid-cols-2 gap-2 pb-2 xsmall:gap-4 min-[768px]:grid-cols-3 min-[768px]:gap-5 medium:grid-cols-4 large:gap-6 xlarge:grid-cols-5">

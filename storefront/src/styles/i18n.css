@@ -1,0 +1,145 @@
+@font-face {
+  font-family: "Noto Sans Arabic";
+  src: url("/fonts/noto-sans-arabic/NotoSansArabic.ttf") format("truetype");
+  font-weight: 100 900;
+  font-display: swap;
+}
+.garden-language {
+  display: inline-flex;
+  align-items: center;
+  position: relative;
+  margin-inline-end: 8px;
+  font-size: 10px;
+  letter-spacing: 0.06em;
+}
+.garden-language select {
+  cursor: pointer;
+  appearance: none;
+  background: transparent;
+  color: inherit;
+  border: 0;
+  border-radius: 0;
+  padding: 12px 16px 12px 4px;
+  max-width: 76px;
+  outline-offset: 3px;
+}
+.garden-language option {
+  background: #f8f8f3;
+  color: #30372b;
+}
+.garden-language > span:last-child {
+  pointer-events: none;
+  position: absolute;
+  inset-inline-end: 2px;
+}
+html[dir="rtl"] body,
+html[dir="rtl"] button,
+html[dir="rtl"] input,
+html[dir="rtl"] select,
+html[dir="rtl"] textarea {
+  font-family: "Noto Sans Arabic", "Geeza Pro", Tahoma, Arial, sans-serif;
+}
+html[dir="rtl"]
+  :is(h1, h2, h3, .pdp-title, .garden-collection-categories li a) {
+  font-family: "Noto Sans Arabic", "Geeza Pro", Tahoma, Arial, sans-serif;
+  letter-spacing: 0;
+}
+html[dir="rtl"] :is(.tracking-widest, .tracking-wider, [class*="tracking-"]) {
+  letter-spacing: normal;
+}
+html[dir="rtl"] .garden-header-logo {
+  direction: ltr;
+}
+html[dir="rtl"] .garden-language {
+  letter-spacing: 0;
+}
+html[dir="rtl"] .garden-language select {
+  padding-inline: 4px 16px;
+}
+html[dir="rtl"] :is(.pdp, .garden-collection-panel) {
+  text-align: start;
+}
+html[dir="rtl"] .pdp-price,
+html[dir="rtl"] input[type="email"],
+html[dir="rtl"] input[type="tel"],
+html[dir="rtl"] input[type="number"] {
+  direction: ltr;
+  unicode-bidi: isolate;
+}
+html[dir="rtl"] .garden-collection-heading svg {
+  transform: scaleX(-1);
+}
+html[dir="rtl"] [class~="text-left"] {
+  text-align: right;
+}
+html[dir="rtl"] [class~="text-right"] {
+  text-align: left;
+}
+@media (max-width: 1023px) {
+  .garden-header-main {
+    grid-template-columns: 44px minmax(0, 1fr) 148px !important;
+    padding-inline: 12px !important;
+  }
+  .garden-header-tools {
+    gap: 0 !important;
+  }
+  .garden-language {
+    margin-inline-end: 2px;
+  }
+  .garden-language select {
+    font-size: 10px;
+    max-width: 60px;
+  }
+  .garden-header-logo {
+    font-size: 21px !important;
+  }
+  .garden-header-icon {
+    width: 36px !important;
+  }
+  .garden-header-cart {
+    width: 40px !important;
+  }
+}
+@media (max-width: 359px) {
+  .garden-header-main {
+    grid-template-columns: 36px minmax(0, 1fr) 128px !important;
+    padding-inline: 8px !important;
+  }
+  .garden-header-logo {
+    font-size: 18px !important;
+  }
+  .garden-language select {
+    max-width: 50px;
+    padding-inline-end: 12px;
+  }
+  .garden-header-icon {
+    width: 32px !important;
+  }
+}
+html[dir="rtl"] .garden-header-nav {
+  font-size: 13px;
+}
+html[dir="rtl"] .garden-collection-feature {
+  text-align: start;
+}
+html[dir="rtl"] [data-testid="nav-cart-dropdown"] {
+  inset-inline-end: 0;
+  right: auto;
+}
+html[dir="rtl"] .pdp-price {
+  width: fit-content;
+}
+html[dir="rtl"] [data-garden-mobile-menu] a[aria-label*="Pip Garden"] {
+  direction: ltr;
+  unicode-bidi: isolate;
+  display: inline-flex;
+}
+html[dir="rtl"] [data-garden-mobile-menu] nav a {
+  font-family: "Noto Sans Arabic", Tahoma, sans-serif;
+}
+html[dir="rtl"] .pdp-option-button {
+  text-align: start;
+}
+html[dir="rtl"] .pdp-option legend > span {
+  text-align: end;
+}

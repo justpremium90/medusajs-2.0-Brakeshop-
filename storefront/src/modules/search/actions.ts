@@ -1,5 +1,6 @@
 "use server"
 
+import { getLocale } from "@lib/i18n/server"
 import { Meilisearch } from "meilisearch"
 import { getProductsList } from "@lib/data/products"
 
@@ -34,8 +35,11 @@ const client = new Meilisearch({
  * @param {string} query - search query
  */
 export async function search(query: string, countryCode?: string) {
-  if (!SEARCH_API_KEY && countryCode) {
-    const { response } = await getProductsList({ countryCode, queryParams: { q: query, limit: 100 } })
+  if ((!SEARCH_API_KEY || (await getLocale()) !== "tr") && countryCode) {
+    const { response } = await getProductsList({
+      countryCode,
+      queryParams: { q: query, limit: 100 },
+    })
     return response.products
   }
   const { hits } = await client.index(SEARCH_INDEX_NAME).search(query)

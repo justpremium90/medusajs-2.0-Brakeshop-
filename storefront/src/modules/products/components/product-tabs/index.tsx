@@ -1,3 +1,4 @@
+import { T } from "@lib/i18n/client"
 import { HttpTypes } from "@medusajs/types"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 
@@ -23,42 +24,53 @@ export default function ProductTabs({
     <div className="pdp-accordions">
       <details open>
         <summary>
-          Ölçüler & özellikler
+          <T>Ölçüler & özellikler</T>
           <span aria-hidden="true" />
         </summary>
         {specs.length ? (
           <dl className="pdp-specifications">
             {specs.map((spec, i) => (
               <div key={`${spec.label}-${i}`}>
-                <dt>{spec.label}</dt>
-                <dd>{spec.value}</dd>
+                <dt>
+                  <T>{spec.label}</T>
+                </dt>
+                <dd>
+                  <T>{spec.value}</T>
+                </dd>
               </div>
             ))}
           </dl>
         ) : (
-          <p className="pdp-detail-copy">Ürün özellikleri hazırlanıyor.</p>
+          <p className="pdp-detail-copy">
+            <T>Ürün özellikleri hazırlanıyor.</T>
+          </p>
         )}
       </details>
       {product.description && (
         <details>
           <summary>
-            Ürün açıklaması
+            <T>Ürün açıklaması</T>
             <span aria-hidden="true" />
           </summary>
-          <p className="pdp-detail-copy">{product.description}</p>
+          <p className="pdp-detail-copy">
+            <T>{product.description}</T>
+          </p>
         </details>
       )}
       <details>
         <summary>
-          Teslimat & bakım
+          <T>Teslimat & bakım</T>
           <span aria-hidden="true" />
         </summary>
         <p className="pdp-detail-copy">
-          Teslimat bilgilerini sipariş aşamasında inceleyebilirsiniz. Kullanım
-          ve bakım için ürünün malzemesine uygun üretici önerilerini takip edin.
+          <T>
+            Teslimat bilgilerini sipariş aşamasında inceleyebilirsiniz. Kullanım
+            ve bakım için ürünün malzemesine uygun üretici önerilerini takip
+            edin.
+          </T>
         </p>
         <LocalizedClientLink href="/care-guide" className="pdp-text-link">
-          Bakım rehberini inceleyin ↗
+          <T>Bakım rehberini inceleyin ↗</T>
         </LocalizedClientLink>
       </details>
     </div>

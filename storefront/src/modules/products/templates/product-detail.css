@@ -132,7 +132,7 @@
 .pdp-option legend > span {
   color: #74776b;
   font-size: 10px;
-  text-align: right;
+  text-align: end;
 }
 .pdp-option-values {
   display: grid;
@@ -147,7 +147,7 @@
   padding: 10px 12px;
   border: 1px solid #d9dbd1;
   background: transparent;
-  text-align: left;
+  text-align: start;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -453,7 +453,7 @@
   }
   .pdp-information {
     padding-top: 42px;
-    padding-right: 35px;
+    padding-inline-end: 35px;
   }
 }
 @media (max-width: 1023px) {

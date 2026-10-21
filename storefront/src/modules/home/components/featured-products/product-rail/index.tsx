@@ -1,3 +1,4 @@
+import { T } from "@lib/i18n/client"
 import { HttpTypes } from "@medusajs/types"
 import { Text } from "@medusajs/ui"
 
@@ -20,9 +21,11 @@ export default function ProductRail({
   return (
     <div className="content-container py-12 small:py-24">
       <div className="flex justify-between mb-8">
-        <Text className="txt-xlarge">{collection.title}</Text>
+        <Text className="txt-xlarge">
+          <T>{collection.title}</T>
+        </Text>
         <InteractiveLink href={`/collections/${collection.handle}`}>
-          View all
+          <T>View all</T>
         </InteractiveLink>
       </div>
       <ul className="grid grid-cols-2 small:grid-cols-3 gap-x-6 gap-y-24 small:gap-y-36">

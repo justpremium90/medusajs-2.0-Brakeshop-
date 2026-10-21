@@ -1,5 +1,6 @@
 "use client"
 
+import { T, I18nElement } from "@lib/i18n/client"
 import { deleteLineItem } from "@lib/data/cart"
 import { Spinner, Trash } from "@medusajs/icons"
 import { clx } from "@medusajs/ui"
@@ -49,7 +50,8 @@ const DeleteButton = ({
     <div
       className={clx("flex flex-col items-start text-small-regular", className)}
     >
-      <button
+      <I18nElement
+        as="button"
         type="button"
         className={clx(
           "flex min-h-10 items-center gap-x-1.5 text-ui-fg-subtle hover:text-ui-fg-base cursor-pointer disabled:cursor-wait disabled:opacity-60",
@@ -66,10 +68,10 @@ const DeleteButton = ({
           <Trash className="shrink-0" />
         )}
         {children ? <span className="leading-5">{children}</span> : null}
-      </button>
+      </I18nElement>
       {error && (
         <span className="mt-1 text-xs leading-4 text-rose-600" role="alert">
-          {error}
+          <T>{error}</T>
         </span>
       )}
     </div>

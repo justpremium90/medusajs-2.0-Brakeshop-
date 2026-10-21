@@ -1,3 +1,4 @@
+import { T } from "@lib/i18n/client"
 import { Dialog, Transition } from "@headlessui/react"
 import { Button, clx } from "@medusajs/ui"
 import React, { Fragment, useMemo } from "react"
@@ -71,14 +72,16 @@ const MobileActions: React.FC<MobileActionsProps> = ({
             data-testid="mobile-actions"
           >
             <div className="flex items-center gap-x-2">
-              <span data-testid="mobile-title">{product.title}</span>
+              <span data-testid="mobile-title">
+                <T>{product.title}</T>
+              </span>
               <span>—</span>
               {selectedPrice ? (
                 <div className="flex items-end gap-x-2 text-ui-fg-base">
                   {selectedPrice.price_type === "sale" && (
                     <p>
                       <span className="line-through text-small-regular">
-                        {selectedPrice.original_price}
+                        <T>{selectedPrice.original_price}</T>
                       </span>
                     </p>
                   )}
@@ -88,7 +91,7 @@ const MobileActions: React.FC<MobileActionsProps> = ({
                         selectedPrice.price_type === "sale",
                     })}
                   >
-                    {selectedPrice.calculated_price}
+                    <T>{selectedPrice.calculated_price}</T>
                   </span>
                 </div>
               ) : (
@@ -104,9 +107,11 @@ const MobileActions: React.FC<MobileActionsProps> = ({
               >
                 <div className="flex items-center justify-between w-full">
                   <span>
-                    {variant
-                      ? Object.values(options).join(" / ")
-                      : "Seçenekleri seç"}
+                    <T>
+                      {variant
+                        ? Object.values(options).join(" / ")
+                        : "Seçenekleri seç"}
+                    </T>
                   </span>
                   <ChevronDown />
                 </div>
@@ -118,11 +123,13 @@ const MobileActions: React.FC<MobileActionsProps> = ({
                 isLoading={isAdding}
                 data-testid="mobile-cart-button"
               >
-                {!variant
-                  ? "Varyant seçin"
-                  : !inStock
-                  ? "Stokta yok"
-                  : "Sepete ekle"}
+                <T>
+                  {!variant
+                    ? "Varyant seçin"
+                    : !inStock
+                    ? "Stokta yok"
+                    : "Sepete ekle"}
+                </T>
               </Button>
             </div>
           </div>

@@ -1,5 +1,6 @@
 "use client"
 
+import { T } from "@lib/i18n/client"
 import { useId, useState } from "react"
 
 type PerformanceSeoContentProps = {
@@ -21,7 +22,7 @@ const PerformanceSeoContent = ({
       <div className="mt-4 max-w-[680px] border-l-2 border-[#c42026] pl-4">
         {title ? (
           <h3 className="text-[15px] font-semibold leading-5 text-white small:text-[17px]">
-            {title}
+            <T>{title}</T>
           </h3>
         ) : null}
         <div className="relative mt-1.5">
@@ -33,7 +34,7 @@ const PerformanceSeoContent = ({
                 : "max-h-5 overflow-hidden small:max-h-6"
             }`}
           >
-            {content}
+            <T>{content}</T>
           </div>
           {!expanded ? (
             <span className="pointer-events-none absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-black/70 to-transparent" />
@@ -46,7 +47,7 @@ const PerformanceSeoContent = ({
           aria-controls={contentId}
           onClick={() => setExpanded((current) => !current)}
         >
-          {expanded ? "Daha az göster" : "Devamını oku"}
+          <T>{expanded ? "Daha az göster" : "Devamını oku"}</T>
         </button>
       </div>
     )
@@ -56,7 +57,7 @@ const PerformanceSeoContent = ({
     <section className="relative overflow-hidden border-y border-[#e5e5e5] bg-[#f7f7f7] px-5 py-6 small:px-8 small:py-8">
       {title ? (
         <h2 className="mb-3 text-[20px] font-semibold leading-tight tracking-[-0.015em] text-[#171717] small:text-[24px]">
-          {title}
+          <T>{title}</T>
         </h2>
       ) : null}
       <div className="relative">
@@ -66,7 +67,7 @@ const PerformanceSeoContent = ({
             expanded ? "max-h-[2000px]" : "max-h-[72px] overflow-hidden"
           }`}
         >
-          {content}
+          <T>{content}</T>
         </div>
         {!expanded ? (
           <span className="pointer-events-none absolute inset-x-0 bottom-0 h-9 bg-gradient-to-t from-[#f7f7f7] to-transparent" />
@@ -79,7 +80,7 @@ const PerformanceSeoContent = ({
         aria-controls={contentId}
         onClick={() => setExpanded((current) => !current)}
       >
-        {expanded ? "Daha az göster" : "Devamını oku"}
+        <T>{expanded ? "Daha az göster" : "Devamını oku"}</T>
       </button>
     </section>
   )

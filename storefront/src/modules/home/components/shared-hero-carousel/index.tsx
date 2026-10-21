@@ -1,5 +1,6 @@
 "use client"
 
+import { T, I18nElement } from "@lib/i18n/client"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 import WhatsAppContactButton from "@modules/common/components/whatsapp-contact-button"
 import {
@@ -193,7 +194,8 @@ const HeroCarousel = ({
   }
 
   return (
-    <section
+    <I18nElement
+      as="section"
       ref={ref}
       className={`relative w-full touch-pan-y overflow-hidden ${className}`}
       role="region"
@@ -270,13 +272,13 @@ const HeroCarousel = ({
               <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/5 to-black/10" />
               <div className="absolute bottom-[14%] left-[6%] max-w-[760px] pr-6 text-white">
                 <p className="mb-4 text-[10px] uppercase tracking-[.24em] small:text-xs">
-                  Pip Garden / Dışarıda yaşam
+                  <T>Pip Garden / Dışarıda yaşam</T>
                 </p>
                 <h2 className="text-[46px] font-semibold leading-[1.02] tracking-[-.04em] small:text-[74px] large:text-[90px]">
-                  {hero.title}
+                  <T>{hero.title}</T>
                 </h2>
                 <span className="mt-7 inline-flex border-b border-white pb-2 text-xs font-semibold uppercase tracking-[.12em]">
-                  {hero.cta_label} <span className="ml-8">→</span>
+                  <T>{hero.cta_label}</T> <span className="ml-8">→</span>
                 </span>
               </div>
             </LocalizedClientLink>
@@ -286,7 +288,8 @@ const HeroCarousel = ({
 
       {slides.length > 1 ? (
         <div className="absolute bottom-5 left-1/2 z-30 flex -translate-x-1/2 items-center gap-2 small:bottom-6">
-          <div
+          <I18nElement
+            as="div"
             className="flex items-center justify-center gap-3 rounded-full bg-black/10 px-3 py-2 backdrop-blur-[2px]"
             role="group"
             aria-label={`${ariaLabel} slaytları`}
@@ -295,7 +298,8 @@ const HeroCarousel = ({
               const isActive = index === activeIndex
 
               return (
-                <button
+                <I18nElement
+                  as="button"
                   key={`indicator-${hero.id}`}
                   type="button"
                   aria-label={`${index + 1}. slaytı göster: ${hero.title}`}
@@ -310,10 +314,10 @@ const HeroCarousel = ({
                         : "bg-white/25 hover:bg-white/70"
                     }`}
                   />
-                </button>
+                </I18nElement>
               )
             })}
-          </div>
+          </I18nElement>
 
           <WhatsAppContactButton
             label="İletişime geç"
@@ -322,7 +326,7 @@ const HeroCarousel = ({
           />
         </div>
       ) : null}
-    </section>
+    </I18nElement>
   )
 }
 

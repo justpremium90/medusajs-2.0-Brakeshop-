@@ -1,5 +1,6 @@
 "use client"
 
+import { T } from "@lib/i18n/client"
 import { ChevronUpDown } from "@medusajs/icons"
 import { clx } from "@medusajs/ui"
 import {
@@ -58,7 +59,7 @@ const NativeSelect = forwardRef<HTMLSelectElement, NativeSelectProps>(
             className="appearance-none flex-1 bg-transparent border-none px-4 py-2.5 transition-colors duration-150 outline-none "
           >
             <option disabled value="">
-              {placeholder}
+              <T>{placeholder}</T>
             </option>
             {children}
           </select>

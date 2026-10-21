@@ -1,5 +1,6 @@
 "use client"
 
+import { T } from "@lib/i18n/client"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 import WhatsAppContactButton from "@modules/common/components/whatsapp-contact-button"
 import NavSearchForm from "@modules/layout/components/nav-search-form"
@@ -33,7 +34,7 @@ const HeroSearchPanel = ({ style = "performance" }: HeroSearchPanelProps) => {
         <DesktopWhatsApp className="absolute right-8 top-1/2 -translate-y-1/2" />
         <div className="pointer-events-auto relative mx-auto w-full max-w-[900px]">
           <p className="mb-3 text-center text-[11px] font-bold uppercase tracking-[.24em] text-white drop-shadow-[0_2px_8px_rgba(0,0,0,.8)] small:mb-4 small:text-[12px]">
-            Aracına uygun fren parçasını bul
+            <T>Aracına uygun fren parçasını bul</T>
           </p>
           <NavSearchForm
             hero
@@ -54,7 +55,7 @@ const HeroSearchPanel = ({ style = "performance" }: HeroSearchPanelProps) => {
           <div className="mb-4 flex items-center gap-3 text-white">
             <span className="h-px w-10 bg-[#e31c25]" aria-hidden="true" />
             <p className="text-[11px] font-bold uppercase tracking-[.22em] drop-shadow-[0_2px_8px_rgba(0,0,0,.8)] small:text-[12px]">
-              Marka · Model · OEM · Parça kodu
+              <T>Marka · Model · OEM · Parça kodu</T>
             </p>
           </div>
           <NavSearchForm
@@ -91,14 +92,14 @@ const HeroSearchPanel = ({ style = "performance" }: HeroSearchPanelProps) => {
         <div className="flex items-end justify-between gap-6 small:pr-[175px]">
           <div>
             <p className="text-[11px] font-bold uppercase tracking-[.2em] text-[#e31c25] small:text-[12px]">
-              Fren parçası arama
+              <T>Fren parçası arama</T>
             </p>
             <h2 className="mt-1 text-[22px] font-semibold leading-tight tracking-[-.01em] text-white small:text-[30px]">
-              Doğru parçayı tek aramada bul.
+              <T>Doğru parçayı tek aramada bul.</T>
             </h2>
           </div>
           <p className="hidden pb-1 text-right text-[11px] font-semibold uppercase tracking-[.15em] text-white/55 medium:block">
-            Marka · Model · OEM · Parça kodu
+            <T>Marka · Model · OEM · Parça kodu</T>
           </p>
         </div>
 
@@ -111,7 +112,7 @@ const HeroSearchPanel = ({ style = "performance" }: HeroSearchPanelProps) => {
 
         <div className="mt-3 flex items-center gap-2 overflow-x-auto no-scrollbar">
           <span className="shrink-0 text-[10px] font-bold uppercase tracking-[.14em] text-white/45">
-            Hızlı ara
+            <T>Hızlı ara</T>
           </span>
           {quickSearches.map((item) => (
             <LocalizedClientLink
@@ -119,7 +120,7 @@ const HeroSearchPanel = ({ style = "performance" }: HeroSearchPanelProps) => {
               href={item.href}
               className="shrink-0 border border-white/20 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[.08em] text-white/80 transition-colors hover:border-[#e31c25] hover:bg-[#e31c25] hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-[#e31c25]"
             >
-              {item.label}
+              <T>{item.label}</T>
             </LocalizedClientLink>
           ))}
         </div>

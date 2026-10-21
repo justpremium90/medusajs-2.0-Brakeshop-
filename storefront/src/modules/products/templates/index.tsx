@@ -1,3 +1,4 @@
+import { T, I18nElement } from "@lib/i18n/client"
 import { Suspense } from "react"
 import { HttpTypes } from "@medusajs/types"
 import { notFound } from "next/navigation"
@@ -37,45 +38,51 @@ export default function ProductTemplate({
   return (
     <main className="pdp" data-testid="product-container">
       <div className="pdp-shell">
-        <nav aria-label="İçerik yolu" className="pdp-breadcrumb">
-          <LocalizedClientLink href="/">Ana sayfa</LocalizedClientLink>
+        <I18nElement
+          as="nav"
+          aria-label="İçerik yolu"
+          className="pdp-breadcrumb"
+        >
+          <LocalizedClientLink href="/">
+            <T>Ana sayfa</T>
+          </LocalizedClientLink>
           <span aria-hidden="true">/</span>
           <LocalizedClientLink
             href={
               category?.handle ? `/categories/${category.handle}` : "/store"
             }
           >
-            {category?.name || "Koleksiyon"}
+            <T>{category?.name || "Koleksiyon"}</T>
           </LocalizedClientLink>
           <span aria-hidden="true">/</span>
-          <span aria-current="page">{name.trim()}</span>
-        </nav>
+          <span aria-current="page">
+            <T>{name.trim()}</T>
+          </span>
+        </I18nElement>
         <div className="pdp-intro">
           <div className="pdp-visual">
-            <ImageGallery
-              images={galleryImages}
-              productTitle={product.title}
-            />
+            <ImageGallery images={galleryImages} productTitle={product.title} />
           </div>
           <div className="pdp-information">
             <div className="pdp-heading">
               <p className="pdp-eyebrow">
                 <span />
-                Pip Garden koleksiyonu
+                <T>Pip Garden koleksiyonu</T>
               </p>
               <p className="pdp-category">
-                {category?.name || "Dışarıda yaşam"}
+                <T>{category?.name || "Dışarıda yaşam"}</T>
               </p>
-              <h1
+              <I18nElement
+                as="h1"
                 className="pdp-title"
                 data-testid="product-title"
                 aria-label={product.title}
               >
-                {name.trim()}
-              </h1>
+                <T>{name.trim()}</T>
+              </I18nElement>
               {(material || suffix.length > 0) && (
                 <p className="pdp-material">
-                  {suffix.join(" · ").trim() || material}
+                  <T>{suffix.join(" · ").trim() || material}</T>
                 </p>
               )}
             </div>
@@ -88,10 +95,12 @@ export default function ProductTemplate({
             </Suspense>
             <div className="pdp-detail-links">
               <a href="#product-details">
-                Ölçüler & ürün detayları <span aria-hidden="true">↗</span>
+                <T>Ölçüler & ürün detayları </T>
+                <span aria-hidden="true">↗</span>
               </a>
               <LocalizedClientLink href="/care-guide">
-                Kullanım & bakım <span aria-hidden="true">↗</span>
+                <T>Kullanım & bakım </T>
+                <span aria-hidden="true">↗</span>
               </LocalizedClientLink>
             </div>
           </div>
@@ -102,19 +111,29 @@ export default function ProductTemplate({
           aria-labelledby="product-details-title"
         >
           <div className="pdp-details-heading">
-            <p className="pdp-eyebrow">01 / Yakından bakın</p>
+            <p className="pdp-eyebrow">
+              <T>01 / Yakından bakın</T>
+            </p>
             <h2 id="product-details-title">
-              Tasarımın
+              <T>Tasarımın</T>
               <br />
-              <em>detaylarında.</em>
+              <em>
+                <T>detaylarında.</T>
+              </em>
             </h2>
             <p>
-              Malzemeden ölçülere, alanınız için bilmeniz gereken her detay.
+              <T>
+                Malzemeden ölçülere, alanınız için bilmeniz gereken her detay.
+              </T>
             </p>
             {material && (
               <div className="pdp-material-note">
-                <span>Malzeme</span>
-                <strong>{material}</strong>
+                <span>
+                  <T>Malzeme</T>
+                </span>
+                <strong>
+                  <T>{material}</T>
+                </strong>
               </div>
             )}
           </div>
@@ -124,13 +143,16 @@ export default function ProductTemplate({
           <RelatedProducts product={product} countryCode={countryCode} />
         </Suspense>
         <div className="pdp-collection-footer">
-          <span>Pip Garden</span>
+          <span>
+            <T>Pip Garden</T>
+          </span>
           <LocalizedClientLink
             href={
               category?.handle ? `/categories/${category.handle}` : "/store"
             }
           >
-            Koleksiyona dön <span aria-hidden="true">↗</span>
+            <T>Koleksiyona dön </T>
+            <span aria-hidden="true">↗</span>
           </LocalizedClientLink>
         </div>
       </div>

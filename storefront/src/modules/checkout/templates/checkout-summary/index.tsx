@@ -1,3 +1,4 @@
+import { T } from "@lib/i18n/client"
 import { Heading } from "@medusajs/ui"
 
 import ItemsPreviewTemplate from "@modules/cart/templates/preview"
@@ -14,7 +15,7 @@ const CheckoutSummary = ({ cart }: { cart: any }) => {
           level="h2"
           className="flex flex-row text-3xl-regular items-baseline"
         >
-          In your Cart
+          <T>In your Cart</T>
         </Heading>
         <Divider className="my-6" />
         <CartTotals totals={cart} />

@@ -1,5 +1,6 @@
 "use client"
 
+import { T } from "@lib/i18n/client"
 import { Table, Text, clx } from "@medusajs/ui"
 
 import { updateLineItem } from "@lib/data/cart"
@@ -75,10 +76,13 @@ const Item = ({ item, type = "full" }: ItemProps) => {
             href={`/products/${handle}`}
             className="block text-[14px] font-medium leading-5 text-[#252221]"
           >
-            {item.product_title}
+            <T>{item.product_title}</T>
           </LocalizedClientLink>
           <div className="mt-1 text-[12px] leading-5 text-[#756b68]">
-            <LineItemOptions variant={item.variant} data-testid="mobile-product-variant" />
+            <LineItemOptions
+              variant={item.variant}
+              data-testid="mobile-product-variant"
+            />
           </div>
           <div className="mt-2 text-[15px] font-semibold leading-6 text-[#252221]">
             <LineItemPrice item={item} style="tight" />
@@ -86,7 +90,9 @@ const Item = ({ item, type = "full" }: ItemProps) => {
 
           <div className="mt-3 flex flex-wrap items-start gap-2">
             <label className="flex h-11 items-center gap-2 border border-[#d9cfcb] bg-white px-3 text-[12px] leading-5 text-[#514946]">
-              <span>Adet</span>
+              <span>
+                <T>Adet</T>
+              </span>
               <CartItemSelect
                 value={item.quantity}
                 onChange={(value) =>
@@ -97,7 +103,7 @@ const Item = ({ item, type = "full" }: ItemProps) => {
               >
                 {Array.from({ length: Math.min(maxQuantity, 10) }, (_, i) => (
                   <option value={i + 1} key={i + 1}>
-                    {i + 1}
+                    <T>{i + 1}</T>
                   </option>
                 ))}
               </CartItemSelect>
@@ -109,11 +115,14 @@ const Item = ({ item, type = "full" }: ItemProps) => {
               buttonClassName="h-11 border border-[#c42026] px-3 text-[12px] font-medium leading-5 text-[#a7191e] hover:bg-[#fff3f1] hover:text-[#a7191e]"
               data-testid="mobile-product-delete-button"
             >
-              Sepetten sil
+              <T>Sepetten sil</T>
             </DeleteButton>
             {updating ? <Spinner className="mt-3" /> : null}
           </div>
-          <ErrorMessage error={error} data-testid="mobile-product-error-message" />
+          <ErrorMessage
+            error={error}
+            data-testid="mobile-product-error-message"
+          />
         </div>
       </article>
     )
@@ -142,7 +151,7 @@ const Item = ({ item, type = "full" }: ItemProps) => {
           className="txt-medium-plus text-ui-fg-base"
           data-testid="product-title"
         >
-          {item.product_title}
+          <T>{item.product_title}</T>
         </Text>
         <LineItemOptions variant={item.variant} data-testid="product-variant" />
       </Table.Cell>
@@ -155,7 +164,7 @@ const Item = ({ item, type = "full" }: ItemProps) => {
               onDeleted={() => setRemoved(true)}
               data-testid="product-delete-button"
             >
-              Sil
+              <T>Sil</T>
             </DeleteButton>
             <CartItemSelect
               value={item.quantity}
@@ -170,7 +179,7 @@ const Item = ({ item, type = "full" }: ItemProps) => {
                 },
                 (_, i) => (
                   <option value={i + 1} key={i}>
-                    {i + 1}
+                    <T>{i + 1}</T>
                   </option>
                 )
               )}
@@ -199,7 +208,10 @@ const Item = ({ item, type = "full" }: ItemProps) => {
         >
           {type === "preview" && (
             <span className="flex gap-x-1 ">
-              <Text className="text-ui-fg-muted">{item.quantity}x </Text>
+              <Text className="text-ui-fg-muted">
+                <T>{item.quantity}</T>
+                <T>x </T>
+              </Text>
               <LineItemUnitPrice item={item} style="tight" />
             </span>
           )}

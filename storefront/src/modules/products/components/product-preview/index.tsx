@@ -1,3 +1,4 @@
+import { T, I18nElement } from "@lib/i18n/client"
 import { HttpTypes } from "@medusajs/types"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 import { getProductPrice } from "@lib/util/get-product-price"
@@ -37,7 +38,8 @@ export default function ProductPreview({ product }: Props) {
         className="block overflow-hidden bg-[#f4f3f0]"
       >
         {product.thumbnail ? (
-          <img
+          <I18nElement
+            as="img"
             src={product.thumbnail}
             alt={product.title}
             loading="lazy"
@@ -45,27 +47,27 @@ export default function ProductPreview({ product }: Props) {
           />
         ) : (
           <div className="flex aspect-[4/5] items-center justify-center text-xs text-gray-400">
-            Pip Garden
+            <T>Pip Garden</T>
           </div>
         )}
       </LocalizedClientLink>
       <div className="flex flex-1 flex-col pt-4">
         <p className="text-[9px] uppercase tracking-[.14em] text-[#777]">
-          {material}
+          <T>{material}</T>
         </p>
         <LocalizedClientLink
           href={`/products/${product.handle}`}
           className="mt-2 text-[14px] font-semibold leading-5 small:text-base"
           data-testid="product-title"
         >
-          {product.title}
+          <T>{product.title}</T>
         </LocalizedClientLink>
         <div className="mt-auto pt-3 text-sm">
           {cheapestPrice ? (
             <PreviewPrice price={cheapestPrice} />
           ) : (
             <span className="text-xs text-gray-500">
-              Fiyat bilgisi için inceleyin
+              <T>Fiyat bilgisi için inceleyin</T>
             </span>
           )}
         </div>
@@ -85,7 +87,7 @@ export default function ProductPreview({ product }: Props) {
             href={`/products/${product.handle}`}
             className="mt-4 flex h-[34px] items-center justify-center border border-[#171717] text-[11px] uppercase tracking-wider"
           >
-            Seçenekleri incele →
+            <T>Seçenekleri incele →</T>
           </LocalizedClientLink>
         )}
       </div>

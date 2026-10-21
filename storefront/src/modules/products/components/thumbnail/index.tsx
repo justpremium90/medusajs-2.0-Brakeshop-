@@ -1,5 +1,6 @@
 "use client"
 
+import { I18nElement, useT } from "@lib/i18n/client"
 import { Container, clx } from "@medusajs/ui"
 import Image from "next/image"
 import { getImageVariant } from "@lib/util/performance-media"
@@ -21,7 +22,8 @@ type ThumbnailProps = {
 }
 
 const PRODUCT_FALLBACK_IMAGE = "/product-fallback-v2.webp"
-const PLACEHOLDER_URL_RE = /(?:no[-_ ]?(?:image|photo|product)|noimage|not[-_ ]?available|image[-_ ]?(?:not[-_ ]?found|none|missing)|(?:product|image)[-_ ]?placeholder|placeholder|blank(?:[-_.]|$)|resim[-_ ]?yok|urun[-_ ]?resm[iı][-_ ]?yok|gorsel[-_ ]?yok|default[-_ ]?(?:product|image|photo))/i
+const PLACEHOLDER_URL_RE =
+  /(?:no[-_ ]?(?:image|photo|product)|noimage|not[-_ ]?available|image[-_ ]?(?:not[-_ ]?found|none|missing)|(?:product|image)[-_ ]?placeholder|placeholder|blank(?:[-_.]|$)|resim[-_ ]?yok|urun[-_ ]?resm[iı][-_ ]?yok|gorsel[-_ ]?yok|default[-_ ]?(?:product|image|photo))/i
 
 const isUsableImageUrl = (value: unknown): value is string => {
   if (typeof value !== "string") return false
@@ -98,12 +100,15 @@ const isVisuallyBlankImage = (image: HTMLImageElement) => {
     const darkRatio = darkPixels / visiblePixels
     const averageLuminance = luminanceTotal / visiblePixels
     const luminanceVariance =
-      luminanceSquaredTotal / visiblePixels - averageLuminance * averageLuminance
+      luminanceSquaredTotal / visiblePixels -
+      averageLuminance * averageLuminance
 
     return (
       visibleRatio < 0.02 ||
       (foregroundRatio < 0.018 && darkRatio < 0.008) ||
-      (averageLuminance > 248 && luminanceVariance < 18 && foregroundRatio < 0.035)
+      (averageLuminance > 248 &&
+        luminanceVariance < 18 &&
+        foregroundRatio < 0.035)
     )
   } catch {
     return false
@@ -123,6 +128,7 @@ const Thumbnail: React.FC<ThumbnailProps> = ({
   imageAreaHeightPercent = 100,
   "data-testid": dataTestid,
 }) => {
+  const t = useT()
   const imageCandidates = useMemo(
     () =>
       Array.from(
@@ -181,9 +187,10 @@ const Thumbnail: React.FC<ThumbnailProps> = ({
       >
         {usesFallback ? (
           // eslint-disable-next-line @next/next/no-img-element
-          <img
+          <I18nElement
+            as="img"
             src={PRODUCT_FALLBACK_IMAGE}
-            alt={`${alt || "Ürün"} için temsili fren diski ve fren balatası görseli`}
+            alt={t(alt || "Ürün görseli")}
             className={clx(
               "absolute inset-0 h-full w-full object-contain object-center",
               fallbackImageClassName
@@ -195,7 +202,7 @@ const Thumbnail: React.FC<ThumbnailProps> = ({
           <Image
             key={currentImage}
             src={getImageVariant(currentImage, 640)}
-            alt={alt || "Ürün görseli"}
+            alt={t(alt || "Ürün görseli")}
             className={clx(
               "absolute inset-0 object-center",
               !/\bobject-(contain|cover|fill|none|scale-down)\b/.test(

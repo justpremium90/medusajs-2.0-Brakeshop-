@@ -1,5 +1,6 @@
 "use client"
 
+import { T } from "@lib/i18n/client"
 import { forwardRef, useImperativeHandle, useMemo, useRef } from "react"
 
 import NativeSelect, {
@@ -40,7 +41,7 @@ const CountrySelect = forwardRef<
     >
       {countryOptions?.map(({ value, label }, index) => (
         <option key={index} value={value}>
-          {label}
+          <T>{label}</T>
         </option>
       ))}
     </NativeSelect>

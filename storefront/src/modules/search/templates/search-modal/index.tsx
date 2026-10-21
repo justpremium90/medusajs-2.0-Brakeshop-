@@ -1,5 +1,7 @@
 "use client"
+import { useLocale } from "@lib/i18n/client"
 
+import { T, I18nElement } from "@lib/i18n/client"
 import type { ProductSearchSuggestion } from "@lib/util/product-search"
 import { fetchSearchSuggestions } from "@lib/util/search-suggestions"
 import { toPublicPath } from "@lib/util/public-path"
@@ -9,7 +11,7 @@ import { FormEvent, useEffect, useRef, useState } from "react"
 
 export default function SearchModal() {
   const router = useRouter()
-  const { countryCode } = useParams() as { countryCode?: string }
+  const countryCode = useLocale()
   const requestRef = useRef(0)
   const [query, setQuery] = useState("")
   const [hits, setHits] = useState<ProductSearchSuggestion[]>([])
@@ -81,11 +83,12 @@ export default function SearchModal() {
         className="mx-auto flex w-full max-w-4xl flex-col gap-y-6"
         data-testid="search-modal-container"
       >
-        <form
+        <I18nElement
+          as="form"
           className="flex h-14 w-full items-center gap-x-3 rounded-circle border border-[#3a080a] px-4 text-[#3a080a]"
           onSubmit={showAll}
           role="search"
-          aria-label="Katalogda parça ara"
+          aria-label="Ürünleri ara"
           {...{
             toolname: "search_products_page",
             tooldescription:
@@ -97,9 +100,10 @@ export default function SearchModal() {
         >
           <MagnifyingGlassMini />
           <label className="sr-only" htmlFor="catalog-search-query">
-            Ürün, koleksiyon veya malzeme
+            <T>Ürün, koleksiyon veya malzeme</T>
           </label>
-          <input
+          <I18nElement
+            as="input"
             id="catalog-search-query"
             name="query"
             required
@@ -120,12 +124,14 @@ export default function SearchModal() {
             className="text-[12px] font-bold uppercase tracking-[.1em]"
             type="submit"
           >
-            Tümünü gör
+            <T>Tümünü gör</T>
           </button>
-        </form>
+        </I18nElement>
 
         {loading ? (
-          <p className="text-sm text-[#765c5b]">Ürünler aranıyor…</p>
+          <p className="text-sm text-[#765c5b]">
+            <T>Ürünler aranıyor…</T>
+          </p>
         ) : null}
 
         {!loading && failed ? (
@@ -133,7 +139,7 @@ export default function SearchModal() {
             className="border border-[#8f090f]/25 p-5 text-sm"
             data-testid="no-search-results-container"
           >
-            Arama servisine ulaşılamadı. Lütfen tekrar deneyin.
+            <T>Arama servisine ulaşılamadı. Lütfen tekrar deneyin.</T>
           </p>
         ) : null}
 
@@ -142,7 +148,7 @@ export default function SearchModal() {
             className="border border-black/10 p-5 text-sm"
             data-testid="no-search-results-container"
           >
-            Sonuç bulunamadı. Farklı bir ürün adı veya malzeme deneyin.
+            <T>Sonuç bulunamadı. Farklı bir ürün adı veya malzeme deneyin.</T>
           </p>
         ) : null}
 
@@ -168,7 +174,8 @@ export default function SearchModal() {
                   <span className="flex aspect-square w-full items-center justify-center bg-[#f5f5f3]">
                     {hit.thumbnail ? (
                       // eslint-disable-next-line @next/next/no-img-element
-                      <img
+                      <I18nElement
+                        as="img"
                         alt=""
                         className="h-full w-full object-contain p-3"
                         src={hit.thumbnail}
@@ -179,7 +186,7 @@ export default function SearchModal() {
                     className="line-clamp-2 text-sm font-semibold"
                     data-testid="search-result-title"
                   >
-                    {hit.title}
+                    <T>{hit.title}</T>
                   </span>
                 </button>
               </li>

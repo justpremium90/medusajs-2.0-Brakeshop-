@@ -1,5 +1,6 @@
 "use client"
 
+import { T } from "@lib/i18n/client"
 import React, { useActionState } from "react"
 
 import AccountInfo from "../account-info"
@@ -40,7 +41,9 @@ const ProfilePassword: React.FC<MyInformationProps> = ({ customer }) => {
       <AccountInfo
         label="Password"
         currentInfo={
-          <span>The password is not shown for security reasons</span>
+          <span>
+            <T>The password is not shown for security reasons</T>
+          </span>
         }
         isEditable={false}
         clearState={() => {}}
@@ -50,26 +53,29 @@ const ProfilePassword: React.FC<MyInformationProps> = ({ customer }) => {
       <div className="text-small-regular text-ui-fg-subtle pb-8 -mt-4">
         {state.success ? (
           <span data-testid="password-reset-requested">
-            A link to set a new password is on its way to {customer.email}. It
-            can be used once and expires in 15 minutes.
+            <T>A link to set a new password is on its way to </T>
+            <T>{customer.email}</T>
+            <T>. It can be used once and expires in 15 minutes.</T>
           </span>
         ) : (
           <form action={formAction} className="flex items-center gap-x-2">
             <input type="hidden" name="email" value={customer.email ?? ""} />
-            <span>To change it, we send you a link by email.</span>
+            <span>
+              <T>To change it, we send you a link by email.</T>
+            </span>
             <button
               type="submit"
               className="underline"
               data-testid="request-password-reset-button"
             >
-              Send me a reset link
+              <T>Send me a reset link</T>
             </button>
             {state.error && (
               <span
                 className="text-rose-500"
                 data-testid="password-reset-error"
               >
-                {state.error}
+                <T>{state.error}</T>
               </span>
             )}
           </form>

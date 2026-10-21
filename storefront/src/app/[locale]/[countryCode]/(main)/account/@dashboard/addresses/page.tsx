@@ -1,0 +1,50 @@
+import { localizeMetadata } from "@lib/i18n/metadata"
+import { T } from "@lib/i18n/client"
+import { Metadata } from "next"
+import { notFound } from "next/navigation"
+
+import AddressBook from "@modules/account/components/address-book"
+
+import { headers } from "next/headers"
+import { getRegion } from "@lib/data/regions"
+import { getCustomer } from "@lib/data/customer"
+
+const pageMetadata = {
+  title: "Addresses",
+  description: "View your addresses",
+}
+export async function generateMetadata() {
+  return localizeMetadata(pageMetadata)
+}
+
+export default async function Addresses({
+  params,
+}: {
+  params: Promise<{ countryCode: string }>
+}) {
+  const { countryCode } = await params
+  const customer = await getCustomer()
+  const region = await getRegion(countryCode)
+
+  if (!customer || !region) {
+    notFound()
+  }
+
+  return (
+    <div className="w-full" data-testid="addresses-page-wrapper">
+      <div className="mb-8 flex flex-col gap-y-4">
+        <h1 className="text-2xl-semi">
+          <T>Shipping Addresses</T>
+        </h1>
+        <p className="text-base-regular">
+          <T>
+            View and update your shipping addresses, you can add as many as you
+            like. Saving your addresses will make them available during
+            checkout.
+          </T>
+        </p>
+      </div>
+      <AddressBook customer={customer} region={region} />
+    </div>
+  )
+}

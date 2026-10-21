@@ -1,5 +1,6 @@
 "use client"
 
+import { T, I18nElement } from "@lib/i18n/client"
 import { clx } from "@medusajs/ui"
 import Link from "next/link"
 import { usePathname, useSearchParams } from "next/navigation"
@@ -44,7 +45,7 @@ export function Pagination({
 
     return isCurrent ? (
       <span key={p} className={className} aria-current="page">
-        {label}
+        <T>{label}</T>
       </span>
     ) : (
       <Link
@@ -54,7 +55,7 @@ export function Pagination({
         aria-label={`${p}. sayfaya git`}
         rel={p === page - 1 ? "prev" : p === page + 1 ? "next" : undefined}
       >
-        {label}
+        <T>{label}</T>
       </Link>
     )
   }
@@ -121,13 +122,14 @@ export function Pagination({
 
   // Render the component
   return (
-    <nav
+    <I18nElement
+      as="nav"
       className="flex justify-center w-full mt-12"
       aria-label="Ürün sayfaları"
     >
       <div className="flex gap-3 items-end" data-testid={dataTestid}>
-        {renderPageButtons()}
+        <T>{renderPageButtons()}</T>
       </div>
-    </nav>
+    </I18nElement>
   )
 }

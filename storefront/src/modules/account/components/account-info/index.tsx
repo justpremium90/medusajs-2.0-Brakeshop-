@@ -1,5 +1,6 @@
 "use client"
 
+import { T } from "@lib/i18n/client"
 import { Disclosure } from "@headlessui/react"
 import { Badge, Button, clx } from "@medusajs/ui"
 import { useEffect } from "react"
@@ -20,7 +21,7 @@ type AccountInfoProps = {
    * renders read-only instead of offering an Edit button that leads nowhere.
    */
   isEditable?: boolean
-  'data-testid'?: string
+  "data-testid"?: string
 }
 
 const AccountInfo = ({
@@ -32,7 +33,7 @@ const AccountInfo = ({
   errorMessage = "An error occurred, please try again",
   children,
   isEditable = true,
-  'data-testid': dataTestid
+  "data-testid": dataTestid,
 }: AccountInfoProps) => {
   const { state, close, toggle } = useToggleState()
 
@@ -53,10 +54,14 @@ const AccountInfo = ({
     <div className="text-small-regular" data-testid={dataTestid}>
       <div className="flex items-end justify-between">
         <div className="flex flex-col">
-          <span className="uppercase text-ui-fg-base">{label}</span>
+          <span className="uppercase text-ui-fg-base">
+            <T>{label}</T>
+          </span>
           <div className="flex items-center flex-1 basis-0 justify-end gap-x-4">
             {typeof currentInfo === "string" ? (
-              <span className="font-semibold" data-testid="current-info">{currentInfo}</span>
+              <span className="font-semibold" data-testid="current-info">
+                <T>{currentInfo}</T>
+              </span>
             ) : (
               currentInfo
             )}
@@ -72,7 +77,7 @@ const AccountInfo = ({
               data-testid="edit-button"
               data-active={state}
             >
-              {state ? "Cancel" : "Edit"}
+              <T>{state ? "Cancel" : "Edit"}</T>
             </Button>
           </div>
         )}
@@ -92,7 +97,9 @@ const AccountInfo = ({
           data-testid="success-message"
         >
           <Badge className="p-2 my-4" color="green">
-            <span>{label} updated succesfully</span>
+            <span>
+              <T>{label}</T> <T>updated succesfully</T>
+            </span>
           </Badge>
         </Disclosure.Panel>
       </Disclosure>
@@ -111,7 +118,9 @@ const AccountInfo = ({
           data-testid="error-message"
         >
           <Badge className="p-2 my-4" color="red">
-            <span>{errorMessage}</span>
+            <span>
+              <T>{errorMessage}</T>
+            </span>
           </Badge>
         </Disclosure.Panel>
       </Disclosure>
@@ -142,7 +151,7 @@ const AccountInfo = ({
                   type="submit"
                   data-testid="save-button"
                 >
-                  Save changes
+                  <T>Save changes</T>
                 </Button>
               </div>
             </div>

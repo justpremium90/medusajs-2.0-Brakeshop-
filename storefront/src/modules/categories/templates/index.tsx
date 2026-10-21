@@ -1,3 +1,4 @@
+import { T } from "@lib/i18n/client"
 import { notFound } from "next/navigation"
 import { Suspense } from "react"
 
@@ -14,7 +15,13 @@ import { SortOptions } from "@modules/store/components/refinement-list/sort-prod
 import PaginatedProducts from "@modules/store/templates/paginated-products"
 import { HttpTypes } from "@medusajs/types"
 
-export default async function CategoryTemplate({ categories, sortBy, page, countryCode, period }: {
+export default async function CategoryTemplate({
+  categories,
+  sortBy,
+  page,
+  countryCode,
+  period,
+}: {
   categories: HttpTypes.StoreProductCategory[]
   sortBy?: SortOptions
   page?: string
@@ -35,9 +42,13 @@ export default async function CategoryTemplate({ categories, sortBy, page, count
     { label: "Ana sayfa", href: "/" },
     ...categories.map((item, index) => ({
       label: item.name,
-      href: index < categories.length - 1
-        ? `/kategori/${categories.slice(0, index + 1).map((parent) => parent.handle).join("/")}`
-        : undefined,
+      href:
+        index < categories.length - 1
+          ? `/kategori/${categories
+              .slice(0, index + 1)
+              .map((parent) => parent.handle)
+              .join("/")}`
+          : undefined,
     })),
   ]
 
@@ -59,7 +70,16 @@ export default async function CategoryTemplate({ categories, sortBy, page, count
       >
         <CategoryLinks categories={categories} />
         <Suspense fallback={<SkeletonProductGrid variant="performance" />}>
-          <PaginatedProducts sortBy={sort} page={pageNumber} categoryId={category.id} categoryHandle={category.handle} period={period} countryCode={countryCode} displayStyle="performance" performanceTitle={seo.title} />
+          <PaginatedProducts
+            sortBy={sort}
+            page={pageNumber}
+            categoryId={category.id}
+            categoryHandle={category.handle}
+            period={period}
+            countryCode={countryCode}
+            displayStyle="performance"
+            performanceTitle={seo.title}
+          />
         </Suspense>
       </PerformanceListingShell>
     )
@@ -67,12 +87,38 @@ export default async function CategoryTemplate({ categories, sortBy, page, count
 
   if (listingSettings.site_theme === "editorial") {
     return (
-      <main className="w-full bg-[#f3efe8] px-4 pb-20 pt-5 small:px-[5%] small:pt-8" data-testid="category-container">
-        <Breadcrumbs items={breadcrumbItems} variant="editorial" className="mb-5" />
-        <EditorialListingHeading title={seo.title} description={seo.description} sort={sort} />
+      <main
+        className="w-full bg-[#f3efe8] px-4 pb-20 pt-5 small:px-[5%] small:pt-8"
+        data-testid="category-container"
+      >
+        <Breadcrumbs
+          items={breadcrumbItems}
+          variant="editorial"
+          className="mb-5"
+        />
+        <EditorialListingHeading
+          title={seo.title}
+          description={seo.description}
+          sort={sort}
+        />
         <CategoryLinks categories={categories} />
         <Suspense fallback={<SkeletonProductGrid />}>
-          <PaginatedProducts sortBy={sort} page={pageNumber} categoryId={category.id} categoryHandle={category.handle} period={period} countryCode={countryCode} displayStyle="editorial" productImageFit={listingSettings.product_image_fit} productImageHeightPercent={listingSettings.product_image_height_percent} productImageAreaHeightPercent={listingSettings.product_image_area_height_percent} />
+          <PaginatedProducts
+            sortBy={sort}
+            page={pageNumber}
+            categoryId={category.id}
+            categoryHandle={category.handle}
+            period={period}
+            countryCode={countryCode}
+            displayStyle="editorial"
+            productImageFit={listingSettings.product_image_fit}
+            productImageHeightPercent={
+              listingSettings.product_image_height_percent
+            }
+            productImageAreaHeightPercent={
+              listingSettings.product_image_area_height_percent
+            }
+          />
         </Suspense>
       </main>
     )
@@ -81,13 +127,46 @@ export default async function CategoryTemplate({ categories, sortBy, page, count
   if (isTechnicalStyle || isCharlotteStyle) {
     const variant = isTechnicalStyle ? "technical" : undefined
     return (
-      <main className={isTechnicalStyle ? "w-full bg-[#f1f1f1] px-3 pb-16 pt-5 small:px-[4%] small:pt-7" : "w-full px-3 pb-12 pt-6 xsmall:px-4 small:px-6 small:pb-16 small:pt-7"} data-testid="category-container">
+      <main
+        className={
+          isTechnicalStyle
+            ? "w-full bg-[#f1f1f1] px-3 pb-16 pt-5 small:px-[4%] small:pt-7"
+            : "w-full px-3 pb-12 pt-6 xsmall:px-4 small:px-6 small:pb-16 small:pt-7"
+        }
+        data-testid="category-container"
+      >
         <div className={isTechnicalStyle ? "mx-auto max-w-[1500px]" : ""}>
-          <Breadcrumbs items={breadcrumbItems} variant={variant} className="mb-4" />
-          <ListingHeading title={seo.title} eyebrow={listingSettings.eyebrow} description={seo.description} sort={sort} category={category} showLinks={false} />
+          <Breadcrumbs
+            items={breadcrumbItems}
+            variant={variant}
+            className="mb-4"
+          />
+          <ListingHeading
+            title={seo.title}
+            eyebrow={listingSettings.eyebrow}
+            description={seo.description}
+            sort={sort}
+            category={category}
+            showLinks={false}
+          />
           <CategoryLinks categories={categories} />
           <Suspense fallback={<SkeletonProductGrid />}>
-            <PaginatedProducts sortBy={sort} page={pageNumber} categoryId={category.id} categoryHandle={category.handle} period={period} countryCode={countryCode} displayStyle={isTechnicalStyle ? "technical" : "charlotte"} productImageFit={listingSettings.product_image_fit} productImageHeightPercent={listingSettings.product_image_height_percent} productImageAreaHeightPercent={listingSettings.product_image_area_height_percent} />
+            <PaginatedProducts
+              sortBy={sort}
+              page={pageNumber}
+              categoryId={category.id}
+              categoryHandle={category.handle}
+              period={period}
+              countryCode={countryCode}
+              displayStyle={isTechnicalStyle ? "technical" : "charlotte"}
+              productImageFit={listingSettings.product_image_fit}
+              productImageHeightPercent={
+                listingSettings.product_image_height_percent
+              }
+              productImageAreaHeightPercent={
+                listingSettings.product_image_area_height_percent
+              }
+            />
           </Suspense>
         </div>
       </main>
@@ -95,16 +174,39 @@ export default async function CategoryTemplate({ categories, sortBy, page, count
   }
 
   return (
-    <div className="w-full px-[3%] py-6 small:px-[5%]" data-testid="category-container">
+    <div
+      className="w-full px-[3%] py-6 small:px-[5%]"
+      data-testid="category-container"
+    >
       <Breadcrumbs items={breadcrumbItems} className="mb-6" />
       <div className="mb-8 flex items-center justify-between gap-x-4 text-2xl-semi">
-        <h1 data-testid="category-page-title">{seo.title}</h1>
+        <h1 data-testid="category-page-title">
+          <T>{seo.title}</T>
+        </h1>
         <RefinementList sortBy={sort} data-testid="sort-by-container" />
       </div>
-      <div className="mb-8 text-base-regular"><p>{seo.description}</p></div>
+      <div className="mb-8 text-base-regular">
+        <p>
+          <T>{seo.description}</T>
+        </p>
+      </div>
       <CategoryLinks categories={categories} />
       <Suspense fallback={<SkeletonProductGrid />}>
-        <PaginatedProducts sortBy={sort} page={pageNumber} categoryId={category.id} categoryHandle={category.handle} period={period} countryCode={countryCode} productImageFit={listingSettings.product_image_fit} productImageHeightPercent={listingSettings.product_image_height_percent} productImageAreaHeightPercent={listingSettings.product_image_area_height_percent} />
+        <PaginatedProducts
+          sortBy={sort}
+          page={pageNumber}
+          categoryId={category.id}
+          categoryHandle={category.handle}
+          period={period}
+          countryCode={countryCode}
+          productImageFit={listingSettings.product_image_fit}
+          productImageHeightPercent={
+            listingSettings.product_image_height_percent
+          }
+          productImageAreaHeightPercent={
+            listingSettings.product_image_area_height_percent
+          }
+        />
       </Suspense>
     </div>
   )
