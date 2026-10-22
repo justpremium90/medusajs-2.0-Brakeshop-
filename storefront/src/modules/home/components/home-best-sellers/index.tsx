@@ -21,26 +21,23 @@ const HomeBestSellers = async ({
   if (!orderedProducts.length) return null
 
   return (
-    <section className="overflow-hidden bg-white py-12 small:overflow-visible small:py-16">
-      <div className="mx-auto max-w-[1480px] px-3 xsmall:px-6 small:px-8 large:px-12 xlarge:px-16">
-        <div className="mb-7 flex items-end justify-between gap-4 small:mb-9">
+    <section className="garden-curated">
+      <div className="garden-collection-width">
+        <div className="garden-curated-heading">
           <div>
-            <p className="text-[11px] font-semibold uppercase leading-4 tracking-[0.12em] text-[#c42026] small:text-[12px]">
+            <p className="garden-collection-eyebrow">
               <T>Pip Garden seçkisi</T>
             </p>
-            <h2 className="mt-1.5 text-[27px] font-semibold leading-[1.1] tracking-[-0.025em] text-[#171717] small:text-[34px]">
+            <h2 className="garden-curated-title">
               <T>Açık havaya yakışanlar</T>
             </h2>
           </div>
-          <LocalizedClientLink
-            href="/store"
-            className="inline-flex min-h-11 items-center border-b-2 border-[#171717] text-[12px] font-semibold text-[#171717] transition-colors hover:border-[#c42026] hover:text-[#c42026] small:text-[13px]"
-          >
+          <LocalizedClientLink href="/store" className="garden-collection-link">
             <T>Tümünü Gör</T>
           </LocalizedClientLink>
         </div>
-        <ul className="grid grid-cols-2 gap-2 pb-2 xsmall:gap-4 min-[768px]:grid-cols-3 min-[768px]:gap-5 medium:grid-cols-4 large:gap-6 xlarge:grid-cols-5">
-          {orderedProducts.map((product) => (
+        <ul className="garden-product-grid">
+          {orderedProducts.slice(0, 6).map((product) => (
             <li key={product.id} className="min-w-0">
               <ProductPreview
                 product={product}

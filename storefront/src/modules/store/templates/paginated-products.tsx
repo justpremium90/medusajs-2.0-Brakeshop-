@@ -66,24 +66,15 @@ export default async function PaginatedProducts({
   )
 
   const totalPages = Math.ceil(count / PRODUCT_LISTING_LIMIT)
-  const gridClass =
-    displayStyle === "technical"
-      ? "grid w-full grid-cols-1 gap-y-3"
-      : displayStyle === "editorial"
-      ? "grid w-full grid-cols-2 gap-x-3 gap-y-10 small:grid-cols-3 small:gap-x-6 small:gap-y-16 large:grid-cols-4 large:gap-x-8"
-      : displayStyle === "charlotte"
-      ? "grid w-full grid-cols-2 gap-x-2 gap-y-6 xsmall:grid-cols-3 xsmall:gap-x-4 small:grid-cols-4 small:gap-x-5 medium:grid-cols-5 medium:gap-x-6"
-      : displayStyle === "performance"
-      ? "grid w-full grid-cols-2 gap-2 xsmall:gap-4 min-[768px]:grid-cols-3 min-[768px]:gap-5 medium:grid-cols-4 large:grid-cols-4 large:gap-6 xlarge:grid-cols-5"
-      : "grid w-full grid-cols-2 gap-x-2 gap-y-8 small:grid-cols-4 small:gap-x-5 medium:grid-cols-4 large:grid-cols-4"
+  const gridClass = "garden-product-grid"
 
   return (
     <>
       {displayStyle === "performance" ? (
-        <div className="mb-6 small:mb-8">
+        <div className="garden-listing-heading">
           <div className="flex flex-col gap-5 small:flex-row small:items-end small:justify-between small:gap-8">
             <div>
-              <h1 className="text-[28px] font-semibold leading-[1.1] tracking-[-0.025em] text-[#171717] small:text-[34px]">
+              <h1 className="garden-listing-title">
                 <T>{performanceTitle}</T>
               </h1>
               <p className="mt-2 text-[13px] text-[#737373] small:text-[14px]">

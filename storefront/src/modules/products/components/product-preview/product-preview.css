@@ -1,0 +1,269 @@
+/* A quiet gallery: original photographs, generous scale, unboxed captions. */
+.garden-collection-width {
+  width: 100%;
+  max-width: 1800px;
+  margin-inline: auto;
+  padding-inline: clamp(20px, 4.5vw, 88px);
+}
+.garden-listing,
+.garden-curated {
+  background: #f8f7f3;
+  color: #30372b;
+}
+.garden-curated {
+  padding-block: clamp(56px, 7vw, 112px);
+}
+.garden-curated-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 24px;
+  margin-bottom: 44px;
+}
+.garden-collection-eyebrow {
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #717664;
+}
+.garden-curated-title,
+.garden-listing-title {
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: 400;
+  font-size: clamp(32px, 3.6vw, 56px);
+  line-height: 1.12;
+  letter-spacing: -0.035em;
+}
+.garden-curated-title {
+  margin-top: 16px;
+  max-width: 700px;
+}
+.garden-collection-link {
+  flex-shrink: 0;
+  padding-block: 12px;
+  border-bottom: 1px solid #7f8474;
+  font-size: 12px;
+  transition: color 0.25s, border-color 0.25s;
+}
+.garden-collection-link:hover {
+  color: #80876c;
+  border-color: #30372b;
+}
+.garden-product-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 56px 28px;
+}
+.garden-product-grid > li {
+  min-width: 0;
+}
+.garden-product {
+  min-width: 0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  color: #30372b;
+}
+.garden-product-image-link {
+  display: block;
+  position: relative;
+}
+.garden-product-photo {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+  background: #efeeea;
+  isolation: isolate;
+}
+.garden-product-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  position: absolute;
+  inset: 0;
+  transition: opacity 0.6s ease, transform 0.9s cubic-bezier(0.2, 0.65, 0.3, 1);
+}
+.garden-product-photo-main {
+  opacity: 1;
+}
+.garden-product-photo-alternate {
+  opacity: 0;
+}
+.garden-product-photo-arrow {
+  position: absolute;
+  inset-inline-end: 16px;
+  bottom: 16px;
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: #f8f7f3ed;
+  color: #30372b;
+  font-size: 21px;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.25s, transform 0.35s;
+}
+.garden-product-caption {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: start;
+  padding-top: 22px;
+}
+.garden-product-material {
+  color: #7c806f;
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  line-height: 1.6;
+}
+.garden-product-title {
+  display: block;
+  margin-top: 9px;
+  font-size: clamp(16px, 1.4vw, 21px);
+  font-weight: 400;
+  line-height: 1.4;
+  letter-spacing: -0.025em;
+  text-wrap: pretty;
+}
+.garden-product-price {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+  font-size: 13px;
+  color: #606653;
+}
+.garden-product-price p,
+.garden-product-price .brand-price-text {
+  font: inherit;
+  color: inherit;
+}
+.garden-product .garden-product-action {
+  display: inline-flex;
+  justify-content: start;
+  align-items: center;
+  width: auto;
+  min-height: 44px;
+  margin-top: 12px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #4f5743;
+  font-family: inherit !important;
+  font-size: 10px;
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: 0.04em;
+  text-decoration: underline;
+  text-decoration-color: #b6baac;
+  text-underline-offset: 5px;
+  transition: color 0.25s, text-decoration-color 0.25s;
+}
+.garden-product-action:hover {
+  color: #242c1d;
+  text-decoration-color: currentColor;
+}
+.garden-product a:focus-visible,
+.garden-product button:focus-visible {
+  outline: 2px solid #697450;
+  outline-offset: 5px;
+}
+.garden-listing-heading {
+  margin-block: 32px 44px;
+  padding-bottom: 28px;
+  border-bottom: 1px solid #dcded4;
+}
+.garden-listing-heading > div {
+  align-items: end;
+}
+html[dir="rtl"] :is(.garden-curated-title, .garden-listing-title) {
+  font-family: "Noto Sans Arabic", sans-serif;
+  letter-spacing: 0;
+}
+@media (hover: hover) and (pointer: fine) {
+  .garden-product-image-link:hover .garden-product-photo-main {
+    transform: scale(1.025);
+  }
+  .garden-product-image-link:hover .garden-product-photo-alternate {
+    opacity: 1;
+    transform: scale(1.025);
+  }
+  .garden-product-image-link:hover .garden-product-photo-arrow,
+  .garden-product-image-link:focus-visible .garden-product-photo-arrow {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@media (min-width: 1100px) {
+  .garden-product-grid > li {
+    animation: garden-product-arrive 0.65s both;
+  }
+  .garden-product-grid > li:nth-child(3n + 2) {
+    animation-delay: 0.08s;
+  }
+  .garden-product-grid > li:nth-child(3n) {
+    animation-delay: 0.16s;
+  }
+}
+@keyframes garden-product-arrive {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@media (max-width: 1099px) {
+  .garden-product-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 44px 22px;
+  }
+}
+@media (max-width: 639px) {
+  .garden-product-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 40px;
+  }
+  .garden-curated-heading {
+    flex-direction: column;
+    align-items: start;
+    gap: 16px;
+    margin-bottom: 30px;
+  }
+  .garden-curated-title {
+    margin-top: 12px;
+  }
+  .garden-product-title {
+    font-size: 20px;
+  }
+  .garden-product-caption {
+    padding-top: 18px;
+  }
+  .garden-product-photo-arrow {
+    width: 32px;
+    height: 32px;
+    font-size: 18px;
+    opacity: 1;
+    transform: none;
+  }
+  .garden-listing-heading {
+    margin-block: 20px 30px;
+    padding-bottom: 22px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .garden-product-grid > li {
+    animation: none;
+  }
+  .garden-product-photo img,
+  .garden-product-photo-arrow {
+    transition: none;
+  }
+}
+
+@media (max-width: 639px) { .garden-listing-heading > div { align-items: stretch; } }

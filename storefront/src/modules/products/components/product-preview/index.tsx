@@ -1,9 +1,12 @@
-import { T, I18nElement } from "@lib/i18n/client"
+import { T } from "@lib/i18n/client"
 import { HttpTypes } from "@medusajs/types"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 import { getProductPrice } from "@lib/util/get-product-price"
 import QuickAddRibbon from "./quick-add-ribbon"
 import PreviewPrice from "./price"
+import ProductPhoto from "./product-photo"
+import { getGardenProductImages } from "@lib/util/garden-product-media"
+import "./product-preview.css"
 type Props = {
   product: HttpTypes.StoreProduct
   region: HttpTypes.StoreRegion
@@ -28,41 +31,30 @@ export default function ProductPreview({ product }: Props) {
       ? metadata.material
       : product.categories?.[0]?.name || "Dış mekan mobilyası"
   return (
-    <article
-      className="group flex h-full min-w-0 flex-col text-[#171717]"
-      data-testid="product-wrapper"
-    >
+    <article className="garden-product" data-testid="product-wrapper">
       <LocalizedClientLink
         href={`/products/${product.handle}`}
         prefetch={false}
-        className="block overflow-hidden bg-[#f4f3f0]"
+        className="garden-product-image-link"
       >
-        {product.thumbnail ? (
-          <I18nElement
-            as="img"
-            src={product.thumbnail}
-            alt={product.title}
-            loading="lazy"
-            className="aspect-[4/5] w-full object-cover transition-transform duration-700 group-hover:scale-105"
-          />
-        ) : (
-          <div className="flex aspect-[4/5] items-center justify-center text-xs text-gray-400">
-            <T>Pip Garden</T>
-          </div>
-        )}
+        <ProductPhoto
+          key={product.id}
+          images={getGardenProductImages(product)}
+          title={product.title}
+        />
       </LocalizedClientLink>
-      <div className="flex flex-1 flex-col pt-4">
-        <p className="text-[9px] uppercase tracking-[.14em] text-[#777]">
+      <div className="garden-product-caption">
+        <p className="garden-product-material">
           <T>{material}</T>
         </p>
         <LocalizedClientLink
           href={`/products/${product.handle}`}
-          className="mt-2 text-[14px] font-semibold leading-5 small:text-base"
+          className="garden-product-title"
           data-testid="product-title"
         >
           <T>{product.title}</T>
         </LocalizedClientLink>
-        <div className="mt-auto pt-3 text-sm">
+        <div className="garden-product-price">
           {cheapestPrice ? (
             <PreviewPrice price={cheapestPrice} />
           ) : (
@@ -80,12 +72,12 @@ export default function ProductPreview({ product }: Props) {
                 ? "Stok bilgisi bekleniyor"
                 : "Stokta yok"
             }
-            className="mt-4 border border-[#171717] bg-transparent text-[#171717]"
+            className="garden-product-action"
           />
         ) : (
           <LocalizedClientLink
             href={`/products/${product.handle}`}
-            className="mt-4 flex h-[34px] items-center justify-center border border-[#171717] text-[11px] uppercase tracking-wider"
+            className="garden-product-action"
           >
             <T>Seçenekleri incele →</T>
           </LocalizedClientLink>
