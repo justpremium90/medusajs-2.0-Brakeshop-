@@ -16,6 +16,7 @@ type Props = {
   productImageHeightPercent?: number
   productImageAreaHeightPercent?: number
 }
+/** Shared listing card: use original catalogue photography across home, categories and search. */
 export default function ProductPreview({ product }: Props) {
   const { cheapestPrice } = getProductPrice({ product })
   const variant =
