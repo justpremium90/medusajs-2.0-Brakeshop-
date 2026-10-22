@@ -9,7 +9,8 @@ export default async function PreviewPrice({ price }: { price: VariantPrice }) {
 
   return (
     <>
-      {price.price_type === "sale" && (
+      {price.price_type === "sale" &&
+        price.original_price_number > price.calculated_price_number && (
         <Text
           className="line-through text-ui-fg-muted"
           data-testid="original-price"

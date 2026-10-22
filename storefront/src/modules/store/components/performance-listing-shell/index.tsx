@@ -64,10 +64,10 @@ const PerformanceListingShell = ({
 
   return (
     <main
-      className="w-full bg-white text-[#171717]"
+      className="garden-listing"
       data-testid="category-container"
     >
-      <div className="mx-auto max-w-[1480px] px-4 pt-4 xsmall:px-6 small:px-8 small:pt-5 large:px-12 xlarge:px-16">
+      <div className="garden-collection-width pt-6">
         <Breadcrumbs
           items={breadcrumbItems}
           variant="performance"
@@ -77,7 +77,7 @@ const PerformanceListingShell = ({
         />
       </div>
 
-      <div className="mx-auto max-w-[1480px] px-3 pb-10 xsmall:px-6 small:px-8 small:pb-14 large:px-12 xlarge:px-16">
+      <div className="garden-collection-width pb-20">
         <div
           className={`${compactMobileSelection ? "pt-0" : "pt-2"} small:pt-3`}
         >
