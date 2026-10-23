@@ -6896,6 +6896,12 @@
     "تشغيل الفيلم",
     "Воспроизвести видео"
   ],
+  "Oynatmak için dokun": [
+    "Oynatmak için dokun",
+    "Tap to play",
+    "اضغط للتشغيل",
+    "Нажмите для воспроизведения"
+  ],
   "Duraklat": ["Duraklat", "Pause", "إيقاف مؤقت", "Пауза"],
   "Pause": ["Duraklat", "Pause", "إيقاف مؤقت", "Пауза"],
   "Favorilere ekle": [

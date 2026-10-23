@@ -122,7 +122,9 @@ const ImageGallery = ({
     if (!zoomed) return
     const previousOverflow = document.body.style.overflow
     document.body.style.overflow = "hidden"
-    dialogRef.current?.showModal()
+    const dialog = dialogRef.current
+    if (dialog && typeof dialog.showModal === "function") dialog.showModal()
+    else dialog?.setAttribute("open", "")
     return () => {
       document.body.style.overflow = previousOverflow
     }
@@ -167,7 +169,11 @@ const ImageGallery = ({
     setActiveIndex(
       (index) => (index + direction + validImages.length) % validImages.length
     )
-  const closeZoom = () => dialogRef.current?.close()
+  const closeZoom = () => {
+    const dialog = dialogRef.current
+    if (dialog && typeof dialog.close === "function") dialog.close()
+    else setZoomed(false)
+  }
   const count = String(validImages.length).padStart(2, "0")
   const current = String(activeIndex + 1).padStart(2, "0")
 
@@ -264,12 +270,19 @@ const ImageGallery = ({
           as="dialog"
           ref={dialogRef}
           className="product-gallery-dialog"
+          role="dialog"
+          aria-modal="true"
           aria-label={`${productTitle} — görsel galerisi`}
           onClose={() => setZoomed(false)}
           onClick={(event) => {
             if (event.target === event.currentTarget) closeZoom()
           }}
           onKeyDown={(event) => {
+            if (event.key === "Escape") {
+              event.preventDefault()
+              closeZoom()
+              return
+            }
             if (
               validImages.length > 1 &&
               ["ArrowRight", "ArrowLeft"].includes(event.key)

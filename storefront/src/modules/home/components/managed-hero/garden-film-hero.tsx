@@ -64,6 +64,10 @@ export default function GardenFilmHero() {
               window.clearTimeout(loadingTimeout)
               target.getIframe().title = film.title
               target.getIframe().setAttribute("tabindex", "-1")
+              target.getIframe().setAttribute(
+                "allow",
+                "autoplay; encrypted-media; picture-in-picture"
+              )
               target.getIframe().referrerPolicy =
                 "strict-origin-when-cross-origin"
               target.mute()
@@ -115,6 +119,14 @@ export default function GardenFilmHero() {
       player.playVideo()
     } else player.pauseVideo()
   }, [ready, shouldPlay])
+
+  useEffect(() => {
+    if (!ready || !shouldPlay || playing || failed) return
+    // Low Power Mode can leave the player ready without emitting a blocked
+    // event. Keep a direct user-gesture path to start playback in that case.
+    const timer = window.setTimeout(() => setBlocked(true), 5000)
+    return () => window.clearTimeout(timer)
+  }, [ready, shouldPlay, playing, failed])
 
   useEffect(() => {
     if (!ready || !shouldPlay || failed) return
@@ -233,7 +245,7 @@ export default function GardenFilmHero() {
                 {playing
                   ? "Duraklat"
                   : blocked
-                  ? "Filmi oynat"
+                  ? "Oynatmak için dokun"
                   : paused
                   ? "Devam et"
                   : "Filmi oynat"}

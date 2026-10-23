@@ -20,6 +20,7 @@
   --header-ink: #30372b;
   background: #f8f8f3f5;
   border-color: #dedfd5;
+  -webkit-backdrop-filter: blur(16px);
   backdrop-filter: blur(16px);
 }
 .garden-header {
@@ -179,6 +180,7 @@
   position: absolute;
   inset: 100% 0 auto;
   width: 100%;
+  max-height: calc(100vh - var(--header-height));
   max-height: calc(100dvh - var(--header-height));
   overflow-y: auto;
   overscroll-behavior: contain;
@@ -303,6 +305,8 @@
   transform: translateY(0);
 }
 [data-garden-mobile-menu] {
+  height: 100vh;
+  height: 100dvh;
   background: #f8f8f3;
   box-shadow: none;
 }

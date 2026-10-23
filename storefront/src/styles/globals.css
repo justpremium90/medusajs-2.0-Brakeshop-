@@ -49,8 +49,6 @@
     --brand-cart-bg: #c42026;
     --brand-cart-hover: #9f171c;
     --brand-cart-text: #ffffff;
-    --brand-product-name-bg: #f3f3f1;
-    --brand-product-name-text: #202221;
     --brand-price-text: #171918;
   }
 
@@ -352,11 +350,6 @@
   [data-testid="product-wrapper"] [data-testid="price"],
   [data-testid="product-price"] {
     color: var(--brand-price-text) !important;
-  }
-
-  [data-testid="product-wrapper"] [data-testid="product-title"] {
-    background-color: var(--brand-product-name-bg) !important;
-    color: var(--brand-product-name-text) !important;
   }
 
   .content-container {

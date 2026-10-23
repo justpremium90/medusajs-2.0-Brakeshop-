@@ -2,6 +2,7 @@
   position: relative;
   isolation: isolate;
   overflow: hidden;
+  height: 100vh;
   height: 100svh;
   min-height: 620px;
   background: #20241e;
@@ -20,6 +21,7 @@
   opacity: 0;
   transition: opacity 1.2s ease;
   container-type: size;
+  pointer-events: none;
 }
 .garden-film-player.is-visible {
   opacity: 1;
@@ -28,9 +30,16 @@
   position: absolute;
   left: 50%;
   top: 50%;
-  width: max(100cqw, 177.778cqh);
-  height: max(100cqh, 56.25cqw);
+  /* Preserve 16:9 cover sizing on Safari without container query units. */
+  width: max(100vw, 177.778vh, 1102.223px);
+  height: max(100vh, 56.25vw, 620px);
   transform: translate(-50%, -50%);
+}
+@supports (width: 1cqw) {
+  .garden-film-player > div {
+    width: max(100cqw, 177.778cqh);
+    height: max(100cqh, 56.25cqw);
+  }
 }
 .garden-film-player iframe {
   width: 100%;
@@ -103,7 +112,7 @@
 }
 .garden-film-bottom {
   position: absolute;
-  bottom: 28px;
+  bottom: max(28px, env(safe-area-inset-bottom));
   left: 6%;
   right: 6%;
   display: flex;
@@ -187,10 +196,27 @@
   .garden-film-bottom {
     left: 24px;
     right: 24px;
-    bottom: 20px;
+    bottom: max(20px, env(safe-area-inset-bottom));
   }
   .garden-film-bottom > button {
     padding-inline: 14px;
+  }
+}
+@media (max-height: 500px) and (orientation: landscape) {
+  .garden-film {
+    min-height: 420px;
+  }
+  .garden-film-content {
+    bottom: 25%;
+  }
+  .garden-film-content > p {
+    margin-bottom: 12px;
+  }
+  .garden-film-content h2 {
+    font-size: 42px;
+  }
+  .garden-film-cta {
+    margin-top: 14px;
   }
 }
 @media (prefers-reduced-motion: reduce) {

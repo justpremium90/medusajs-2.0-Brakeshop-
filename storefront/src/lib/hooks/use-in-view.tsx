@@ -17,6 +17,11 @@ export const useIntersection = (
 
     const el = element.current
 
+    if (typeof IntersectionObserver === "undefined") {
+      setState(true)
+      return
+    }
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         setState(entry.isIntersecting)
@@ -26,7 +31,7 @@ export const useIntersection = (
 
     observer.observe(el)
 
-    return () => observer.unobserve(el)
+    return () => observer.disconnect()
   }, [element, rootMargin])
 
   return isVisible

@@ -3,6 +3,7 @@
 import { I18nElement } from "@lib/i18n/client"
 import type { CSSProperties, SyntheticEvent } from "react"
 import { useCallback, useEffect, useRef, useState } from "react"
+import { listenMediaQuery } from "@lib/util/listen-media-query"
 import {
   getImageVariant,
   getVideoAsset,
@@ -109,8 +110,7 @@ export default function HeroMedia({
     const mq = window.matchMedia("(max-width: 767px)")
     const update = () => setIsMobile(mq.matches)
     update()
-    mq.addEventListener("change", update)
-    return () => mq.removeEventListener("change", update)
+    return listenMediaQuery(mq, update)
   }, [])
   useEffect(() => {
     setPlaying(false)
