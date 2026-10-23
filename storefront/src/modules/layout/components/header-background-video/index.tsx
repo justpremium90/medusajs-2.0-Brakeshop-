@@ -4,6 +4,7 @@ import { I18nElement } from "@lib/i18n/client"
 import { useEffect, useState } from "react"
 import useVisibleMedia from "@lib/hooks/use-visible-media"
 import { getVideoAsset } from "@lib/util/performance-media"
+import { listenMediaQuery } from "@lib/util/listen-media-query"
 
 export default function HeaderBackgroundVideo({ src }: { src: string }) {
   const { ref, visible, motionAllowed } = useVisibleMedia()
@@ -15,8 +16,7 @@ export default function HeaderBackgroundVideo({ src }: { src: string }) {
     const mq = window.matchMedia("(max-width: 767px)")
     const update = () => setMobile(mq.matches)
     update()
-    mq.addEventListener("change", update)
-    return () => mq.removeEventListener("change", update)
+    return listenMediaQuery(mq, update)
   }, [])
   useEffect(() => {
     setPlaying(false)

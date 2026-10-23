@@ -125,6 +125,7 @@
   max-width: none;
   max-height: none;
   width: 100%;
+  height: 100vh;
   height: 100dvh;
   padding: 24px 32px;
   background: #f6f5f1;
@@ -132,6 +133,7 @@
   border: 0;
 }
 .product-gallery-dialog[open] {
+  z-index: 200;
   display: grid;
   grid-template-rows: auto minmax(0, 1fr) auto;
   gap: 18px;
@@ -196,6 +198,7 @@
 @media (min-width: 1024px) {
   .product-gallery-stage {
     aspect-ratio: auto;
+    height: clamp(500px, calc(100vh - 205px), 780px);
     height: clamp(500px, calc(100svh - 205px), 780px);
   }
 }

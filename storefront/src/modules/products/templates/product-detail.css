@@ -78,6 +78,7 @@
   line-height: 1.09;
   text-wrap: balance;
   margin-top: 12px;
+  overflow-wrap: anywhere;
 }
 .pdp-material {
   margin-top: 17px;

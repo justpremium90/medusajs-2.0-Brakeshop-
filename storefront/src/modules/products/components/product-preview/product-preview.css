@@ -127,6 +127,7 @@
   line-height: 1.4;
   letter-spacing: -0.025em;
   text-wrap: pretty;
+  overflow-wrap: anywhere;
 }
 .garden-product-price {
   display: flex;
@@ -165,6 +166,10 @@
 .garden-product-action:hover {
   color: #242c1d;
   text-decoration-color: currentColor;
+}
+.garden-product-caption > .garden-product-action {
+  margin-top: auto;
+  padding-top: 12px;
 }
 .garden-product a:focus-visible,
 .garden-product button:focus-visible {
