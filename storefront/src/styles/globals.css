@@ -46,8 +46,8 @@
   :root {
     --brand-header-promo-bg: #171918;
     --brand-header-promo-text: #ffffff;
-    --brand-cart-bg: #c42026;
-    --brand-cart-hover: #9f171c;
+    --brand-cart-bg: #30382a;
+    --brand-cart-hover: #48543b;
     --brand-cart-text: #ffffff;
     --brand-price-text: #171918;
   }
@@ -329,21 +329,21 @@
     }
   }
 
-  .brand-add-to-cart {
-    background-color: var(--brand-cart-bg) !important;
-    border-color: var(--brand-cart-bg) !important;
-    color: var(--brand-cart-text) !important;
+  .brand-add-to-cart:not(.garden-product-action) {
+    background-color: var(--brand-cart-bg);
+    border-color: var(--brand-cart-bg);
+    color: var(--brand-cart-text);
   }
 
-  .brand-add-to-cart:disabled {
-    background-color: #ededed !important;
-    border-color: #ededed !important;
-    color: #737373 !important;
+  .brand-add-to-cart:not(.garden-product-action):disabled {
+    background-color: #ededed;
+    border-color: #ededed;
+    color: #737373;
   }
 
-  .brand-add-to-cart:hover:not(:disabled) {
-    background-color: var(--brand-cart-hover) !important;
-    border-color: var(--brand-cart-hover) !important;
+  .brand-add-to-cart:not(.garden-product-action):hover:not(:disabled) {
+    background-color: var(--brand-cart-hover);
+    border-color: var(--brand-cart-hover);
   }
 
   .brand-price-text,
